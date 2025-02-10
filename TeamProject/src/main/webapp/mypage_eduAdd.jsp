@@ -23,8 +23,7 @@
 	vo.setSchool(school);
 	vo.setGraduation_date(gDate);
 	vo.setMajor(major);
-	/* vo.setId(id); */
-	vo.setId("ffghhj");
+	vo.setId(id);
 	
 	
 	dao.addEducation(vo);

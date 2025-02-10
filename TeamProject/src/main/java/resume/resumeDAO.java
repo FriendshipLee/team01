@@ -17,11 +17,11 @@ public class resumeDAO extends DBManager{
 		String sql = "update resume set school = '"+school+"', major = '"+major+"', graduation_date = '"+graduation+"' where id = '"+id+"'";
 		executeUpdate(sql);
 		
-		sql = "select last_insert_id() as rno";
+		sql = "select count(*) as cnt from resume where id = '"+id+"'";
 		executeQuery(sql);
 		
 		if(next()) {
-			int eno = getInt("no");
+			int eno = getInt("cnt");
 			DBDisConnect();
 			return eno;
 		}else {
@@ -51,8 +51,7 @@ public class resumeDAO extends DBManager{
 	public void delete(String id) {
 		driverLoad();
 		DBConnect();
-		
-		String sql = "delete from resume where id = '"+id+"'";
+		String sql = "update resume set school = null, major = null, graduation_date = null where id = '"+id+"'";
 		executeUpdate(sql);
 	}
 	

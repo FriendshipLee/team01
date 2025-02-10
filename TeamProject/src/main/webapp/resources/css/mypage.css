@@ -89,6 +89,9 @@ input[type="button"] {
 .lschool {
 	display: none;
 }
+.lschool-post {
+	display: inline;
+}
 .attachment-item {
     background: #aaa;
     padding: 20px;

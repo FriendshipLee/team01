@@ -25,6 +25,7 @@
 	vo.setMajor(major);
 	vo.setId(id);
 	
+	int result = dao.addEducation(vo);
 	
-	dao.addEducation(vo);
+	
 %>

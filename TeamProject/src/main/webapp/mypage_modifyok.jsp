@@ -4,18 +4,19 @@
 <%@ include file="header.jsp" %>
 <%
 	String pw = request.getParameter("pw");
-	
+	String id = request.getParameter("id");	
+
 	if(pw == "" || pw == null){
 		response.sendRedirect("mypage.jsp");
 		return;
 	}
 	
-	/* usersVO vo = new usersVO();
+	usersVO vo = new usersVO();
 	usersDAO dao = new usersDAO();
 	
-	vo.setId("hong");
+	vo.setId(id);
 	vo.setPw(pw);
-	dao.modify(vo); */
+	dao.modify(vo);
 	
 	
 %>

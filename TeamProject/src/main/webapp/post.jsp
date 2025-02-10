@@ -35,7 +35,7 @@
 				<input type="button" value="게시글 삭제">
 			</div>
         </div>
- 			
+ 		<div>수정됨</div>
         <div class="comment-box">
             <input type="text" id="new-comment" class="comment-input" placeholder="댓글을 입력하세요.">
             <input type="button" id="add-comment" value="댓글 작성">

@@ -108,7 +108,7 @@ public class boardDAO extends DBManager{
 			vo.setBoardType(getInt("board_type"));
 			vo.setCreateDate(getString("create_date"));
 			vo.setUpdateDate(getString("update_date"));
-			vo.setDeleteDate(getString("deleteDate"));
+			vo.setDeleteDate(getString("delete_date"));
 			DBDisConnect();
 			return vo;
 		}else {

@@ -10,6 +10,17 @@ public class boardVO {
 	private String updateDate;
 	private String deleteDate;
 	private int boardType;
+	private String attachOriginName;
+	private String attachUploadName;
+	private String attachLocation;
+	private long fileSize;
+	
+	public long getFileSize() {
+		return fileSize;
+	}
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
+	}
 	
 	public String getNo() {
 		return no;
@@ -35,6 +46,15 @@ public class boardVO {
 	public int getBoardType() {
 		return boardType;
 	}
+	public String getAttachOriginName() {
+		return attachOriginName;
+	}
+	public String getAttachUploadName() {
+		return attachUploadName;
+	}
+	public String getAttachLocation() {
+		return attachLocation;
+	}
 	public void setNo(String no) {
 		this.no = no;
 	}
@@ -59,6 +79,14 @@ public class boardVO {
 	public void setBoardType(int boardType) {
 		this.boardType = boardType;
 	}
-	
+	public void setAttachOriginName(String attachOriginName) {
+		this.attachOriginName = attachOriginName;
+	}
+	public void setAttachUploadName(String attachUploadName) {
+		this.attachUploadName = attachUploadName;
+	}
+	public void setAttachLocation(String attachLocation) {
+		this.attachLocation = attachLocation;
+	}
 	
 }

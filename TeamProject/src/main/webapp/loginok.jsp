@@ -43,7 +43,7 @@
 			return;
 		}
 		
-		session.setAttribute("users", user);
+		session.setAttribute("user", user);
 		
 		response.sendRedirect("main.jsp");
 	}else{

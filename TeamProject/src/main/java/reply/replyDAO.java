@@ -67,10 +67,11 @@ public class replyDAO extends DBManager{
 		
 		while(next()) {
 			replyVO vo = new replyVO();
+			vo.setRno(getString("rno"));
 			vo.setRauthor(getString("rauthor"));
 			vo.setContent(getString("content"));
-			vo.setCreateDate(getString("createDate"));
-			vo.setCreateDate(getString("updateDate"));
+			vo.setCreateDate(getString("create_date"));
+			vo.setUpdateDate(getString("update_date"));
 			
 			list.add(vo);
 		}

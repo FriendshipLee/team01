@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="./resources/css/login.css"></link>
 </head>
 <body>
-	<div>추가</div>
     <div class="container">
      <form method="post" action="loginok.jsp">
      	<input type="hidden" id="userType" name="userType" value="1">

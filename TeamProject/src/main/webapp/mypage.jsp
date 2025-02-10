@@ -9,6 +9,7 @@
 	} */
 	
 	resumeVO vo = new resumeVO();
+	System.out.println("hi");
 %>
 <!DOCTYPE html>
 <html lang="ko">

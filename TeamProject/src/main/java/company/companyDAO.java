@@ -149,4 +149,40 @@ public class companyDAO extends DBManager{
 		DBDisConnect();
 		return list;
 	}
+	
+	//사업자등록번호 중복체크
+	public int companyNumberCheck(String companyNumber) {
+		driverLoad();
+		DBConnect();
+		
+		String sql="select count(*) as cnt from company where company_number = '"+companyNumber+"';";
+		executeQuery(sql);
+		
+		if(next()) {
+			int cnt = getInt("cnt");
+			DBDisConnect();
+			return cnt;
+		}else {
+			DBDisConnect();
+			return 1;
+		}
+	}
+	
+	//대표번호 중복체크
+	public int numberCheck(String number) {
+		driverLoad();
+		DBConnect();
+		
+		String sql="select count(*) as cnt from company where number = '"+number+"';";
+		executeQuery(sql);
+		
+		if(next()) {
+			int cnt = getInt("cnt");
+			DBDisConnect();
+			return cnt;
+		}else {
+			DBDisConnect();
+			return 1;
+		}
+	}
 }

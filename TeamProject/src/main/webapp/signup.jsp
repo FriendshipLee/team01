@@ -47,7 +47,7 @@
 		        <button class="btn" onclick="">회원가입</button>
 	        </div>
 		</form>
-		<form action="companysignupok.jsp" method="post" onsubmit="">
+		<form action="companySignupok.jsp" method="post" onsubmit="return companyFormCheck()">
 	        <div id="businessForm" style="display: none;">
 	            <div class="input-group">
 	                <input type="text" id="companyNumber" name="companyNumber" placeholder="사업자등록번호">
@@ -58,8 +58,6 @@
 	                <div id="ceoName-feedback" class="feedback">대표자명 입력은 필수입니다.</div>
 	                <input type="text" id="companyName" name="companyName" placeholder="기업명">
 	                <div id="companyName-feedback" class="feedback">기업명 입력은 필수입니다.</div>
-	                <input type="text" id="businessType" name="businessType" placeholder="업종">
-	                <div id="businessType-feedback" class="feedback">업종 입력은 필수입니다.</div>
 	                <input type="text" id="number" name="number" placeholder="대표번호">
 	                <div id="number-feedback" class="feedback">대표번호 입력은 필수입니다.</div>
 	            </div>
@@ -288,6 +286,7 @@
 			
 			let birth = $("#userBirth");
 			let birthFeedback = $("#userBirth-feedback");
+			let birthRegex = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$/;
 			if(birth.val().trim()==""){
 				birth.focus();
 				birth.val("");
@@ -297,94 +296,209 @@
 				birthFeedback.css("display", "none");
 			}
 			
-			let birthRegex = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$/;
-	       	let birthCheckFlag = false;
-	       	$("#userBirth").keyup(function(e){
-				let birth = e.target.value;
-				let birthFeedback = $("#userBirth-feedback");
-				birthFeedback.css("display", "block").text("생년월일 6자리를 입력해주세요.").removeClass("success");
-				birthCheckFlag = false;
-				
-				if(!birthRegex.test(birth)) {
-					return;
-				}
+			let num = $("#userNumber");
+			let numFeedback = $("#userNumber-feedback");
+			if(num.val().trim()==""){
+				num.focus();
+				num.val("");
+				numFeedback.css("display", "block");				
+				return false;
+			}else {
+				numFeedback.css("display", "none");
+			}
+		
+			if(!numRegex.test(num.val())){
+				num.focus();
+				num.val();
+				numFeedback.css("display", "block").text("이메일은 영어 대소문자와 숫자 4~12자리만 사용 가능합니다.").removeClass("success");
+				return false;
+			}
 			
-				if(!birthRegex.test(birth.val())){
-					birth.focus();
-					birth.val();
-					birthFeedback.css("display", "block").text("생년월일 6자리를 입력해주세요.").removeClass("success");
-					return false;
-				}
+			if(numCheckFlag==false){
+				num.focus();
+				num.val();
+				numFeedback.css("display", "block").text("이메일 중복 확인이 필요합니다.").removeClass("success");
+				return false;
+			}
+		
+			let email = $("#userEmail");
+			let emailFeedback = $("#userEmail-feedback");
+			if(email.val().trim()==""){
+				email.focus();
+				email.val("");
+				emailFeedback.css("display", "block");				
+				return false;
+			}else {
+				emailFeedback.css("display", "none");
+			}
 			
-				let num = $("#userNumber");
-				let numFeedback = $("#userNumber-feedback");
-				if(num.val().trim()==""){
-					num.focus();
-					num.val("");
-					numFeedback.css("display", "block");				
-					return false;
-				}else {
-					numFeedback.css("display", "none");
-				}
+			if(!emailRegex.test(email.val())){
+				email.focus();
+				email.val();
+				emailFeedback.css("display", "block").text("이메일은 영어 대소문자와 숫자 4~12자리만 사용 가능합니다.").removeClass("success");
+				return false;
+			}
 			
-				if(!numRegex.test(num.val())){
-					num.focus();
-					num.val();
-					numFeedback.css("display", "block").text("이메일은 영어 대소문자와 숫자 4~12자리만 사용 가능합니다.").removeClass("success");
-					return false;
-				}
-				
-				if(numCheckFlag==false){
-					num.focus();
-					num.val();
-					numFeedback.css("display", "block").text("이메일 중복 확인이 필요합니다.").removeClass("success");
-					return false;
-				}
+			if(emailCheckFlag==false){
+				email.focus();
+				email.val();
+				emailFeedback.css("display", "block").text("이메일 중복 확인이 필요합니다.").removeClass("success");
+				return false;
+			}
 			
-				let email = $("#userEmail");
-				let emailFeedback = $("#userEmail-feedback");
-				if(email.val().trim()==""){
-					email.focus();
-					email.val("");
-					emailFeedback.css("display", "block");				
-					return false;
-				}else {
-					emailFeedback.css("display", "none");
+			let gender = $("input:radio[name='gender']:checked").val();
+			$.ajax({
+				url : "usersignupok.jsp",
+				type : "post",
+				data : {
+					gender : gender
+				},
+				success : function(result){
+					console.log(result);
+				},
+				error : function(){
+					console.log("에러 발생");
 				}
-				
-				if(!emailRegex.test(email.val())){
-					email.focus();
-					email.val();
-					emailFeedback.css("display", "block").text("이메일은 영어 대소문자와 숫자 4~12자리만 사용 가능합니다.").removeClass("success");
-					return false;
-				}
-				
-				if(emailCheckFlag==false){
-					email.focus();
-					email.val();
-					emailFeedback.css("display", "block").text("이메일 중복 확인이 필요합니다.").removeClass("success");
-					return false;
-				}
-				
-				let gender = $("input:radio[name='gender']:checked").val();
-				$.ajax({
-					url : "usersignupok.jsp",
-					type : "post",
-					data : {
-						gender : gender
-					},
-					success : function(result){
-						console.log(result);
-					},
-					error : function(){
-						console.log("에러 발생");
-					}
-				});
-        	});
+			});
         }
-        
+       	
+       	let companyNumberRegex = /([0-9]{3})-?([0-9]{2})-?([0-9]{5})/;
+       	let companyNumberCheckFlag = false;
+       	$("#companyNumber").keyup(function(e){
+			let companyNumber = e.target.value;
+			let companyNumberFeedback = $("#companyNumber-feedback");
+			companyNumberFeedback.css("display", "block").text("-를 포함한 10자리 번호를 입력해주세요.").removeClass("success");
+			companyNumberCheckFlag = false;
+			
+			if(!companyNumberRegex.test(companyNumber)) {
+				return;
+			}
+			
+			$.ajax({
+				url : "companyNumberCheck.jsp",
+				type : "post",
+				data : {
+					companyNumber : companyNumber
+				},
+				success : function(result){
+					if(result.trim()=="0"){
+						companyNumberCheckFlag = true;
+						companyNumberFeedback.css("display", "block").addClass("success").text("사용 가능한 사업자번호입니다.");
+					}else{
+						companyNumberCheckFlag = false;
+						companyNumberFeedback.css("display", "block").removeClass("success").text("사용 불가능한 사업자번호입니다.");
+					}
+				},
+				error : function(){
+					console.log("오류발생");
+				}
+			});
+       	});
+       	
+        let numberRegex = /([0-9]{3})-?([0-9]{2})-?([0-9]{5})/;
+       	let numberCheckFlag = false;
+       	$("#number").keyup(function(e){
+			let number = e.target.value;
+			let numberFeedback = $("#number-feedback");
+			numberFeedback.css("display", "block").text("-를 포함한 10자리 번호를 입력해주세요.").removeClass("success");
+			numberCheckFlag = false;
+			
+			if(!numberRegex.test(number)) {
+				return;
+			}
+			
+			$.ajax({
+				url : "numberCheck.jsp",
+				type : "post",
+				data : {
+					number : number
+				},
+				success : function(result){
+					if(result.trim()=="0"){
+						numberCheckFlag = true;
+						numberFeedback.css("display", "block").addClass("success").text("사용 가능한 사업자번호입니다.");
+					}else{
+						numberCheckFlag = false;
+						numberFeedback.css("display", "block").removeClass("success").text("사용 불가능한 사업자번호입니다.");
+					}
+				},
+				error : function(){
+					console.log("오류발생");
+				}
+			});
+       	});
         
         function companyFormCheck(){
+        	let companyNumber = $("#companyNumber");
+			let companyNumberFeedback = $("#companyNumber-feedback");
+			if(companyNumber.val().trim()==""){
+				companyNumber.focus();
+				companyNumber.val("");
+				companyNumberFeedback.css("display", "block").removeClass("success");	
+				return false;
+			}else {
+				companyNumberFeedback.css("display", "none");
+			}
+			
+			if(!companyNumberRegex.test(companyNumber.val())){
+				companyNumber.focus();
+				companyNumber.val();
+				companyNumberFeedback.css("display", "block").text("-를 포함한 10자리 번호를 입력해주세요.").removeClass("success");
+				return false;
+			}
+			
+			if(companyNumberCheckFlag==false){
+				companyNumber.focus();
+				companyNumber.val();
+				companyNumberFeedback.css("display", "block").text("사업자등록번호 중복 확인이 필요합니다.").removeClass("success");
+				return false;
+			}
+			
+			companyNumberFeedback.css("display", "block").text("사업자등록번호 확인이 완료되었습니다.").addClass("success");
+			
+			let pw = $("#pw");
+			let pwFeedback = $("#pw-feedback");
+			if(pw.val().trim()==""){
+				pw.focus();
+				pw.val("");
+				pwFeedback.css("display", "block").removeClass("success");	
+				return false;
+			}else {
+				pwFeedback.css("display", "none");
+			}
+			
+			let ceoName = $("#ceoName");
+			let ceoNameFeedback = $("#ceoName-feedback");
+			if(ceoName.val().trim()==""){
+				ceoName.focus();
+				ceoName.val("");
+				ceoNameFeedback.css("display", "block").removeClass("success");	
+				return false;
+			}else {
+				ceoNameFeedback.css("display", "none");
+			}
+			
+			let companyName = $("#companyName");
+			let companyNameFeedback = $("#companyName-feedback");
+			if(companyName.val().trim()==""){
+				companyName.focus();
+				companyName.val("");
+				companyNameFeedback.css("display", "block").removeClass("success");	
+				return false;
+			}else {
+				companyNameFeedback.css("display", "none");
+			}
+			
+			let number = $("#number");
+			let numberFeedback = $("#number-feedback");
+			if(number.val().trim()==""){
+				number.focus();
+				number.val("");
+				numberFeedback.css("display", "block").removeClass("success");	
+				return false;
+			}else {
+				numberFeedback.css("display", "none");
+			}
 			
 		}
         

@@ -1,0 +1,97 @@
+@charset "UTF-8";
+ body {
+    background-color: #333;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+.container {
+	max-width: 750px;
+    margin: 20px auto;
+    background: #eee;
+    padding: 20px;
+    border-radius: 10px;
+    color: #000;
+}
+.aa {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    width: 540px;
+}
+.profile-info {
+	display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.profile-img {
+    width: 170px;
+    height: 200px;
+}
+.profile-info h3 {
+    margin: 0;
+}
+button {
+    background: #666;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.profile-details {
+	display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+.detail-item {
+    border: 1px solid #000;
+    padding: 10px;
+    text-align: left;
+    width: 100%;
+}
+
+input[type="password"] {
+	width: 150px;
+	height: 30px;
+}
+.label {
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 15px;
+}
+#number, #mail, #password, #confirm-password{
+	grid-column: span 2;
+}
+.education-info, .career-info {
+	margin-top: 30px;
+}
+.education-info {
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.education-action{
+	display: flex;
+}
+input[type="button"] {
+    background: #666;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.lschool {
+	display: none;
+}
+.attachment-item {
+    background: #aaa;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+}

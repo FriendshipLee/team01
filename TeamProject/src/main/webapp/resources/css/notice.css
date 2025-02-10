@@ -1,0 +1,101 @@
+@charset "UTF-8";
+*{
+	box-sizing: border-box;
+}
+body {
+    background-color: #333;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+h2 {
+	color: white;
+	text-align: center;
+}
+h4 {
+	margin: 0;
+}
+input {
+	border-radius: 5px;
+}
+.container {
+    margin: 20px auto;
+    max-width: 750px;
+    color: black;
+    padding: 20px;
+    border-radius: 5px;
+}
+.search-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.search-box select {
+	border-radius: 5px;
+}
+.search-box input {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+.search-box input[type="text"]{
+	width: 80%;
+	margin-right: 7px;
+	height: 55px;
+}
+.search-box input[type="button"] {
+	width: 20%;
+    padding: 10px 20px;
+    background: white;
+    border: none;
+    cursor: pointer;
+}
+.filters {
+    margin-bottom: 10px;
+}
+.filters input {
+    margin-right: 10px;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+.select{
+	background-color: #969696;
+	color: white;
+}
+
+.list {
+	background-color: white;
+	width: 100%;
+	border-radius: 5px;
+	padding: 20px;
+}
+.content {
+	background-color: #969696;
+	width: 100%;
+	margin: 0 auto;
+	margin-bottom: 5px;
+	height: 70px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 7px;
+	cursor: pointer;
+}
+.content input[type="button"]{
+	width: 110px;
+	height: 55px;
+}
+.page {
+    text-align: center;
+    margin-top: 10px;
+}
+.page a {
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	color: white;
+	text-decoration: none;
+	background-color: #969696;
+	
+}

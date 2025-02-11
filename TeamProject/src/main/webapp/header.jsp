@@ -15,24 +15,25 @@
 </head>
 <body>
 	<div class="wrap">
-		<ul class="nav">
-			<li><a href="#" onclick="location.href='main.jsp'">홈</a></li>
-			<li><a href="#" onclick="location.href='job.jsp'">채용공고</a></li>
-			<li><a href="#" onclick="location.href='board.jsp?boardType=0'">공지게시판</a></li>
-			<li><a href="#" onclick="location.href='board.jsp?boardType=1'">정보공유게시판</a></li>
-			<li><a href="#" onclick="location.href='board.jsp?boardType=2'">익명게시판</a></li>
-		</ul>
-		<%
-			if(user == null){
-				%><a href="#" onclick="location.href='login.jsp'">로그인</a><%
-			}else{
-				%>
-					<a href="mypage.jsp"><span><%=user.getName() %></span>님</a>
-					<a href="logout.jsp">로그아웃</a>
-				<%
-			}
-		%>
+		<div class="header">
+			<ul class="nav">
+				<li><a href="#" onclick="location.href='main.jsp'">홈</a></li>
+				<li><a href="#" onclick="location.href='job.jsp'">채용공고</a></li>
+				<li><a href="#" onclick="location.href='board.jsp?boardType=0'">공지게시판</a></li>
+				<li><a href="#" onclick="location.href='board.jsp?boardType=1'">정보공유게시판</a></li>
+				<li><a href="#" onclick="location.href='board.jsp?boardType=2'">익명게시판</a></li>
+			</ul>
+			<%
+				if(user == null){
+					%><a href="#" onclick="location.href='login.jsp'">로그인</a><%
+				}else{
+					%>
+						<a href="mypage.jsp"><span><%=user.getName() %></span>님</a>
+						<a href="logout.jsp">로그아웃</a>
+					<%
+				}
+			%>
+		</div>
 	</div>
-	<hr>
 </body>
 </html>

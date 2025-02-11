@@ -1,8 +1,10 @@
 <%@page import="users.usersVO"%>
+<%@page import="company.companyVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	usersVO user = (usersVO)session.getAttribute("user");
+	companyVO company = (companyVO)session.getAttribute("company");
 %>
 <!DOCTYPE html>
 <html lang="ko">

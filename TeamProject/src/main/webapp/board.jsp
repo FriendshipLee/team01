@@ -13,10 +13,8 @@
 	String searchType = request.getParameter("searchType");
 	String keyword = request.getParameter("searchKeyword");
 	
-	boardVO vo = new boardVO();
 	boardDAO dao = new boardDAO();
 	List<boardVO> listAll = dao.boardList(boardType);
-	List<boardVO> list = dao.listView(searchType, keyword);
 	
 %>
 <!DOCTYPE html>
@@ -57,12 +55,18 @@
 	        </div>
         </form>
 		<div class="list">
-			<% for(int i = 0; i < 10; i++){ %>
+			<% for(int i = 0; i < listAll.size(); i++){ 
+				boardVO vo = listAll.get(i);
+			%>
 				<div class="content" onclick="location.href='post.jsp'">
 					<div>
-						<h4>제목<%=i %></h4>
-						<span>작성자<%= i %></span>
-						<span>작성일(수정일)</span>
+						<h4><%=vo.getTitle() %></h4>
+						<%
+							if(!boardType.equals("2")){
+								%><span><%=vo.getAuthor() %></span><%
+							}
+						%>
+						<span><%=vo.getCreateDate() %></span>
 					</div>
 				</div>
 			<% } %>	

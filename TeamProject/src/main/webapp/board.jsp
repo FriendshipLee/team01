@@ -58,7 +58,7 @@
 			<% for(int i = 0; i < listAll.size(); i++){ 
 				boardVO vo = listAll.get(i);
 			%>
-				<div class="content" onclick="location.href='post.jsp'">
+				<div class="content" onclick="location.href='post.jsp?no=<%=vo.getNo()%>'">
 					<div>
 						<h4><%=vo.getTitle() %></h4>
 						<%

@@ -8,17 +8,14 @@
     pageEncoding="UTF-8"%>
 <%
 	usersVO user = (usersVO)session.getAttribute("user");
-%>
-<%
 	String no = request.getParameter("no");
-	if(no == null){
+	 if(no == null){
 		response.sendRedirect("main.jsp");
 		return;
-	}
+	} 
 	
-	boardDAO dao = new boardDAO();
+	 boardDAO dao = new boardDAO();
 	boardVO vo = dao.view(no);
-	//String no = vo.getNo();
 	String author = vo.getAuthor(); 
 	String title = vo.getTitle();
 	String content = vo.getContent();
@@ -28,7 +25,7 @@
 	String deleteDate = vo.getDeleteDate();
 	String originName = vo.getAttachOriginName();
 	String uploadName = vo.getAttachUploadName();
-	long fileSize = vo.getFileSize();
+	long fileSize = vo.getFileSize(); 
 	
 	replyDAO rdao = new replyDAO();
 	List<replyVO> list = rdao.select(no);
@@ -74,7 +71,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시판 수정</title>
+    <title>게시판 상세보기</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="./resources/css/post.css"></link>
 </head>
@@ -84,7 +81,7 @@
             <div class="post-top">
             	<div>
             		<h2><%= title %></h2>
-	           		<p>작성자: <%= author %> | <%= createDate %></p>
+	           		<p>작성자 : <%= author %> | <%= createDate %></p>
           	  	</div>
 	            <div class="post-type">공지게시판</div>
             </div>

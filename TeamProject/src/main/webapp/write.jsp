@@ -1,11 +1,21 @@
+<%@page import="java.util.List"%>
+<%@page import="board.boardDAO"%>
+<%@page import="board.boardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <%
+	String boardType = request.getParameter("boardType");
+	if(boardType == null){
+		boardType = "0";
+	}
 	if(user == null){
 		response.sendRedirect("board.jsp");
 		return;
 	}
+ 
+ 	boardVO vo = new boardVO();
+	 
 %>
 <!DOCTYPE html>
 <html>
@@ -34,12 +44,12 @@
 			<div>
 	            <label for="file">첨부파일</label><br>
 	            <input type="file" id="file" name="file"><br>
-			</div>
+		</form>
             <div class="action">
-                <button type="submit" onclick="location.href='post.jsp'">등록</button>
+                <button type="submit">등록</button>
                 <button type="button" onclick="location.href='board.jsp'">취소</button>
             </div>
-        </form>
+		</form>
     </div>
 </body>
 </html>

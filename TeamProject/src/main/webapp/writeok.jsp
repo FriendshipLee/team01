@@ -1,3 +1,4 @@
+<%@page import="users.usersVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="info_file.infoFileVO"%>
@@ -11,6 +12,7 @@
     pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("utf-8");
+	usersVO user = (usersVO)session.getAttribute("user");
 
 	String savePath = application.getRealPath("/upload");
 	//파일 업로드 경로(webapp/upload)
@@ -62,4 +64,13 @@
 		
 		fileList.add(fileVO);
 	}
+	
+	vo.setTitle(title);
+	vo.setContent(content);
+	vo.setBoardType(1);
+	vo.setAuthor(user.getId());
+	
+	int wno = dao.write(vo);
+	
+	response.sendRedirect("post.jsp?no="+no);
 %>

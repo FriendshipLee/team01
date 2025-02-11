@@ -6,15 +6,15 @@
 <%@page import="board.boardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="header.jsp" %>
 <%
-	usersVO user = (usersVO)session.getAttribute("user");
 	String no = request.getParameter("no");
 	 if(no == null){
 		response.sendRedirect("main.jsp");
 		return;
 	} 
 	
-	 boardDAO dao = new boardDAO();
+	boardDAO dao = new boardDAO();
 	boardVO vo = dao.view(no);
 	String author = vo.getAuthor(); 
 	String title = vo.getTitle();
@@ -87,19 +87,14 @@
             </div>
             <hr>
             <p><%= content %></p>
-			<!-- <div class="filebox">
-           		<input id="file" type="file" onchange="fileChange(this)">
-				<button id="fileBtn">파일</button>
-            	<span id="fileName"></span>
-           	</div> 수정페이지에서 파일등록 -> 이름표시 -->
            	<%
         	if(uploadName != null && !uploadName.equals("null")){
         	%>
            	<div class="attachment-item">
 				<a href="#" class="attachment-name">이미지2.png</a>
 				<span class="attachment-size">(1.1 MB)</span>
-				<% } %>
 			</div>
+			<% } %>
 			<%
         	//로그인을 하였고, 로그인한 사용자의 아이디(user.getId())와 
         	//게시글을 작성한 작성자 아이디(author)가 같으면 수정 삭제 버튼 표출
@@ -107,51 +102,48 @@
         	%>
 			<div class="modify">
 				<input type="button" onclick="location.href='post.jsp'" value="수정">
-				<input type="button" onclick="history.back()" value="취소">
+				<input type="button" onclick="location.href='postDel.jsp'" value="삭제">
 			</div>
 			<% } %>
-        </div>
+		</div>
+        <div class="comment-box">
  		<%
  			if(user != null){
  		%>	
-        <div class="comment-box">
             <input type="text" id="new-comment" class="comment-input" placeholder="댓글을 입력하세요.">
             <input type="button" id="add-comment" value="댓글 작성">
-         <% } %>
-            <%
-            	for(int i = 0; i < list.size(); i ++){
-            		replyVO rvo = list.get(i);
-            		String rno = rvo.getRno();
-            		String rcontent = rvo.getContent();
-            		String rauthor = rvo.getRauthor();
-            		String rcreateDate = rvo.getCreateDate();
-            %>
-            	<div class="comments">
+        <% } %>
+	       <%
+	       	for(int i = 0; i < list.size(); i ++){
+	       		replyVO rvo = list.get(i);
+	       		String rno = rvo.getRno();
+	       		String rcontent = rvo.getContent();
+	       		String rauthor = rvo.getRauthor();
+	       		String rcreateDate = rvo.getCreateDate();
+	       %>
+           	<div class="comments">
             	<div class="comments-top">
 	            	<p>작성자: <%= rauthor %> | <%= rcreateDate %></p>
-	            	
-	         
 	         <%
-                	//댓글 목록을 반복하며 댓글의 작성자가 로그인한 사용자의 아이디와
-                	//동일하면 수정 삭제 버튼을 보여준다.
-                	if(user != null && (user.getId().equals(rauthor) || user.getUserType() == 0)){
+               	//댓글 목록을 반복하며 댓글의 작성자가 로그인한 사용자의 아이디와
+               	//동일하면 수정 삭제 버튼을 보여준다.
+               	if(user != null && (user.getId().equals(rauthor) || user.getUserType() == 0)){
              %>
-	            	<div>
-	            		<input type="hidden" value="">
-		            	<input type="button" onclick="replyBtn(this)" value="수정">
-		            	<input type="button" class="dpnone" onclick="modifyReply(<%= rno %>, this)" value="확인">
-		            	<input type="button" class="dpnone" onclick="cancelBtn(this, '<%= rcontent %>')" value="취소">
-		            	<input type="button" onclick="deleteReply(<%= rno %>, this)" value="삭제">
-	            	</div>
-	          <% } %>
-	          </div>
+            	<div>
+            		<input type="hidden" value="">
+	            	<input type="button" onclick="replyBtn(this)" value="수정">
+	            	<input type="button" class="dpnone" onclick="modifyReply(<%= rno %>, this)" value="확인">
+	            	<input type="button" class="dpnone" onclick="cancelBtn(this, '<%= rcontent %>')" value="취소">
+	            	<input type="button" onclick="deleteReply(<%= rno %>, this)" value="삭제">
+            	</div>
+          	<% } %>
+	          	</div>
             	<hr>
             	<div class="comment-content"><%= rcontent %></div>
             </div>
           <% } %>
-	            
-        </div>
-    </div>
+       	</div>
+   	</div>
 </body>
 
 <script>

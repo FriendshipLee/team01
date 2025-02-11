@@ -46,7 +46,10 @@
 	        			}
 	        		%>
 	        	</select>
-	            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
+	        	<label>
+					        	
+		            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
+	        	</label>
 	            <% 
 	            	if(user != null){
 	            		%><input type="button" id="write-btn" value="글쓰기"><%

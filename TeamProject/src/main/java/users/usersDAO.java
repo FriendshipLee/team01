@@ -45,13 +45,13 @@ public class usersDAO extends DBManager{
 		if(next()) {
 			usersVO vo = new usersVO();
 			vo.setId(getString("id"));
-			vo.setId(getString("pw"));
-			vo.setId(getString("nick"));
-			vo.setId(getString("email"));
-			vo.setId(getString("name"));
-			vo.setId(getString("birth"));
-			vo.setId(getString("gender"));
-			vo.setId(getString("number"));
+			vo.setPw(getString("pw"));
+			vo.setNick(getString("nick"));
+			vo.setEmail(getString("email"));
+			vo.setName(getString("name"));
+			vo.setBirth(getString("birth"));
+			vo.setGender(getString("gender"));
+			vo.setNumber(getString("number"));
 			
 			DBDisConnect();
 			return vo;
@@ -171,12 +171,12 @@ public class usersDAO extends DBManager{
 			usersVO vo = new usersVO();
 			vo.setId(getString("id"));
 			vo.setPw(getString("pw"));
-			vo.setId(getString("nick"));
-			vo.setId(getString("email"));
-			vo.setId(getString("name"));
-			vo.setId(getString("birth"));
-			vo.setId(getString("gender"));
-			vo.setId(getString("number"));
+			vo.setNick(getString("nick"));
+			vo.setEmail(getString("email"));
+			vo.setName(getString("name"));
+			vo.setBirth(getString("birth"));
+			vo.setGender(getString("gender"));
+			vo.setNumber(getString("number"));
 			
 			list.add(vo);
 		}

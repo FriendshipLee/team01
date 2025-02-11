@@ -2,7 +2,7 @@
 body {
 	margin: 0;
 	box-sizing: border-box;
-	background: url("../img/main_bg.jpg") no-repeat center top fixed;
+	background: url("../img/bg.jpg") no-repeat center top fixed;
 }
 ul {
 	padding: 0;

@@ -5,6 +5,15 @@
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <%
+	String pageNum = request.getParameter("page");
+	if(pageNum == null){
+		pageNum = "1";
+	} 
+	
+	int currentPage = Integer.parseInt(pageNum);
+	int startNum = (currentPage-1) * 10;
+	int limitperPage = 10;
+
 	String boardType = request.getParameter("boardType");
 	if(boardType == null){
 		boardType = "0";
@@ -15,7 +24,20 @@
 	
 	boardDAO dao = new boardDAO();
 	List<boardVO> listAll = dao.boardList(boardType);
+	List<boardVO> list = dao.listView(searchType, keyword);
 	
+	int totalCount = dao.getCount(searchType, keyword);
+	int pageGroupSize = 10;
+	int startPage = ((currentPage - 1) / pageGroupSize) * pageGroupSize + 1;
+	int totalPage = (int)Math.ceil(totalCount / (double)limitperPage);
+	int endPage = Math.min(startPage + pageGroupSize -1, totalPage);
+	
+	if(searchType == null){
+		searchType = "";
+	}
+	if(keyword == null){
+		keyword = "";
+	}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -38,11 +60,12 @@
        	<form action="board.jsp" method="get">
         	<div class="search-box">
 	        	<select name="searchType">
-	        		<option value="title">제목</option>
-	        		<option value="content">내용</option>
+	        		<option value="title" <%= searchType.equals("title")? "selected" : "" %>>제목</option>
+	        		<option value="content" <%= searchType.equals("content")? "selected" : "" %>>내용</option>
 	        		<% 
 	        			if(!boardType.equals("2")){
-	        				%><option value="author">작성자</option><%
+	        				%><option value="author" <%= searchType.equals("author")? "selected" : "" %>>작성자</option>
+	        		<%
 	        			}
 	        		%>
 	        	</select>
@@ -74,9 +97,34 @@
 				</div>
 			<% } %>	
 	        <div class="page">
-				<% for(int i = 0; i < 10; i++){ %>
-					<a href="#"><%= i %></a>
-				<% } %>        	
+	        <%
+	        	if(currentPage > 1){
+	        %>
+	        	<a href="board.jsp?page=1<%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %>">&lt;&lt;</a>
+        		<a href="board.jsp?page=<%=currentPage -1 %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %>">&lt;</a>
+        	<%
+	        	}
+        	%>
+				<% for(int i = startPage; i <= endPage; i++){
+						if(i == currentPage){
+				%>
+					<a class="active" href="board.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %>"><%= i %></a>
+				<% 
+				}else{ 
+				%>  
+				 <a href="board.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %>"><%= i %></a>     	
+				<%
+				}
+			}
+			%>
+			<%
+            	if(currentPage < totalPage){
+            %>
+            <a href="board.jsp?page=<%=currentPage +1 %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %>">&gt;</a>
+            <a href="board.jsp?page=<%=totalPage %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %>">&gt;&gt;</a>
+            <%
+            	}
+            %>	
 	        </div>
 		</div>
     </div>

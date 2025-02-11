@@ -147,4 +147,25 @@ public class boardDAO extends DBManager{
 			return null;
 		}
 	}
+	
+	//6.게시글 갯수 조회
+	public int getCount(String searchType, String keyword) {
+		driverLoad();
+		DBConnect();
+		
+		String sql = " select count(*) as cnt from board where board_type != 99";
+		if(searchType != null && keyword != null) {
+			sql += " and " + searchType + " like '%" + keyword + "%'";
+		}
+		executeQuery(sql);
+		
+		if(next()) {
+			int count = getInt("cnt");
+			DBDisConnect();
+			return count;
+		}else {
+			DBDisConnect();
+			return 0;
+		}
+	}
 }

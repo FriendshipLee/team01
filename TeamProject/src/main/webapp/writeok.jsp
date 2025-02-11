@@ -72,5 +72,5 @@
 	
 	int wno = dao.write(vo);
 	
-	response.sendRedirect("post.jsp?no="+no);
+	response.sendRedirect("post.jsp?no="+wno);
 %>

@@ -26,7 +26,10 @@
 			if(user == null){
 				%><a href="#" onclick="location.href='login.jsp'">로그인</a><%
 			}else{
-				%><a href="mypage.jsp"><span><%=user.getName() %></span>님</a><%
+				%>
+					<a href="mypage.jsp"><span><%=user.getName() %></span>님</a>
+					<a href="logout.jsp">로그아웃</a>
+				<%
 			}
 		%>
 	</div>

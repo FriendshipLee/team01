@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="board.boardDAO"%>
 <%@page import="board.boardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -7,6 +9,15 @@
 	if(boardType == null){
 		boardType = "0";
 	}
+	
+	String searchType = request.getParameter("searchType");
+	String keyword = request.getParameter("searchKeyword");
+	
+	boardVO vo = new boardVO();
+	boardDAO dao = new boardDAO();
+	List<boardVO> listAll = dao.boardList(boardType);
+	List<boardVO> list = dao.listView(searchType, keyword);
+	
 %>
 <!DOCTYPE html>
 <html lang="ko">

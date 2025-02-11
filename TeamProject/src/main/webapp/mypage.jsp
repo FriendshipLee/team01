@@ -1,18 +1,29 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="career.careerDAO"%>
+<%@page import="career.careerVO"%>
 <%@page import="resume.resumeDAO"%>
 <%@page import="resume.resumeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <%
-/* 	if(user == null){
+	if(user == null){
 		response.sendRedirect("login.jsp");
 		return;
-	} */
+	}
 	
-/* 	resumeVO vo = new resumeVO();
+ 	resumeVO vo = new resumeVO();
 	resumeDAO dao = new resumeDAO();
 	String id = user.getId();
-	dao.select(id); */
+	vo = dao.select(id);
+	
+	careerVO cvo = new careerVO();
+	careerDAO cao = new careerDAO();
+	String no = vo.getNo();
+	List<careerVO> list = new ArrayList<>();
+	list = cao.select(no);
+	
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -39,16 +50,16 @@
 				    </div>
 				    <div class="profile-details">
 			            <span class="label detail-item">이름</span>
-			            <span class="value detail-item">우지서니<%-- <%= user.getName() %> --%></span>
+			            <span class="value detail-item"><%= user.getName() %></span>
 			            <span class="label detail-item" >성별</span>
-			            <span class="value detail-item"><%-- <%= user.getGender() %> --%></span>
+			            <span class="value detail-item"><%= user.getGender() %></span>
 			            <span class="label detail-item">생년월일</span>
-			            <span class="valuev detail-item"><%-- <%= user.getBirth() %> --%></span>
+			            <span class="valuev detail-item"><%= user.getBirth() %></span>
 			        
 			            <span class="label detail-item">전화번호</span>
-			            <span class="value detail-item" id="number"><%-- <%= user.getNumber() %> --%></span>
+			            <span class="value detail-item" id="number"><%= user.getNumber() %></span>
 			            <span class="label detail-item">이메일</span>
-			            <span class="value detail-item" id="mail"><%-- <%= user.getEmail() %> --%></span>
+			            <span class="value detail-item" id="mail"><%= user.getEmail() %></span>
 			        
 			            <span class="label detail-item">비밀번호</span>
 			            <span class="detail-item" id="password"><input type="password" class="password" placeholder="새 비밀번호 입력"></span>
@@ -63,9 +74,9 @@
 				        <h3>최종학력</h3>
 				        <div class="education-action">
 					        <button id="educationBtn">수정</button>
-					        <%-- <% if(vo.getSchool() != null || vo.getSchool() != ""){ %> --%>
-					        <button id="educationDelBtn">삭제</button>
-					        <%-- <% } %> --%>
+					        <% if(vo.getSchool() != null || vo.getSchool() != ""){ %>
+					        	<button id="educationDelBtn">삭제</button>
+					        <% } %>
 					        <button id="educationokBtn">저장</button>
 					        <button id="educationCancle">취소</button>
 			        	</div>
@@ -76,20 +87,32 @@
 				        <p><input id="major" type="text" placeholder="전공"></p>
 			        </div>
 			        <div class="lschool-post">
-			        	<%-- <% if(vo.getSchool() != null || vo.getGraduation_date() != null || vo.getMajor() != null){ %> --%>
-				        <%-- <h3> <%= vo.getSchool() %><span> <%= vo.getGraduation_date() %></span></h3>
-				        <p><%= vo.getMajor() %></p> --%>
-				        <%-- <% } %> --%>
+			        	<% if(vo.getSchool() != null || vo.getGraduation_date() != null || vo.getMajor() != null){ %>
+				        <h3> <%= vo.getSchool() %><span> <%= vo.getGraduation_date() %></span></h3>
+				        <p><%= vo.getMajor() %></p>
+				        <% } %>
 			        </div>
 		    	</div>
-		        <div>
-			        <h3>경력사항</h3>
-			        	<button id="caAddBtn">추가</button>
-				        <button id="caokBtn">저장</button>
-				        <button id="caCelBtn">취소</button>
+		        <div class="career">
+		        	<div class="career-info">
+				        <h3>경력사항</h3>
+				        <div class="career-action">
+				        	<button id="caAddBtn">추가</button>
+					        <button id="caokBtn">저장</button>
+					        <button id="caCelBtn">취소</button>
+			        	</div>
+			        </div>
 			        <hr>
-			        <h3><input id="company-name" type="text" placeholder="기업명"><span><input id="workDate" type="text" placeholder="근무 기간"></span></h3>
-				        <p><input id="work" type="text" placeholder="담당업무"></p>
+			        <div class="career-post">
+				        <h3><input id="company-name" type="text" placeholder="기업명"><span><input id="workDate" type="text" placeholder="근무 기간"></span></h3>
+					        <p><input id="work" type="text" placeholder="담당업무"></p>
+		        	</div>
+		        	<div class="mycareer">
+				        <% if(cvo.getCompany() != null || cvo.getCareer_date() != null || cvo.getWork() != null) { %>
+				        <h3> <%= cvo.getCompany() %><span> <%= cvo.getCareer_date() %></span></h3>
+					    <p><%= cvo.getWork() %></p>
+					    <% } %>
+		        	</div>
 		        </div>
 		        <div>
 			        <h3>자기소개서</h3>
@@ -115,13 +138,38 @@
 		let school = $("#school");
 		let gDate = $("#graduationDate");
 		let major = $("#major");
-		<%-- let userId = "<%= user.getId() %>"; --%>
+		let userId = "<%= user.getId() %>";
 		
 		mokBtn.hide();
 		pw.hide();
 		cpw.hide();
 		eokBtn.hide();
 		ecBtn.hide();
+		
+		//커리어 추가
+		$("#caAddBtn").click(function(){
+			$.ajax({
+				url : "mypage_caAdd.jsp",
+				type : "post",
+				data : {
+					company : $("#company-name").val(),
+					cdate : $("#workDate").val(),
+					work : $("#work").val()
+				},
+				success : function(result){
+					console.log(result);
+					if(result.trim() != "0"){
+						let html = "";
+						html += "<h3>"+$("#company-name").val()+"<span>"+$("#workDate").val()+"</span></h3>";
+						html += "<p>"+$("#work").val()+"</p>";
+						$(".mycareer").prepend(html);
+					}
+				},
+				error : function(){
+					console.log("에러 발생");
+				}
+			});
+		});
 		
 		//삭제버튼
 		edelBtn.click(function(){

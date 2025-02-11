@@ -11,7 +11,7 @@ import java.util.List;
 
 public class careerDAO extends DBManager {
 	//목록조회
-	public List<resumeVO> select(String no) {
+	public List<careerVO> select(String no) {
 		driverLoad();
 		DBConnect();
 		
@@ -19,22 +19,17 @@ public class careerDAO extends DBManager {
 		sql += " order by cno desc";
 		executeQuery(sql);
 		
-		List<resumeVO> list = new ArrayList<>();
+		List<careerVO> list = new ArrayList<>();
 		
 		while(next()) {
-			String cno = getString("no");
-			String id= getString("id");
-			String school = getString("school");
-			String major = getString("major");
-			String graduation = getString("graduation_date");
+			String company = getString("company");
+			String careerDate = getString("career_date");
+			String work = getString("work");
 			
-			
-			resumeVO vo = new resumeVO();
-			vo.setNo(no);
-			vo.setId(id);
-			vo.setSchool(school);
-			vo.setMajor(major);
-			vo.setGraduation_date(graduation);
+			careerVO vo = new careerVO();
+			vo.setCompany(company);
+			vo.setCareer_date(careerDate);
+			vo.setWork(work);
 			list.add(vo);
 		}
 		DBDisConnect();
@@ -66,14 +61,14 @@ public class careerDAO extends DBManager {
 		String sql = "";
 		sql += "update career set company = '"+company+"', career_date = '"+careerDate+"', work = '"+work+"', ";
 		sql += "update_date = now() ";
-		sql += "where cno = " + cno;
+		sql += "where cno = "+cno+" and no = "+no+"";
 		executeUpdate(sql);
 		
 		DBDisConnect(); 
 	}
 	
 	//추가?!
-	public void write(careerVO vo) {
+	public int write(careerVO vo) {
 		String no = vo.getNo();
 		String company = vo.getCompany();
 		String careerDate = vo.getCareer_date();
@@ -87,8 +82,17 @@ public class careerDAO extends DBManager {
 		sql += "values('"+no+"', '"+company+"', '"+careerDate+"', '"+work+"')";
 		executeUpdate(sql);
 		
-		DBDisConnect();
+		sql = "select count(*) as cnt from career where no = " + no;
+		executeQuery(sql);
 		
+		if(next()) {
+			int cnt = getInt("cnt");
+			DBDisConnect();
+			return cnt;
+		}else {
+			DBDisConnect();
+			return 0;
+		}
 	}
 }
 

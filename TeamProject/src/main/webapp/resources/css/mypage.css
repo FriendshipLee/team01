@@ -69,13 +69,13 @@ input[type="password"] {
 .education-info, .career-info {
 	margin-top: 30px;
 }
-.education-info {
+.education-info, .career-info {
 	display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
-.education-action{
+.education-action, career-action {
 	display: flex;
 }
 input[type="button"] {
@@ -90,6 +90,12 @@ input[type="button"] {
 	display: none;
 }
 .lschool-post {
+	display: inline;
+}
+.career-post {
+	display: inline;
+}
+.mycareer {
 	display: inline;
 }
 .attachment-item {

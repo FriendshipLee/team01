@@ -9,9 +9,9 @@
 	String major = request.getParameter("major");
 	String id = request.getParameter("id");
 	
-/* 	if(id != user.getId()){
+ 	if(id != user.getId()){
 		response.sendRedirect("mypage.jsp");
-	} */
+	}
 	
 	if(school == null || school == "" || gDate == null || gDate == "" || major == null || major == ""){
 		response.sendRedirect("mypage.jsp");

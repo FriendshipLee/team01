@@ -101,8 +101,8 @@
         	if(user != null && (user.getId().equals(author) || user.getUserType() == 0)){
         	%>
 			<div class="modify">
-				<input type="button" onclick="location.href='post.jsp'" value="수정">
-				<input type="button" onclick="location.href='postDel.jsp'" value="삭제">
+				<input type="button" onclick="location.href='modify.jsp?no=<%=no %>'" value="수정">
+				<input type="button" onclick="postDel(<%=no %>)" value="삭제">
 			</div>
 			<% } %>
 		</div>
@@ -143,6 +143,7 @@
             </div>
           <% } %>
        	</div>
+       	<input type="button" class="button" onclick="location.href='board.jsp?no=<%=no %>&<%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchkeyword=" + keyword : ""%>boardType=<%=boardType %>'" value="뒤로가기">
    	</div>
 </body>
 

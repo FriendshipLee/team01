@@ -52,3 +52,14 @@ textarea {
 	margin-left: 5px;
 	cursor: pointer;
 }
+
+.modify input[type="submit"]{
+	border-radius: 50px;
+	background-color: #969696;
+	color: #fff;
+	border: none;
+	width: 120px;
+	height: 40px;
+	margin-left: 5px;
+	cursor: pointer;
+}

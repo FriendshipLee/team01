@@ -22,7 +22,7 @@ public class InfoFIleDAO extends DBManager {
 			String attachUploadName = fileList.get(i).getAttachUploadName();
 			int fileSize = fileList.get(i).getFileSize();
 			
-			String sql = "insert into info_file(no, attach_origin_name, attach_upload_name, attach_location, file_size)";
+			String sql = "insert into info_file(bno, attach_origin_name, attach_upload_name, attach_location, file_size)";
 			sql += "values("+no+", '"+ attachOriginName +"', '"+attachUploadName+"', '"+attachLocation+"', "+fileSize+")";
 			executeUpdate(sql);
 		}

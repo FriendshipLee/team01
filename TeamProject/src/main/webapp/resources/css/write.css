@@ -32,3 +32,16 @@ form{
 	width: 750px;
 	margin: 0 auto;
 }
+.action {
+	text-align: center;
+}
+.action button{
+	border-radius: 50px;
+	background-color: #969696;
+	color: #fff;
+	border: none;
+	width: 120px;
+	height: 40px;
+	cursor: pointer;
+	text-align: center;
+}

@@ -48,7 +48,12 @@ input[type="text"], input[type="password"] {
 	color: red;
 	margin-bottom: 6px;
 }
-#userId-feedback, #userPw-feedback {
+
+.feedback .error{
+	display: block;
+}
+
+#userId-feedback, #userPw-feedback, #Bpw-feedback{
 	display: none;
 }
 .actions {

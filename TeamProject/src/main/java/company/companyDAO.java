@@ -42,11 +42,11 @@ public class companyDAO extends DBManager{
 			DBConnect();
 			
 			String sql = "select * from company where";
-			sql += " companyNumber = '"+companyNumber+"' and pw = '"+pw+"' and company_type != 99";
+			sql += " company_number = '"+companyNumber+"' and pw = '"+pw+"' and company_type != 99";
 			executeQuery(sql);
 			
 			if(next()) {
-				String CompanyNumber = getString("companyNumber");
+				String CompanyNumber = getString("company_number");
 				String Pw = getString("pw");
 				int companyType = getInt("company_type");
 				

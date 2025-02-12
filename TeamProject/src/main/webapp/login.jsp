@@ -4,6 +4,13 @@
 <%
 	String error = request.getParameter("error");
 	String userType = request.getParameter("userType");
+	
+	String id = (String)session.getAttribute("id");
+	String bid = (String)session.getAttribute("bid");
+	
+	session.removeAttribute("id");
+	session.removeAttribute("bid");
+	
 	if(userType == null){
 		userType = "1";
 	}
@@ -28,7 +35,7 @@
         <div id="personalForm">
         
         <div class="input-group">
-                <input type="text" id="username" name="username" placeholder="아이디를 입력해주세요.">
+                <input type="text" id="username" name="username" placeholder="아이디를 입력해주세요." value="<%= id != null ? id : "" %>">
             </div>
             <div class="input-group">
                 <input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요.">
@@ -47,7 +54,7 @@
         </div>
         <div id="businessForm" style="display: none;">
             <div class="input-group">
-                <input type="text" id="buser" name="buser" placeholder="사업자번호를 입력해주세요.">
+                <input type="text" id="buser" name="buser" placeholder="사업자번호를 입력해주세요." value="<%= bid != null ? bid : "" %>">
             </div>
             <div class="input-group">
                 <input type="password" id="bpassword" name="bpassword" placeholder="비밀번호를 입력해주세요.">
@@ -74,9 +81,6 @@
     
 
     <script>
-    	let uid = window.localStorage.getItem("uid");
-    	let bid = window.localStorage.getItem("bid");
-    	
     	let userType = "<%= userType %>";
     	
     	document.getElementById('personalForm').style.display = (userType === '1') ? 'block' : 'none';
@@ -84,17 +88,6 @@
         document.getElementById('personalTab').classList.toggle('active', userType === '1');
         document.getElementById('businessTab').classList.toggle('active', userType === '2');
         document.getElementById("userType").value = userType;
-        
-        if(userType == "1"){
-        	if(uid != null){
-        		$("#username").val(uid);
-        	}
-        }else{
-        	if(bid != null){
-        		$("#buser").val(bid);
-        	}
-        }
-        
         
         function showTab(type) {
             document.getElementById('personalForm').style.display = (type === 'personal') ? 'block' : 'none';
@@ -130,6 +123,7 @@
             		return false;
             	}
             	window.localStorage.setItem("uid", id.val());
+            	//window.localStorage.removeItem('uid',id.val());
             	return true;
         	}else{
         		let bid = $("#buser");
@@ -149,6 +143,7 @@
             		return false;
             	}
             	window.localStorage.setItem("bid", bid.val());
+            	//window.localStorage.removeItem('bid',bid.val());
             	return true;
         	}
         }

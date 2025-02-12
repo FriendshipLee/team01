@@ -39,6 +39,7 @@
 		
 		usersVO user = dao.login(vo);
 		if(user == null){
+			session.setAttribute("id", id);
 			response.sendRedirect("login.jsp?error=pe"+"&userType="+userType);
 			return;
 		}
@@ -66,6 +67,7 @@
 		
 		companyVO cuser = cdao.login(cvo);
 		if(cuser == null){
+			session.setAttribute("bid", bid);
 			response.sendRedirect("login.jsp?error=pe"+"&userType="+userType);
 			return;
 		}
@@ -74,5 +76,4 @@
 		
 		response.sendRedirect("main.jsp");
 	}
-	
 %>

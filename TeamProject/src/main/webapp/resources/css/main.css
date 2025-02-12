@@ -23,9 +23,39 @@ a {
     justify-content: space-evenly;
     margin-top: 110px;
 }
-.slide {
-	display: flex;
-	align-items: center;
+.slider__wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.slider__img {  /* 이미지가 보이는 영역 */
+    position: relative;
+    width: 587px;
+    height: 794px;
+    overflow: hidden;
+}
+.slider__inner {       /* 이미지 움직이는 영역 = 전체 이미지를 감싸고있는 부모 : 움직이는 영역 */
+    display: flex;
+    flex-wrap: wrap;
+    width: 1174px;    /* 총 이미지 4800 */
+    height: 794px;
+}
+.slider {             /* 개별적인 이미지 */
+    position: relative;
+    width: 587px;
+    height: 794px;
+}
+.slider__btn a {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.slider__btn a.prev {
+    left: -100px;
+}
+.slider__btn a.next {
+    right: -100px;
 }
 button {
 	background-color: #355beb;

@@ -12,6 +12,7 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<link rel="stylesheet" href="./resources/css/main.css">
+	<script type="text/javascript" src="./resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
 	<div class="content-box">
@@ -36,14 +37,69 @@
 					<%
 				}
 			%>
-			
 		</div>
-		<div class="slide">
-			<img alt="왼쪽화살표" src="./resources/img/left.png">
-			<img alt="" src="./resources/img/content_img.png">
-			<img alt="오른쪽화살표" src="./resources/img/right.png">
+		<div class="slider__wrap">
+	        <div class="slider__img">
+	            <div class="slider__inner">
+	                <div class="slider s1"><img alt="" src="./resources/img/content_img.png"></div>
+	                <div class="slider s2"><img alt="" src="./resources/img/content_img2.png"></div>
+	            </div>
+	        </div>
+	        <div class="slider__btn">
+	            <a href="#" class="prev" title="이전이미지"><img alt="왼쪽화살표" src="./resources/img/left.png"></a>
+	            <a href="#" class="next" title="다음이미지"><img alt="오른쪽화살표" src="./resources/img/right.png"></a>
+	        </div>
 		</div>
 	</div>
 	<span>Team A. 김다영, 이우정, 김지선</span>
 </body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        let currentIndex = 0; // 현재 보이는 이미지 인덱스
+        let slider = $(".slider"); // 개별 슬라이드 요소
+        let sliderCount = slider.length; // 이미지 개수
+        let sliderInner = $(".slider__inner"); // 움직이는 영역
+        let sliderWidth = $(".slider").width(); // 슬라이드 하나의 너비
+        let sliderInterval = 3500; // 자동 슬라이드 변경 시간(ms)
+
+        function gotoSlider(num) {
+            sliderInner.css({
+                "transition": "all 400ms",
+                "transform": "translateX(" + (-sliderWidth * num) + "px)"
+            });
+            currentIndex = num;
+        }
+
+        function nextSlide() {
+            let nextIndex = (currentIndex + 1) % sliderCount;
+            gotoSlider(nextIndex);
+        }
+
+        function prevSlide() {
+            let prevIndex = (currentIndex - 1 + sliderCount) % sliderCount;
+            gotoSlider(prevIndex);
+        }
+
+        // 버튼 클릭 이벤트
+        $(".prev").click(function (e) {
+            e.preventDefault();
+            prevSlide();
+            resetAutoSlide();
+        });
+
+        $(".next").click(function (e) {
+            e.preventDefault();
+            nextSlide();
+            resetAutoSlide();
+        });
+
+        // 자동 슬라이드
+        let autoSlide = setInterval(nextSlide, sliderInterval);
+
+        function resetAutoSlide() {
+            clearInterval(autoSlide);
+            autoSlide = setInterval(nextSlide, sliderInterval);
+        }
+    });
+</script>
 </html>

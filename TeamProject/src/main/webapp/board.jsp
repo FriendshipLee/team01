@@ -69,8 +69,7 @@
 	        			}
 	        		%>
 	        	</select>
-	        	<label>
-					        	
+	        	<label class="search">
 		            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
 	        	</label>
 	            <% 

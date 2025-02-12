@@ -10,5 +10,5 @@
 	
 	boardDAO dao = new boardDAO();
 	dao.delete(no);
-	response.sendRedirect("board.jsp");
+	response.sendRedirect("post.jsp");
 %>

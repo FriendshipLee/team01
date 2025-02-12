@@ -102,7 +102,7 @@
         	%>
 			<div class="modify">
 				<input type="button" onclick="location.href='modify.jsp?no=<%=no %>'" value="수정">
-				<input type="button" onclick="postDel(<%=no %>)" value="삭제">
+				<input type="button" onclick="location.href='postDel.jsp?no=<%=no %>'" value="삭제">
 			</div>
 			<% } %>
 		</div>

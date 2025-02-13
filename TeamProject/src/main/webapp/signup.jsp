@@ -395,7 +395,7 @@
 			});
        	});
        	
-        let numberRegex = /([0-9]{3})-?([0-9]{2})-?([0-9]{5})/;
+        /* let numberRegex = /([0-9]{3})-?([0-9]{2})-?([0-9]{5})/; */
        	let numberCheckFlag = false;
        	$("#number").keyup(function(e){
 			let number = e.target.value;
@@ -403,9 +403,9 @@
 			numberFeedback.css("display", "block").text("-를 포함한 10자리 번호를 입력해주세요.").removeClass("success");
 			numberCheckFlag = false;
 			
-			if(!numberRegex.test(number)) {
+			/* if(!numberRegex.test(number)) {
 				return;
-			}
+			} */
 			
 			$.ajax({
 				url : "numberCheck.jsp",

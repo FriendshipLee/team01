@@ -81,7 +81,7 @@
             <div class="post-top">
             	<div>
             		<h2><%= title %></h2>
-	           		<p>작성자 : <%= author %> | <%= createDate %></p>
+	           		<p>작성자 : <%= boardType != 2 ? author : "익명" %> | <%= createDate %></p>
           	  	</div>
 	            <div class="post-type">공지게시판</div>
             </div>

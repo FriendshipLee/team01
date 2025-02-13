@@ -12,6 +12,8 @@
     pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("utf-8");
+	
+		
 	usersVO user = (usersVO)session.getAttribute("user");
 
 	String savePath = application.getRealPath("/upload");
@@ -35,13 +37,26 @@
 	
 	String title = multi.getParameter("title");
 	String content = multi.getParameter("content");
+	String boardType = multi.getParameter("boardType");
+	if(boardType == null){
+		boardType = "0";
+	}
+	if(boardType.isEmpty()){
+		response.sendRedirect("board.jsp");
+		return;
+	}
 	
 	boardVO vo = new boardVO();
+	boardDAO dao = new boardDAO();
+	
+	int number = Integer.parseInt(boardType);
+	
 	vo.setTitle(title);
 	vo.setContent(content);
+	vo.setAuthor(user.getId());
+	vo.setBoardType(number);
 	
-	boardDAO dao = new boardDAO();
-	int no = dao.write(vo);
+	int wno = dao.write(vo);
 	
 	Enumeration files = multi.getFileNames();
 	
@@ -60,17 +75,12 @@
 		fileVO.setAttachLocation(savePath);
 		fileVO.setAttachOriginName(originFileName);
 		fileVO.setAttachUploadName(fileName);
-		fileVO.setNo(no+"");
+		fileVO.setNo(wno+"");
 		
 		fileList.add(fileVO);
 	}
 	
-	vo.setTitle(title);
-	vo.setContent(content);
-	vo.setBoardType(1);
-	vo.setAuthor(user.getId());
 	
-	int wno = dao.write(vo);
 	
-	response.sendRedirect("post.jsp?no="+wno);
+	response.sendRedirect("post.jsp?no="+wno+"&boardType="+boardType);
 %>

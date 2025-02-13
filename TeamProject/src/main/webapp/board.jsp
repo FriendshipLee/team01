@@ -62,12 +62,8 @@
 	        	<select name="searchType">
 	        		<option value="title" <%= searchType.equals("title")? "selected" : "" %>>제목</option>
 	        		<option value="content" <%= searchType.equals("content")? "selected" : "" %>>내용</option>
-	        		<% 
-	        			if(!boardType.equals("2")){
-	        				%><option value="author" <%= searchType.equals("author")? "selected" : "" %>>작성자</option>
-	        		<%
-	        			}
-	        		%>
+	        		<option value="author" <%= searchType.equals("author")? "selected" : "" %>>작성자</option>
+	        	
 	        	</select>
 	        	<label class="search">
 		            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
@@ -131,7 +127,7 @@
     <script>
         $(document).ready(function() {
             $('#write-btn').click(function() {
-                window.location.href = 'write.jsp';
+                window.location.href = 'write.jsp?boardType=<%= boardType %>';
             });
         });
     </script>

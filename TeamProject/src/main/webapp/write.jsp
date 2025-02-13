@@ -33,6 +33,7 @@
 <!-- 			<input type="radio" name="boardtype">공지게시판
 			<input type="radio" name="boardtype" checked>자유게시판
 			<input type="radio" name="boardtype">익명게시판 -->
+			<input type="hidden"  value="<%=boardType%>" name="boardType">
 			<div>
 				<label for="title">제목</label><br>
 	            <input type="text" id="title" name="title" placeholder="제목을 입력하세요"><br>
@@ -44,7 +45,7 @@
 			<div>
 	            <label for="file">첨부파일</label><br>
 	            <input type="file" id="file" name="file"><br>
-		</form>
+            </div>
             <div class="action">
                 <button type="submit">등록</button>
                 <button type="button" onclick="location.href='board.jsp'">취소</button>

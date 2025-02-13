@@ -93,10 +93,16 @@ input[type="button"] {
 	display: inline;
 }
 .career-post {
-	display: inline;
+	display: none;
 }
 .mycareer {
-	display: inline;
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.hr {
+	border: 1px dashed #000;
 }
 .attachment-item {
     background: #aaa;

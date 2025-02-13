@@ -4,25 +4,20 @@
 <%@page import="resume.resumeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="header.jsp" %>
 <%
 	String companyName = request.getParameter("company");
 	String cdate = request.getParameter("cdate");
 	String work = request.getParameter("work");
-	String id = user.getId();
+	String id = request.getParameter("id");
 	
 	if(companyName == null || cdate == null || work == null){
-		response.sendRedirect("mypage.jsp");
+		out.print("fail");
 		return;
 	}
 	
-	if(id == null || id.isEmpty()){
-		response.sendRedirect("login.jsp");
-		return;
-	}
 	
 	if(companyName.isEmpty() || cdate.isEmpty() || work.isEmpty()){
-		response.sendRedirect("mypage.jsp");
+		out.print("fail");
 		return;
 	}
 	
@@ -39,5 +34,5 @@
 	cvo.setWork(work);
 
 	int result = cao.write(cvo);
-	
+	out.print(result);
 %>

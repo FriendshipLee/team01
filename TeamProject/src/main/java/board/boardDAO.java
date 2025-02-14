@@ -92,11 +92,11 @@ public class boardDAO extends DBManager{
 	}
 	
 	//글 조회(여러건)
-	public List<boardVO> listView(String searchType, String searchKeyword, int startNum, int limitSize){
+	public List<boardVO> listView(String searchType, String searchKeyword, int startNum, int limitSize, String boardType){
 		driverLoad();
 		DBConnect();
 		
-		String sql = "select * from board where board_type != 99";
+		String sql = "select * from board where board_type = "+ boardType;
 		if(searchType != null && searchKeyword != null) {
 			sql+= " and "+searchType+" like'%"+searchKeyword+"%'";
 		}
@@ -137,7 +137,7 @@ public class boardDAO extends DBManager{
 			vo.setAuthor(getString("author"));
 			vo.setTitle(getString("title"));
 			vo.setContent(getString("content"));
-			vo.setBoardType(getInt("board_type"));
+			vo.setBoardType(getInt("boardType"));
 			vo.setCreateDate(getString("create_date"));
 			vo.setUpdateDate(getString("update_date"));
 			vo.setDeleteDate(getString("delete_date"));

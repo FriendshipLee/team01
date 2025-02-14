@@ -79,7 +79,6 @@
         </form>
     </div>
     
-
     <script>
     	let userType = "<%= userType %>";
     	

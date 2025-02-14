@@ -52,6 +52,7 @@ public class usersDAO extends DBManager{
 			vo.setBirth(getString("birth"));
 			vo.setGender(getString("gender"));
 			vo.setNumber(getString("number"));
+			vo.setUserType(getInt("user_type"));
 			
 			DBDisConnect();
 			return vo;

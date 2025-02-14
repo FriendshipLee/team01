@@ -1,3 +1,4 @@
+<%@page import="board.boardVO"%>
 <%@page import="company.companyVO"%>
 <%@page import="users.usersVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -5,6 +6,7 @@
 <%
 	usersVO user = (usersVO)session.getAttribute("user");
 	companyVO company = (companyVO)session.getAttribute("company");
+	/* boardVO bType = (boardVO)session.getAttribute("boardType"); */
 %>
 <!DOCTYPE html>
 <html>

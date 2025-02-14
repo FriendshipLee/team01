@@ -5,7 +5,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <%
-
 	String pageNum = request.getParameter("page");
 	if(pageNum == null){
 		pageNum = "1";
@@ -18,14 +17,15 @@
 	String boardType = request.getParameter("boardType");
 	if(boardType == null){
 		boardType = "0";
-	}
+	}  
 	
 	String searchType = request.getParameter("searchType");
 	String keyword = request.getParameter("searchKeyword");
 	
 	boardDAO dao = new boardDAO();
-	//List<boardVO> listAll = dao.boardList(boardType);
-	List<boardVO> list = dao.listView(searchType, keyword, startNum, limitperPage);
+	List<boardVO> listAll = dao.boardList(boardType);
+	List<boardVO> list = dao.listView(searchType, keyword, startNum, limitperPage, boardType);
+	
 	
 	int totalCount = dao.getCount(searchType, keyword);
 	int pageGroupSize = 10;
@@ -39,6 +39,7 @@
 	if(keyword == null){
 		keyword = "";
 	}
+
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -70,8 +71,20 @@
 		            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
 	        	</label>
 	            <% 
-	            	if(user != null && user.getUserType() != 0){
-	            		%><input type="button" id="write-btn" value="글쓰기"><%
+	            	//로그인 했고, 로그인했는데 userType이 0이고, boardType이 0이고
+	            	//공지게시판(boardType == 0)이면 관리자(userType ==0)한테만 글쓰기버튼
+	            	//로그인 했을 때
+	            	if(user != null){
+	            		//게시판 타입이 0(공지) 일 때
+	            		if(boardType.equals("0")){
+	            			//유저 타입이 0(관리자)이여야만 글쓰기를 보여준다
+	            			if(user.getUserType() == 0){
+	            				%><input type="button" id="write-btn" value="글쓰기"><%	
+	            			}
+	            		//게시판 타입이 0(공지)이 아닐 때
+	            		}else{
+	            			%><input type="button" id="write-btn" value="글쓰기"><%
+	            		}
 	            	}
 	            %>
 	        </div>

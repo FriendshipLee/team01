@@ -13,7 +13,7 @@
 
 	String pageNum = request.getParameter("page");
 	if(pageNum == null){
-		pageNum = "11";
+		pageNum = "1";
 	} 
 	
 	int currentPage = Integer.parseInt(pageNum);

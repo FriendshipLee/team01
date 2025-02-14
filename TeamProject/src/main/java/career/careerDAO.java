@@ -27,6 +27,7 @@ public class careerDAO extends DBManager {
 			String work = getString("work");
 			
 			careerVO vo = new careerVO();
+			vo.setCno(getString("cno"));
 			vo.setCompany(company);
 			vo.setCareer_date(careerDate);
 			vo.setWork(work);
@@ -82,13 +83,13 @@ public class careerDAO extends DBManager {
 		sql += "values('"+no+"', '"+company+"', '"+careerDate+"', '"+work+"')";
 		executeUpdate(sql);
 		
-		sql = "select count(*) as cnt from career where no = " + no;
+		sql = "select last_insert_id() as cno";
 		executeQuery(sql);
 		
 		if(next()) {
-			int cnt = getInt("cnt");
+			int cno = getInt("cno");
 			DBDisConnect();
-			return cnt;
+			return cno;
 		}else {
 			DBDisConnect();
 			return 0;

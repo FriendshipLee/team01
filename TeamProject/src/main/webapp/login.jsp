@@ -149,7 +149,7 @@
         }
         
         function goHome() {
-            window.location.href = 'home.jsp';
+            window.location.href = 'main.jsp';
         }
         function goSignup() {
             window.location.href = 'signup.jsp';

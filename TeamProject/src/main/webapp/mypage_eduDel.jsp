@@ -2,12 +2,12 @@
 <%@page import="resume.resumeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="header.jsp" %>
 <%
 	String id = request.getParameter("id");
 
 	if(id == null || id == ""){
-		response.sendRedirect("mypage.jsp");
+		out.print("fail");
+		return;
 	}
 
 	resumeVO vo = new resumeVO();
@@ -15,4 +15,6 @@
 	
 	vo.setId(id);
 	dao.delete(id);
+	
+	out.print("success");
 %>

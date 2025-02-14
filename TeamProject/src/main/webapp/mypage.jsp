@@ -12,18 +12,21 @@
 		response.sendRedirect("login.jsp");
 		return;
 	}
+
+	String id = user.getId();
+	
+	
 	
  	resumeVO vo = new resumeVO();
 	resumeDAO dao = new resumeDAO();
-	String id = user.getId();
 	vo = dao.select(id);
+	
+	String no = vo.getNo();
 	
 	careerVO cvo = new careerVO();
 	careerDAO cao = new careerDAO();
-	String no = vo.getNo();
 	List<careerVO> list = new ArrayList<>();
 	list = cao.select(no);
-	
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -37,7 +40,7 @@
 <body>
 		<div class="container">
 	       <div class="aa">
-		        <!-- <img src="./resources/img/profile.jpg" alt="프로필 사진" class="profile-img"> -->
+		        <img src="./resources/img/profile.jpg" alt="프로필 사진" class="profile-img">
 			   	<div class="profile-container">
 				    <div class="profile-header">
 				        <div class="profile-info">
@@ -45,6 +48,7 @@
 				            <div>
 				                <button class="modifyBtn">비밀번호 변경</button>
 				                <button class="modifyokBtn">저장하기</button>
+				                <button class="cancleBtn">취소하기</button>
 				            </div>
 				        </div>
 				    </div>
@@ -74,7 +78,7 @@
 				        <h3>최종학력</h3>
 				        <div class="education-action">
 					        <button id="educationBtn">수정</button>
-					        <% if(vo.getSchool() != null || vo.getSchool() != ""){ %>
+					        <% if(vo.getSchool() != null && vo.getSchool() != ""){ %>
 					        	<button id="educationDelBtn">삭제</button>
 					        <% } %>
 					        <button id="educationokBtn">저장</button>
@@ -87,8 +91,8 @@
 				        <p><input id="major" type="text" placeholder="전공"></p>
 			        </div>
 			        <div class="lschool-post">
-			        	<% if(vo.getSchool() != null || vo.getGraduation_date() != null || vo.getMajor() != null){ %>
-				        <h3> <%= vo.getSchool() %><span> <%= vo.getGraduation_date() %></span></h3>
+			        	<% if(vo.getSchool() != null && vo.getGraduation_date() != null && vo.getMajor() != null){ %>
+				        <h3> <%= vo.getSchool() %><span> <%= vo.getGraduation_date() %> </span></h3>
 				        <p><%= vo.getMajor() %></p>
 				        <% } %>
 			        </div>
@@ -107,81 +111,157 @@
 				        <h3><input id="company-name" type="text" placeholder="기업명"><span><input id="workDate" type="text" placeholder="근무 기간"></span></h3>
 					        <p><input id="work" type="text" placeholder="담당업무"></p>
 		        	</div>
-		        	<div class="mycareer">
-				        <% if(cvo.getCompany() != null || cvo.getCareer_date() != null || cvo.getWork() != null) { %>
-				        <h3> <%= cvo.getCompany() %><span> <%= cvo.getCareer_date() %></span></h3>
-					    <p><%= cvo.getWork() %></p>
-					    <% } %>
-		        	</div>
-		        </div>
+		        	<div class="mycareer-container">
+		        		<% 
+		        			for(int i = 0; i < list.size(); i++){
+		        				cvo = list.get(i);
+		        		%>
+		        			<div>
+					        	<div class="mycareer">
+					        		<div>
+								        <% if(cvo.getCompany() != null || cvo.getCareer_date() != null || cvo.getWork() != null) { %>
+									        <h3> <%= cvo.getCompany() %><span> <%= cvo.getCareer_date() %> </span></h3>
+										    <p><%= cvo.getWork() %></p>
+								    </div>
+								    <button onclick="deleteBtn(<%= cvo.getCno() %>, this)" id="caDelBtn">삭제</button>
+					        	</div>
+					        	<hr class="hr">
+				        	</div>
+							    <% } %>
+						    <% } %>
+		       		</div>
 		        <div>
 			        <h3>자기소개서</h3>
 			        <hr>
 			        <div class="attachment-item">
-						<a href="#" class="attachment-name">자기소개서.hwp</a>
+						<a download="./TeamProject/" class="attachment-name">자기소개서.hwp</a>
 						<span class="attachment-size">(1.1 MB)</span>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 <script>
+
+	//경력 삭제 함수
+	function deleteBtn(cno, obj){
+		$.ajax({
+			url : "mypage_caDel.jsp",
+			type : "post",
+			data : {
+				cno : cno
+			},
+			success : function(result){
+					console.log(result);
+					if(result.trim() == "success"){
+						$(obj).parent().parent().remove();
+					}
+			},
+			error : function(){
+				console.log("에러 발생");
+			}
+		});
+	}
+	
 	$(document).ready(function(){
 		let mokBtn = $(".modifyokBtn");
 		let mBtn = $(".modifyBtn");
+		let celBtn = $(".cancleBtn");
 		let pw = $(".password");
 		let cpw = $(".confirm-password");
 		let eBtn = $("#educationBtn");
 		let eokBtn = $("#educationokBtn");
 		let ecBtn = $("#educationCancle");
 		let edelBtn = $("#educationDelBtn");
+		//페이지 로딩되었을 때 삭제버튼 없으면 객체 못찾음
+		
 		let school = $("#school");
 		let gDate = $("#graduationDate");
 		let major = $("#major");
 		let userId = "<%= user.getId() %>";
+		let caDelBtn = $("#caDelBtn");
+		let caAddBtn = $("#caAddBtn");
+		let caokBtn = $("#caokBtn");
+		let caCelBtn = $("#caCelBtn");
+		
 		
 		mokBtn.hide();
 		pw.hide();
 		cpw.hide();
 		eokBtn.hide();
 		ecBtn.hide();
+		celBtn.hide();
+		caokBtn.hide();
+		caCelBtn.hide();
+		
+		//커리어 추가 취소 버튼
+		caCelBtn.click(function(){
+			caokBtn.hide();
+			caCelBtn.hide();
+			caAddBtn.show();
+			$(".career-post").css("display", "none");
+		});
 		
 		//커리어 추가
-		$("#caAddBtn").click(function(){
-			$.ajax({
-				url : "mypage_caAdd.jsp",
-				type : "post",
-				data : {
-					company : $("#company-name").val(),
-					cdate : $("#workDate").val(),
-					work : $("#work").val()
-				},
-				success : function(result){
-					console.log(result);
-					if(result.trim() != "0"){
-						let html = "";
-						html += "<h3>"+$("#company-name").val()+"<span>"+$("#workDate").val()+"</span></h3>";
-						html += "<p>"+$("#work").val()+"</p>";
-						$(".mycareer").prepend(html);
+		caAddBtn.click(function(){
+			$(".career-post").css("display", "inline");
+			caokBtn.show();
+			caCelBtn.show();
+			caAddBtn.hide();
+			caokBtn.click(function(){
+				$.ajax({
+					url : "mypage_caAdd.jsp",
+					type : "post",
+					data : {
+						company : $("#company-name").val(),
+						cdate : $("#workDate").val(),
+						work : $("#work").val(),
+						id : userId
+					},
+					success : function(result){
+						if(result.trim() != "0"){
+							let html = "";
+							html += "<div>";
+							html += 	"<div class='mycareer'>";
+							html +=			"<div>";
+							html +=				"<h3>"+$("#company-name").val()+"<span>"+$("#workDate").val()+"</span></h3>";
+							html +=				"<p>"+$("#work").val()+"</p>";
+							html +=			"</div>";
+							html +=			"<button onclick='deleteBtn("+result.trim()+", this)' id='caDelBtn'>삭제</button>";
+							html +=		"</div>";
+							html +=		"<hr class='hr'>";
+							html += "</div>";
+							$(".mycareer-container").prepend(html);
+							caokBtn.hide();
+							caCelBtn.hide();
+							caAddBtn.show();
+							$(".career-post").css("display", "none");
+						}
+					},
+					error : function(){
+						console.log("에러 발생");
 					}
-				},
-				error : function(){
-					console.log("에러 발생");
-				}
+				});
 			});
 		});
 		
-		//삭제버튼
+		//최종학력 삭제버튼
+		//페이지 로딩 되었을 때 삭제버튼 없으면 클릭 이벤트 X
 		edelBtn.click(function(){
 			$.ajax({
 				url : "mypage_eduDel.jsp",
 				type : "post",
 				data : {
-					id : "jeon"
+					id : userId
 				},
-				sucess : function(result){
-					console.log(result);
-					eBtn.show();
+				success : function(result){
+					if(result.trim() == "success"){
+						eBtn.show();
+						let html = "";
+						$(".lschool-post").html(html);
+						edelBtn.hide();
+					}
 				},
 				error : function(){
 					console.log("에러 발생");
@@ -190,25 +270,29 @@
 			});
 		});
 		
-		//수정버튼
+		//최종학력 수정버튼
 		eBtn.click(function(){
 			eokBtn.show();
 			eBtn.hide();
 			ecBtn.show();
+			edelBtn.hide();
 			$(".lschool").css("display", "inline");
 			$(".lschool-post").css("display", "none");
 		});
 		
-		//취소버튼
+		//최종학력 취소버튼
 		ecBtn.click(function(){
 			eokBtn.hide();
 			eBtn.show();
 			ecBtn.hide();
+			if(true){
+				edelBtn.show();
+			}
 			$(".lschool").css("display", "none");
 			$(".lschool-post").css("display", "inline");
 		});
 		
-		//저장버튼
+		//최종학력 저장버튼
 		eokBtn.click(function(){
 			if(school.val().trim() == ""){
 				alert("졸업학교를 입력해주세요.");
@@ -230,7 +314,7 @@
 					school : school.val(),
 					gDate : gDate.val(),
 					major : major.val(),
-					id : "jeon"
+					id : userId
 				},
 				success : function(result){
 					console.log(result);
@@ -240,7 +324,46 @@
 						eokBtn.hide();
 						ecBtn.hide();
 						eBtn.show();
-						$(".lschool-post").html("<h3>"+school.val()+"</h3>")
+						
+						if(edelBtn.length > 0){
+							edelBtn.remove();
+						}
+						
+						//최종학력 저장 확인버튼 누를 때 educationDelBtn아이디를 가진 버튼 생성
+						$("<button id='educationDelBtn'>삭제</button>").insertAfter("#educationBtn");
+						
+						//금방 생성한 educationDelBtn아이디를 가진 버튼을 찾아서 edelBtn 변수 재할당
+						edelBtn = $("#educationDelBtn");
+						
+						//educationDelBtn아이디를 가진 버튼에 새로운 클릭 이벤트 등록
+						edelBtn.click(function(){
+							$.ajax({
+								url : "mypage_eduDel.jsp",
+								type : "post",
+								data : {
+									id : userId
+								},
+								success : function(result){
+									if(result.trim() == "success"){
+										eBtn.show();
+										let html = "";
+										$(".lschool-post").html(html);
+										edelBtn.hide();
+										
+									}
+								},
+								error : function(){
+									console.log("에러 발생");
+									eBtn.show();
+								}
+							});
+						});
+						
+						let html = "";
+						html += "<h3>"+school.val()+" <span>"+gDate.val()+" </span></h3>";
+						html += "<p>"+major.val()+"</p>";
+						$(".lschool-post").html(html);
+						
 					}
 				},
 				error : function(){
@@ -249,13 +372,26 @@
 			});
 		});
 		
+		//비밀번호 변경버튼
 		mBtn.click(function(){
+			celBtn.show();
 			mokBtn.show();
 			pw.show();
 			cpw.show();
 			mBtn.hide();
 		});
 		
+		//비밀번호 변경 취소버튼
+		celBtn.click(function(){
+			mokBtn.hide();
+			mBtn.show();
+			celBtn.hide();
+			pw.hide();
+			cpw.hide();
+		});
+
+		
+		//비밀번호 변경 저장버튼
 		mokBtn.click(function(){
 			if(pw.val().trim() == ""){
 				pw.focus();
@@ -275,11 +411,12 @@
 				url : "mypage_modifyok.jsp",
 				type : "post",
 				data : {
-					id : "jeon",
+					id : userId,
 					pw : pw.val()
 				},
 				success : function(result){
 					alert("비밀번호 변경이 완료되었습니다.");
+					celBtn.hide();
 				},
 				error : function(){
 					alert("에러 발생");

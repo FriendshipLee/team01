@@ -5,6 +5,12 @@
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <%
+//로그인 안했거나, 관리자 아니면 튕겨내기(다른 페이지로 강제 이동)
+	if(user == null || user.getUserType() != 0){
+		response.sendRedirect("board.jsp");
+		return;
+	}
+
 	String pageNum = request.getParameter("page");
 	if(pageNum == null){
 		pageNum = "1";
@@ -23,8 +29,8 @@
 	String keyword = request.getParameter("searchKeyword");
 	
 	boardDAO dao = new boardDAO();
-	List<boardVO> listAll = dao.boardList(boardType);
-	List<boardVO> list = dao.listView(searchType, keyword);
+	//List<boardVO> listAll = dao.boardList(boardType);
+	List<boardVO> list = dao.listView(searchType, keyword, startNum, limitperPage);
 	
 	int totalCount = dao.getCount(searchType, keyword);
 	int pageGroupSize = 10;
@@ -69,15 +75,15 @@
 		            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
 	        	</label>
 	            <% 
-	            	if(user != null){
+	            	if(user.getUserType() != 0){
 	            		%><input type="button" id="write-btn" value="글쓰기"><%
 	            	}
 	            %>
 	        </div>
         </form>
 		<div class="list">
-			<% for(int i = 0; i < listAll.size(); i++){ 
-				boardVO vo = listAll.get(i);
+			<% for(int i = 0; i < list.size(); i++){ 
+				boardVO vo = list.get(i);
 			%>
 				<div class="content" onclick="location.href='post.jsp?no=<%=vo.getNo()%>'">
 					<div>

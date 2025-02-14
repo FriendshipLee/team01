@@ -13,6 +13,10 @@
 		response.sendRedirect("main.jsp");
 		return;
 	} 
+	 if(user == null){
+		response.sendRedirect("main.jsp");
+		return;
+		}
 	
 	boardDAO dao = new boardDAO();
 	boardVO vo = dao.view(no);

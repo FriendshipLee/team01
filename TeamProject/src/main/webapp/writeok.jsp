@@ -56,6 +56,7 @@
 	vo.setAuthor(user.getId());
 	vo.setBoardType(number);
 	
+	
 	int wno = dao.write(vo);
 	
 	Enumeration files = multi.getFileNames();

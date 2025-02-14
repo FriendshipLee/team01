@@ -14,6 +14,54 @@ h2{
 h4{
 	margin: 0;
 }
+.container {
+    margin: 20px auto;
+    max-width: 750px;
+    color: black;
+    padding: 20px;
+    border-radius: 5px;
+}
+.search-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.search-box select {
+	width: 20%;
+    margin-right: 7px;
+    height: 55px;
+    border-radius: 10px
+}
+.search-box input {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+.search-box input[type="text"]{
+	width: 100%;
+	margin-right: 7px;
+	height: 55px;
+}
+.search-box input[type="button"] {
+	width: 20%;
+    padding: 10px 20px;
+    background: white;
+    border: none;
+    cursor: pointer;
+}
+.search {
+	position: relative;
+	width: 65%;
+	margin-right: 42px;
+}
+.search button {
+	position: absolute;
+    top: 0;
+    right: 5px;
+    border: none;
+    background: none;
+    margin-top: 10px;
+    cursor: pointer;
+}
 input[type=text], textarea, input[type="file"]{
 	border-radius:5px;
 	width: 100%;

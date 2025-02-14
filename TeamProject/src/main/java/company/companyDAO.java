@@ -6,82 +6,72 @@ import company.companyVO;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
 public class companyDAO extends DBManager{
-		//1.기업회원 회원가입
+	//1.기업회원 회원가입
 	public void join(companyVO vo) {
 		String companyNumber = vo.getCompanyNumber();
 		String pw = vo.getPw();
 		String companyName = vo.getCompanyName();
 		String ceoName = vo.getCeoName();
-		String businessType = vo.getBusinessType();
 		String number = vo.getNumber();
-		int companyType = vo.getCompanyType();
 		
 		driverLoad();
 		DBConnect();
 		
 		String sql = "";
-		sql += "insert into company(companyNumber, pw, companyName, ceoName, businessType, number, companyType)";
-		sql += "values('"+companyNumber+"', '"+pw+"', '"+companyName+"', '"+ceoName+"', '"+businessType+"', '"+number+"', "+companyType+");";
+		sql += "insert into company(company_number, pw, company_name, ceo_name, number)";
+		sql += "values('"+companyNumber+"', '"+pw+"', '"+companyName+"', '"+ceoName+"', '"+number+"');";
 		executeUpdate(sql);
 		
 		DBDisConnect();
 	}
 	
 	//2. 로그인
-		//select * from user where id = '??' and pw = '??';
-		public companyVO login(companyVO cvo) {
-			String companyNumber = cvo.getCompanyNumber();
-			String pw = cvo.getPw();
+	//select * from user where id = '??' and pw = '??';
+	public companyVO login(companyVO cvo) {
+		String companyNumber = cvo.getCompanyNumber();
+		String pw = cvo.getPw();
+		
+		driverLoad();
+		DBConnect();
+		
+		String sql = "select * from company where";
+		sql += " company_number = '"+companyNumber+"' and pw = '"+pw+"' and company_type != 99";
+		executeQuery(sql);
+		
+		if(next()) {
+			int companyType = getInt("company_type");
 			
-			driverLoad();
-			DBConnect();
-			
-			String sql = "select * from company where";
-			sql += " company_number = '"+companyNumber+"' and pw = '"+pw+"' and company_type != 99";
-			executeQuery(sql);
-			
-			if(next()) {
-				String CompanyNumber = getString("company_number");
-				String Pw = getString("pw");
-				int companyType = getInt("company_type");
-				
-				
-				companyVO vo = new companyVO();
-				vo.setCompanyNumber(companyNumber);
-				vo.setPw(pw);
-				vo.setCompanyType(companyType);
-				
-				
-				DBDisConnect();
-				return vo;
-			}else {
-				DBDisConnect();
-				return null;
-			}
-		}
-			
-		//3. 기업회원정보 수정
-		//update user set pw = '?', nick = '?' where id = '?';
-		public void modify(companyVO vo) {
-			String pw = vo.getPw();
-			String companyNumber = vo.getCompanyNumber();
-			String companyName = vo.getCompanyName();
-			
-			driverLoad();
-			DBConnect();
-			
-			String sql = "";
-			sql += "update company set ";
-			sql += "pw = '"+pw+"', companyName = '"+companyName+"', update_date = now() ";
-			sql += "where companyNumber = '"+companyNumber+"'";
-			executeUpdate(sql);
+			companyVO vo = new companyVO();
+			vo.setCompanyNumber(companyNumber);
+			vo.setPw(pw);
+			vo.setCompanyType(companyType);
+		
 			DBDisConnect();
+			return vo;
+		}else {
+			DBDisConnect();
+			return null;
 		}
+	}
+		
+	//3. 기업회원정보 수정
+	//update user set pw = '?', nick = '?' where id = '?';
+	public void modify(companyVO vo) {
+		String pw = vo.getPw();
+		String companyNumber = vo.getCompanyNumber();
+		String companyName = vo.getCompanyName();
+		
+		driverLoad();
+		DBConnect();
+		
+		String sql = "";
+		sql += "update company set ";
+		sql += "pw = '"+pw+"', company_name = '"+companyName+"', update_date = now() ";
+		sql += "where company_number = '"+companyNumber+"'";
+		executeUpdate(sql);
+		DBDisConnect();
+	}
 	
 
 
@@ -93,7 +83,7 @@ public class companyDAO extends DBManager{
 		
 		String sql = "";
 		sql += "update company set delete_date = now(), ";
-		sql += "company_type = 1 where companyNumber = '"+companyNumber+"'";
+		sql += "company_type = 1 where company_number = '"+companyNumber+"'";
 		executeUpdate(sql);
 		
 		DBDisConnect();
@@ -106,7 +96,7 @@ public class companyDAO extends DBManager{
 		DBConnect();
 		
 		String sql = "";
-		sql += "select count(*) as cnt from company where companyNumber = '"+companyNumber+"'";
+		sql += "select count(*) as cnt from company where company_number = '"+companyNumber+"'";
 		executeQuery(sql);
 		
 		if(next()) {
@@ -168,7 +158,7 @@ public class companyDAO extends DBManager{
 		}
 	}
 	
-	//대표번호 중복체크
+	//담당자전화번호 중복체크
 	public int numberCheck(String number) {
 		driverLoad();
 		DBConnect();

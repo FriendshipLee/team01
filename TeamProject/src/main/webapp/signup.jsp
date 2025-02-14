@@ -28,13 +28,13 @@
 	                <input type="text" id="userNick" name="userNick" placeholder="닉네임">
 	                <div id="userNick-feedback" class="feedback">닉네임 입력은 필수입니다.</div>
 	  				<div class="flex">
-		                <input type="text" id="userBirth" name="userBirth" placeholder="생년월일">
+		                <input type="text" id="userBirth" name="userBirth" placeholder="생년월일 6자리" maxlength="6">
 		                <div>
 			                <input type="radio" name="gender" value="남자" checked>남자
 			                <input type="radio" name="gender" value="여자">여자
 		                </div>
 	  				</div>
-	                <div id="userBirth-feedback" class="feedback">생년월일 입력은 필수입니다.</div>
+	                <div id="userBirth-feedback" class="feedback">생년월일 6자리를 입력해주세요.</div>
 	                <input type="text" id="userNumber" name="userNumber" placeholder="휴대폰번호">
 	                <div id="userNumber-feedback" class="feedback">휴대폰번호 입력은 필수입니다.</div>
 	                <input type="text" id="userEmail" name="userEmail" placeholder="이메일">
@@ -58,14 +58,14 @@
 	                <div id="ceoName-feedback" class="feedback">대표자명 입력은 필수입니다.</div>
 	                <input type="text" id="companyName" name="companyName" placeholder="기업명">
 	                <div id="companyName-feedback" class="feedback">기업명 입력은 필수입니다.</div>
-	                <input type="text" id="number" name="number" placeholder="대표번호">
-	                <div id="number-feedback" class="feedback">대표번호 입력은 필수입니다.</div>
+	                <input type="text" id="number" name="number" placeholder="담당자전화번호">
+	                <div id="number-feedback" class="feedback">담당자 전화번호 입력은 필수입니다.</div>
 	            </div>
 		        <div class="actions">
 		            <span>이미 아이디가 있으신가요? -&gt;</span>
 		            <span onclick="location.href='login.jsp'" style="cursor:pointer;">로그인하기</span>
 		        </div>
-		        <button class="btn" onclick="goHome()">회원가입</button>
+		        <button class="btn" onclick="">회원가입</button>
 	        </div>
     	</form>
     </div>
@@ -181,7 +181,7 @@
        	$("#userEmail").keyup(function(e){
 			let email = e.target.value;
 			let emailFeedback = $("#userEmail-feedback");
-			emailFeedback.css("display", "block").text("이메일은 영어 대소문자와 숫자 3~8자리만 사용 가능합니다.").removeClass("success");
+			emailFeedback.css("display", "block").text("@와 .을 포함한 이메일을 입력해주세요.").removeClass("success");
 			emailCheckFlag = false;
 			
 			if(!emailRegex.test(email)) {
@@ -295,6 +295,15 @@
 			}else {
 				birthFeedback.css("display", "none");
 			}
+			if(!birthRegex.test(birth)) {
+				return;
+			}
+			if(!birthRegex.test(birth.val())){
+				birth.focus();
+				birth.val();
+				birthFeedback.css("display", "block").text("생년월일 6자리를 입력해주세요.").removeClass("success");
+				return false;
+			}
 			
 			let num = $("#userNumber");
 			let numFeedback = $("#userNumber-feedback");
@@ -310,14 +319,14 @@
 			if(!numRegex.test(num.val())){
 				num.focus();
 				num.val();
-				numFeedback.css("display", "block").text("이메일은 영어 대소문자와 숫자 4~12자리만 사용 가능합니다.").removeClass("success");
+				numFeedback.css("display", "block").text("전화번호는 -를 포함하여 작성하여주세요.").removeClass("success");
 				return false;
 			}
 			
 			if(numCheckFlag==false){
 				num.focus();
 				num.val();
-				numFeedback.css("display", "block").text("이메일 중복 확인이 필요합니다.").removeClass("success");
+				numFeedback.css("display", "block").text("전화번호 중복 확인이 필요합니다.").removeClass("success");
 				return false;
 			}
 		
@@ -335,7 +344,7 @@
 			if(!emailRegex.test(email.val())){
 				email.focus();
 				email.val();
-				emailFeedback.css("display", "block").text("이메일은 영어 대소문자와 숫자 4~12자리만 사용 가능합니다.").removeClass("success");
+				emailFeedback.css("display", "block").text("@와 .을 포함한 이메일을 입력해주세요.").removeClass("success");
 				return false;
 			}
 			
@@ -383,10 +392,10 @@
 				success : function(result){
 					if(result.trim()=="0"){
 						companyNumberCheckFlag = true;
-						companyNumberFeedback.css("display", "block").addClass("success").text("사용 가능한 사업자번호입니다.");
+						companyNumberFeedback.css("display", "block").addClass("success").text("사용 가능한 전화번호입니다.");
 					}else{
 						companyNumberCheckFlag = false;
-						companyNumberFeedback.css("display", "block").removeClass("success").text("사용 불가능한 사업자번호입니다.");
+						companyNumberFeedback.css("display", "block").removeClass("success").text("사용 불가능한 전화번호입니다.");
 					}
 				},
 				error : function(){
@@ -395,31 +404,29 @@
 			});
        	});
        	
-        /* let numberRegex = /([0-9]{3})-?([0-9]{2})-?([0-9]{5})/; */
-       	let numberCheckFlag = false;
        	$("#number").keyup(function(e){
-			let number = e.target.value;
-			let numberFeedback = $("#number-feedback");
-			numberFeedback.css("display", "block").text("-를 포함한 10자리 번호를 입력해주세요.").removeClass("success");
-			numberCheckFlag = false;
+			let num = e.target.value;
+			let numFeedback = $("#number-feedback");
+			numFeedback.css("display", "block").text("전화번호는 -를 포함하여 작성하여주세요.").removeClass("success");
+			numCheckFlag = false;
 			
-			/* if(!numberRegex.test(number)) {
+			if(!numRegex.test(num)) {
 				return;
-			} */
+			}
 			
 			$.ajax({
 				url : "numberCheck.jsp",
 				type : "post",
 				data : {
-					number : number
+					num : num
 				},
 				success : function(result){
 					if(result.trim()=="0"){
-						numberCheckFlag = true;
-						numberFeedback.css("display", "block").addClass("success").text("사용 가능한 사업자번호입니다.");
+						numCheckFlag = true;
+						numFeedback.css("display", "block").addClass("success").text("사용 가능한 전화번호입니다.");
 					}else{
-						numberCheckFlag = false;
-						numberFeedback.css("display", "block").removeClass("success").text("사용 불가능한 사업자번호입니다.");
+						numCheckFlag = false;
+						numFeedback.css("display", "block").removeClass("success").text("사용 불가능한 전화번호입니다.");
 					}
 				},
 				error : function(){
@@ -489,15 +496,29 @@
 				companyNameFeedback.css("display", "none");
 			}
 			
-			let number = $("#number");
-			let numberFeedback = $("#number-feedback");
-			if(number.val().trim()==""){
-				number.focus();
-				number.val("");
-				numberFeedback.css("display", "block").removeClass("success");	
+			let num = $("#number");
+			let numFeedback = $("#number-feedback");
+			if(num.val().trim()==""){
+				num.focus();
+				num.val("");
+				numFeedback.css("display", "block");				
 				return false;
 			}else {
-				numberFeedback.css("display", "none");
+				numFeedback.css("display", "none");
+			}
+		
+			if(!numRegex.test(num.val())){
+				num.focus();
+				num.val();
+				numFeedback.css("display", "block").text("전화번호는 -를 포함하여 작성하여주세요.").removeClass("success");
+				return false;
+			}
+			
+			if(numCheckFlag==false){
+				num.focus();
+				num.val();
+				numFeedback.css("display", "block").text("전화번호 중복 확인이 필요합니다.").removeClass("success");
+				return false;
 			}
 			
 		}

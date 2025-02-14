@@ -5,11 +5,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <%
-//로그인 안했거나, 관리자 아니면 튕겨내기(다른 페이지로 강제 이동)
-/* 	if(user == null || user.getUserType() != 0){
-		response.sendRedirect("login.jsp");
-		return;
-	} */
 
 	String pageNum = request.getParameter("page");
 	if(pageNum == null){

@@ -8,15 +8,20 @@
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <%
+	if(user.getUserType() != 0){
+		response.sendRedirect("login.jsp");
+		return;
+	} 
+
 	String no = request.getParameter("no");
-	 if(no == null){
+	 if(no == null || user == null){
 		response.sendRedirect("main.jsp");
 		return;
 	} 
-	 if(user == null){
+	/* if(user == null){
 		response.sendRedirect("main.jsp");
 		return;
-		}
+		} */
 	
 	boardDAO dao = new boardDAO();
 	boardVO vo = dao.view(no);
@@ -110,11 +115,12 @@
 			</div>
 			<% } %>
 		</div>
-        <div class="comment-box">
- 		<%
- 			if(user != null){
+		<%
+			//if(user != null && ((user.getId().equals(author) || vo.getBoardType() == 0)){
+ 			if(user != null && vo.getBoardType() != 0){
  		%>	
-            <input type="text" id="new-comment" class="comment-input" placeholder="댓글을 입력하세요.">
+        <div class="comment-box">
+ 			<input type="text" id="new-comment" class="comment-input" placeholder="댓글을 입력하세요.">
             <input type="button" id="add-comment" value="댓글 작성">
         <% } %>
 	       <%
@@ -147,7 +153,7 @@
             </div>
           <% } %>
        	</div>
-       	<input type="button" class="button" onclick="location.href='board.jsp?no=<%=no %>&<%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchkeyword=" + keyword : ""%>boardType=<%=boardType %>'" value="뒤로가기">
+       	<input type="button" class="button" onclick="location.href='board.jsp?no=<%=no %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchkeyword=" + keyword : ""%>&boardType=<%=boardType %>'" value="뒤로가기">
    	</div>
 </body>
 

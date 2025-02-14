@@ -70,7 +70,7 @@ public class boardDAO extends DBManager{
 		driverLoad();
 		DBConnect();
 		
-		String sql = "select * from board where board_type != 99 and board_type = "+boardType+" order by no desc ";
+		String sql = "select * from board where board_type != 99 and board_type = "+boardType+" ";
 		executeQuery(sql);
 		
 		while(next()) {
@@ -92,7 +92,7 @@ public class boardDAO extends DBManager{
 	}
 	
 	//글 조회(여러건)
-	public List<boardVO> listView(String searchType, String searchKeyword){
+	public List<boardVO> listView(String searchType, String searchKeyword, int startNum, int limitSize){
 		driverLoad();
 		DBConnect();
 		
@@ -100,6 +100,7 @@ public class boardDAO extends DBManager{
 		if(searchType != null && searchKeyword != null) {
 			sql+= " and "+searchType+" like'%"+searchKeyword+"%'";
 		}
+		sql += " limit "+ startNum + ", " + limitSize;
 		executeQuery(sql);
 		
 		List<boardVO> list = new ArrayList<>();
@@ -157,6 +158,7 @@ public class boardDAO extends DBManager{
 		if(searchType != null && keyword != null) {
 			sql += " and " + searchType + " like '%" + keyword + "%'";
 		}
+		
 		executeQuery(sql);
 		
 		if(next()) {

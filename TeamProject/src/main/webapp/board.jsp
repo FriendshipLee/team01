@@ -6,10 +6,10 @@
 <%@ include file="header.jsp" %>
 <%
 //로그인 안했거나, 관리자 아니면 튕겨내기(다른 페이지로 강제 이동)
-	if(user == null || user.getUserType() != 0){
-		response.sendRedirect("board.jsp");
+/* 	if(user == null || user.getUserType() != 0){
+		response.sendRedirect("login.jsp");
 		return;
-	}
+	} */
 
 	String pageNum = request.getParameter("page");
 	if(pageNum == null){
@@ -75,7 +75,7 @@
 		            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
 	        	</label>
 	            <% 
-	            	if(user.getUserType() != 0){
+	            	if(user != null && user.getUserType() != 0){
 	            		%><input type="button" id="write-btn" value="글쓰기"><%
 	            	}
 	            %>

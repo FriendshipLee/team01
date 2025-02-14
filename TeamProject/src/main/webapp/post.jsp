@@ -8,16 +8,19 @@
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <%
+	String no = request.getParameter("no");
+	if(no == null || user == null){
+		response.sendRedirect("main.jsp");
+		return;
+	} 
+
 	if(user.getUserType() != 0){
 		response.sendRedirect("login.jsp");
 		return;
 	} 
 
-	String no = request.getParameter("no");
-	 if(no == null || user == null){
-		response.sendRedirect("main.jsp");
-		return;
-	} 
+	
+	
 	/* if(user == null){
 		response.sendRedirect("main.jsp");
 		return;

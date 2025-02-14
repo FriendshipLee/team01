@@ -79,7 +79,7 @@
 				        <div class="education-action">
 					        <button id="educationBtn">수정</button>
 					        <% if(vo.getSchool() != null && vo.getSchool() != ""){ %>
-					        	<button id="educationDelBtn">1삭제</button>
+					        	<button id="educationDelBtn">삭제</button>
 					        <% } %>
 					        <button id="educationokBtn">저장</button>
 					        <button id="educationCancle">취소</button>
@@ -143,6 +143,7 @@
 	</div>
 </body>
 <script>
+
 	//경력 삭제 함수
 	function deleteBtn(cno, obj){
 		$.ajax({
@@ -245,10 +246,6 @@
 			});
 		});
 		
-		/* let milk = true;
-		if(milk){
-			
-		} */
 		//최종학력 삭제버튼
 		//페이지 로딩 되었을 때 삭제버튼 없으면 클릭 이벤트 X
 		edelBtn.click(function(){
@@ -363,7 +360,7 @@
 						});
 						
 						let html = "";
-						html += "<h3>"+school.val()+"<span>"+gDate.val()+"</span></h3>";
+						html += "<h3>"+school.val()+" <span>"+gDate.val()+" </span></h3>";
 						html += "<p>"+major.val()+"</p>";
 						$(".lschool-post").html(html);
 						

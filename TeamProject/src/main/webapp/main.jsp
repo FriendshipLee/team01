@@ -29,7 +29,7 @@
 		<div>
 			<img alt="채용 고민과 사내 고민을 모두 해결할 수 있는 익명 커뮤니티가 제공되는 구인구직 플랫폼" src="./resources/img/main_text.png">
 			<ul class="nav">
-			  <li><a href="#" onclick="location.href='job.jsp'">채용정보</a> | </li>
+			  <li><a href="#" onclick="location.href='gonggo.jsp'">채용정보</a> | </li>
 			  <li><a href="#" onclick="location.href='board.jsp?boardType=0'">공지게시판</a> | </li>
 			  <li><a href="#" onclick="location.href='board.jsp?boardType=1'">정보공유게시판</a> | </li>
 			  <li><a href="#" onclick="location.href='board.jsp?boardType=2'">익명게시판</a></li>
@@ -61,7 +61,7 @@
 	        </div>
 		</div>
 	</div>
-	<span>Team A. 김다영, 이우정, 김지선</span>
+	<!-- <span>Team A. 김다영, 이우정, 김지선</span> -->
 </body>
 <script type="text/javascript">
     $(document).ready(function () {

@@ -107,6 +107,9 @@ label {
 .hr {
 	border: 1px dashed #000;
 }
+.hr:last-child() {
+	border: none;
+}
 .attachment-item {
     background: #aaa;
     padding: 20px;

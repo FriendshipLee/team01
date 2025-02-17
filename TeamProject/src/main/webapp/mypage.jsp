@@ -172,19 +172,43 @@
 		       		</div>
 		        <div>
 			        <h3>자기소개서</h3>
+			        <div class="selfinfo">
+						<button id="selfinfo-modify">수정</button>
+<!-- 						<button id="selfinfo-ok">저장</button>
+						<button id="selfinfo-cancel">취소</button> -->
+			        </div>
 			        <hr>
-			        <div class="attachment-item">
-						<a download="<%= originName %>" href="" class="attachment-name">자기소개서.hwp</a>
-						<% if(!data.equals("OB")) { %>
-						<span class="attachment-size">(<%= data %>)</span>
-						<% } %>
-					</div>
+			        <% if(originName != null && !uploadName.equals("null")) { %>
+				        <div class="attachment-item">
+							<a download="<%= originName %>" href="<%= uploadName %>" class="attachment-name"><%= originName %></a>
+							<span class="attachment-size">(<%= data %>)</span>
+						</div>
+					<% } %>
+					<form id="uploadForm">
+						<label for="file">첨부파일</label>
+	           			<input type="file" id="file" name="file">
+					</form>
 				</div>
 			</div>
 		</div>
 </body>
 <script>
-
+	/* let selfinfo-modify = $("#selfinfo-modify");
+	let selfinfo-ok = $("#selfinfo-ok");
+	let setfinfo-cancel = $("#selfinfo-cancel");
+	
+	selfinfo-ok.hide();
+	selfinfo-cancel.hide();
+	
+	//첨부파일 수정버튼
+	selfinfo-modify.click(function(){
+		$.ajax({
+			url : "mypageFileOk.jsp",
+			type : "post",
+			data : 
+		});
+	}); */
+	
 	//경력 삭제 함수
 	function deleteBtn(cno, obj){
 		$.ajax({
@@ -261,8 +285,9 @@
 			}
 			if($("#workStartDate").val().trim() == "" || $("#workEndDate").val().trim() == ""){
 				alert("입사/퇴사 날짜를 입력해주세요.");
+				return;
 			}
-			if($("#work").trim() == ""){
+			if($("#work").val().trim() == ""){
 				alert("담당업무를 입력해주세요.");
 				return;
 			}

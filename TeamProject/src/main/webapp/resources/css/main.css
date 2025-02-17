@@ -1,7 +1,11 @@
 @charset "UTF-8";
+*{
+	box-sizing: border-box;
+	font-family: "pretendard", sans-serif;
+	font-style: normal;
+}
 body {
 	margin: 0;
-	box-sizing: border-box;
 	background: url("../img/bg.jpg") no-repeat center top fixed;
 }
 ul {
@@ -11,7 +15,7 @@ ul {
 }
 li {
 	display: inline-block;
-	font-size: 1.5rem;
+	font-size: 1.7rem;
 }
 a {
 	text-decoration: none;

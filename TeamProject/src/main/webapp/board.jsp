@@ -37,7 +37,8 @@
 		keyword = "";
 	}
 	if(boardType == null){
-		 boardType = "0"; 
+		response.sendRedirect("board.jsp?boardType=0");
+		return;
 	}   
 	
 

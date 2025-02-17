@@ -5,6 +5,7 @@
 <%@ include file="header.jsp" %>
 <%
 	String no = request.getParameter("no");
+	String boardType = request.getParameter("boardType");
 
 	if(no == null || no.isEmpty()){
 		response.sendRedirect("board.jsp");
@@ -30,6 +31,7 @@
     <div class="container">
     <form action="modifyOk.jsp" method="post" enctype="multipart/form-data">
 	    <input type="hidden" name="no" value="<%= no %>">
+	    <input type="hidden" name="boardType" value="<%= boardType %>">
 	    	<div>
 	    		<h3>제목</h3>
 	    		<input type="text" id="title" name="title" placeholder="제목을 입력하세요" value="<%= title %>">

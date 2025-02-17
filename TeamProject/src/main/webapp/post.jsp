@@ -66,6 +66,10 @@
 	if(keyword == null){
 		keyword = "";
 	}
+	
+	if(boardType == null){
+		boardType="0";
+	}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -95,21 +99,26 @@
             </div>
             <hr>
             <p><%= content %></p>
+            <br>
            	<%
-        	if(uploadName != null && !uploadName.equals("null")){
+        	if(uploadName == null || !uploadName.equals("null")){
         	%>
+           	<div class="attachments">
+           	<h3>첨부파일</h3>
            	<div class="attachment-item">
-				<a href="#" class="attachment-name">이미지2.png</a>
-				<span class="attachment-size">(1.1 MB)</span>
+				<a download="<%= originName %>" href="/JspBoard/upload/<%= uploadName %>" class="attachment-name"><%= originName %></a>
+				<span class="attachment-size">(<%= data %>)</span>
+			</div>
 			</div>
 			<% } %>
+			
 			<%
         	//로그인을 하였고, 로그인한 사용자의 아이디(user.getId())와 
         	//게시글을 작성한 작성자 아이디(author)가 같으면 수정 삭제 버튼 표출
         	if(user != null && (user.getId().equals(author) || user.getUserType() == 0)){
         	%>
 			<div class="modify">
-				<input type="button" onclick="location.href='modify.jsp?no=<%=no %>'" value="수정">
+				<input type="button" onclick="location.href='modify.jsp?no=<%=no %>&boardType=<%=boardType %>'" value="수정">
 				<input type="button" onclick="location.href='postDel.jsp?no=<%=no %>&boardType=<%=boardType %>'" value="삭제">
 			</div>
 			<% } %>

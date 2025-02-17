@@ -38,13 +38,21 @@
 	String title = multi.getParameter("title");
 	String content = multi.getParameter("content");
 	String boardType = multi.getParameter("boardType");
-	if(boardType == null){
-		boardType = "0";
-	}
-	if(boardType.isEmpty()){
-		response.sendRedirect("board.jsp");
+	if(title == null || content == null){
+		response.sendRedirect("write.jsp");
 		return;
 	}
+	
+	if(title.isEmpty() || content.isEmpty()){
+		response.sendRedirect("write.jsp");
+		return;
+	}
+	
+	if(boardType == null || boardType.isEmpty()){
+		boardType = "0";
+		return;
+	}
+
 	
 	boardVO vo = new boardVO();
 	boardDAO dao = new boardDAO();

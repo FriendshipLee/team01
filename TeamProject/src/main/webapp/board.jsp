@@ -37,7 +37,7 @@
 		keyword = "";
 	}
 	if(boardType == null){
-		 boardType = "1"; 
+		 boardType = "0"; 
 	}   
 	
 

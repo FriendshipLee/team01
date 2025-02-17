@@ -13,6 +13,7 @@
 <%@ include file="header.jsp" %>
 <%
 	request.setCharacterEncoding("utf-8");
+	//String boardType = request.getParameter("boardType");
 
 	String savePath = application.getRealPath("/upload");
 	
@@ -34,6 +35,7 @@
 	String no = multi.getParameter("no");
 	String title = multi.getParameter("title");
 	String content = multi.getParameter("content");
+	String boardType = multi.getParameter("boardType");
 	
 	if(no == null || title == null || content == null){
 		response.sendRedirect("board.jsp");
@@ -41,6 +43,10 @@
 	}
 	if(no.isEmpty() || title.isEmpty() || content.isEmpty()){
 		response.sendRedirect("board.jsp");
+		return;
+	}
+	if(boardType == null || boardType.isEmpty()){
+		boardType = "0";
 		return;
 	}
 	
@@ -76,5 +82,5 @@
 	
 	dao.modify(vo);
 	
-	response.sendRedirect("post.jsp?no="+no);
+	response.sendRedirect("post.jsp?no="+no+"&boardType="+boardType);
 %>

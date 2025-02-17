@@ -13,21 +13,18 @@
 	int currentPage = Integer.parseInt(pageNum);
 	int startNum = (currentPage-1) * 10;
 	int limitperPage = 10;
-
-	String boardType = request.getParameter("boardType");
-	if(boardType == null){
-		boardType = "0";
-	}  
+	
 	
 	String searchType = request.getParameter("searchType");
 	String keyword = request.getParameter("searchKeyword");
+	String boardType = request.getParameter("boardType");
 	
 	boardDAO dao = new boardDAO();
 	List<boardVO> listAll = dao.boardList(boardType);
 	List<boardVO> list = dao.listView(searchType, keyword, startNum, limitperPage, boardType);
 	
 	
-	int totalCount = dao.getCount(searchType, keyword);
+	int totalCount = dao.getCount(searchType, keyword, boardType);
 	int pageGroupSize = 10;
 	int startPage = ((currentPage - 1) / pageGroupSize) * pageGroupSize + 1;
 	int totalPage = (int)Math.ceil(totalCount / (double)limitperPage);
@@ -39,6 +36,10 @@
 	if(keyword == null){
 		keyword = "";
 	}
+	if(boardType == null){
+		 boardType = "1"; 
+	}   
+	
 
 %>
 <!DOCTYPE html>
@@ -68,9 +69,11 @@
 	        	
 	        	</select>
 	        	<label class="search">
-		            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
-	        	</label>
-	            <% 
+		            <input value= "<%= keyword %>"  type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
+		            <button type="submit"><img alt="" src="./resources/img/search.png"></button>
+		        </label>
+		        
+		      <% 
 	            	//로그인 했고, 로그인했는데 userType이 0이고, boardType이 0이고
 	            	//공지게시판(boardType == 0)이면 관리자(userType ==0)한테만 글쓰기버튼
 	            	//로그인 했을 때
@@ -88,12 +91,12 @@
 	            	}
 	            %>
 	        </div>
-        </form>
-		<div class="list">
+	        </form>
+	     <div class="list">
 			<% for(int i = 0; i < list.size(); i++){ 
 				boardVO vo = list.get(i);
 			%>
-				<div class="content" onclick="location.href='post.jsp?no=<%=vo.getNo()%>'">
+				<div class="content" onclick="location.href='post.jsp?no=<%=vo.getNo()%>&boardType=<%= boardType %>'">
 					<div>
 						<h4><%=vo.getTitle() %></h4>
 						<%

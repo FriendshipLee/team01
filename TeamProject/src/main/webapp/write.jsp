@@ -60,7 +60,7 @@
             </div>
             <div class="action">
                 <button type="submit">등록</button>
-                <button type="button" onclick="location.href='board.jsp'">취소</button>
+                <button type="button" onclick="location.href='board.jsp?boardType<%=boardType%>'">취소</button>
             </div>
 		</form>
     </div>

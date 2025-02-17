@@ -43,11 +43,11 @@
             <%
             if(error != null && userType.equals("1")){
             		%>
-            			<div id="userPw-feedback" class="feedback" style="display:block">비밀번호가 일치하지 않습니다.</div>
+            			<div id="userPw-feedback" class="feedback" style="display:block">아이디 또는 비밀번호가 일치하지 않습니다.</div>
             		<%
             	}else{
             		%>
-        				<div id="userPw-feedback" class="feedback">비밀번호가 일치하지 않습니다.</div>
+        				<div id="userPw-feedback" class="feedback">아이디 또는 비밀번호가 일치하지 않습니다.</div>
         			<%
             	}
             %>
@@ -62,11 +62,11 @@
             <%
             	if(error != null && userType.equals("2")){
             	%>
-            		<div id="Bpw-feedback" class="feedback" style="display:block">비밀번호가 일치하지 않습니다.</div>
+            		<div id="Bpw-feedback" class="feedback" style="display:block">사업자번호 또는 비밀번호가 일치하지 않습니다.</div>
             	<%
             }else{
             	%>
-            		<div id="Bpw-feedback" class="feedback">비밀번호가 일치하지 않습니다.</div>
+            		<div id="Bpw-feedback" class="feedback">사업자번호 또는 비밀번호가 일치하지 않습니다.</div>
             	<%
             	}
             	%>

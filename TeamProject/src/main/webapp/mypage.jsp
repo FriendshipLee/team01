@@ -1,3 +1,5 @@
+<%@page import="resume_file.resumeFileVO"%>
+<%@page import="resume_file.resumeFileDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="career.careerDAO"%>
@@ -15,8 +17,6 @@
 
 	String id = user.getId();
 	
-	
-	
  	resumeVO vo = new resumeVO();
 	resumeDAO dao = new resumeDAO();
 	vo = dao.select(id);
@@ -27,6 +27,33 @@
 	careerDAO cao = new careerDAO();
 	List<careerVO> list = new ArrayList<>();
 	list = cao.select(no);
+	
+	resumeFileDAO fdao = new resumeFileDAO();
+	resumeFileVO fvo = new resumeFileVO();
+	String originName = fvo.getAttachOriginName();
+	String uploadName = fvo.getAttachUploadName();
+	String location = fvo.getAttachLocation();
+	long fileSize = fvo.getFileSize();
+	
+	List<resumeFileVO> flist = fdao.list(no);
+	
+	String data = "";
+	if(fileSize < 1024){
+		data = fileSize + "B";
+	}else if(fileSize < 1024 * 1024){
+		double kb = fileSize / (double)1024;
+		kb = Math.round(kb * 100) / 100.0;
+		data = kb + "kb";
+	}else if(fileSize < 1024 * 1024 * 1024){
+		double mb = fileSize / (double)(1024 * 1024);
+		mb = Math.round(mb * 100) / 100.0;
+		data = mb + "mb";
+	}else if(fileSize < 1024 * 1024 * 1024 * 1024){
+		double gb = fileSize / (double)(1024 * 1024 * 1024);
+		gb = Math.round(gb * 100) / 100.0;
+		data = gb + "gb";
+	}
+	
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -147,8 +174,10 @@
 			        <h3>자기소개서</h3>
 			        <hr>
 			        <div class="attachment-item">
-						<a download="./TeamProject/" class="attachment-name">자기소개서.hwp</a>
-						<span class="attachment-size">(1.1 MB)</span>
+						<a download="<%= originName %>" href="" class="attachment-name">자기소개서.hwp</a>
+						<% if(!data.equals("OB")) { %>
+						<span class="attachment-size">(<%= data %>)</span>
+						<% } %>
 					</div>
 				</div>
 			</div>

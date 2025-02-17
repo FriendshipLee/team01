@@ -4,11 +4,12 @@
     pageEncoding="UTF-8"%>
 <%
 	String school = request.getParameter("school");
+	String eDate = request.getParameter("eDate");
 	String gDate = request.getParameter("gDate");
 	String major = request.getParameter("major");
 	String id = request.getParameter("id");
 	
-	if(school == null || school == "" || gDate == null || gDate == "" || major == null || major == ""){
+	if(school == null || school == "" || gDate == null || gDate == "" || major == null || major == "" || eDate == null || eDate == ""){
 		out.print("fail");
 		return;
 	}
@@ -20,6 +21,7 @@
 	vo.setGraduation_date(gDate);
 	vo.setMajor(major);
 	vo.setId(id);
+	vo.setEnter_date(eDate);
 	
 	int result = dao.addEducation(vo);
 	

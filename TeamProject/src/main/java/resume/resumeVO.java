@@ -7,7 +7,14 @@ public class resumeVO {
 	private String school;
 	private String major;
 	private String graduation_date;
+	private String enter_date;
 	
+	public String getEnter_date() {
+		return enter_date;
+	}
+	public void setEnter_date(String enter_date) {
+		this.enter_date = enter_date;
+	}
 	public String getNo() {
 		return no;
 	}

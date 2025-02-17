@@ -89,6 +89,9 @@ input[type="button"] {
 .lschool {
 	display: none;
 }
+label {
+	font-size: 12px;
+}
 .lschool-post {
 	display: inline;
 }

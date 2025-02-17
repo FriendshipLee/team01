@@ -23,13 +23,16 @@ public class careerDAO extends DBManager {
 		
 		while(next()) {
 			String company = getString("company");
-			String careerDate = getString("career_date");
+			String careerStartDate = getString("career_start_date");
+			String careerEndDate = getString("career_end_date");
 			String work = getString("work");
+			String cno = getString("cno");
 			
 			careerVO vo = new careerVO();
-			vo.setCno(getString("cno"));
+			vo.setCno(cno);
 			vo.setCompany(company);
-			vo.setCareer_date(careerDate);
+			vo.setCareer_start_date(careerStartDate);
+			vo.setCareer_end_date(careerEndDate);
 			vo.setWork(work);
 			list.add(vo);
 		}
@@ -53,14 +56,15 @@ public class careerDAO extends DBManager {
 		String cno = vo.getCno();
 		String no = vo.getNo();
 		String company = vo.getCompany();
-		String careerDate = vo.getCareer_date();
+		String careerStartDate = vo.getCareer_start_date();
+		String careerEndDate = vo.getCareer_end_date();
 		String work = vo.getWork();
 		
 		driverLoad();
 		DBConnect();
 		
 		String sql = "";
-		sql += "update career set company = '"+company+"', career_date = '"+careerDate+"', work = '"+work+"', ";
+		sql += "update career set company = '"+company+"', career_start_date = '"+careerStartDate+"', work = '"+work+"', career_end_date = '"+careerEndDate+"' ";
 		sql += "update_date = now() ";
 		sql += "where cno = "+cno+" and no = "+no+"";
 		executeUpdate(sql);
@@ -72,15 +76,16 @@ public class careerDAO extends DBManager {
 	public int write(careerVO vo) {
 		String no = vo.getNo();
 		String company = vo.getCompany();
-		String careerDate = vo.getCareer_date();
+		String careerStartDate = vo.getCareer_start_date();
 		String work = vo.getWork();
+		String careerEndDate = vo.getCareer_end_date();
 		
 		driverLoad();
 		DBConnect();
 		
 		String sql = "";
-		sql += "insert into career(no, company, career_date, work)";
-		sql += "values('"+no+"', '"+company+"', '"+careerDate+"', '"+work+"')";
+		sql += "insert into career(no, company, career_start_date, work, career_end_date)";
+		sql += "values('"+no+"', '"+company+"', '"+careerStartDate+"', '"+work+"', '"+careerEndDate+"')";
 		executeUpdate(sql);
 		
 		sql = "select last_insert_id() as cno";

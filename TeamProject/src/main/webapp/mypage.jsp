@@ -87,12 +87,18 @@
 			        </div>
 			        <hr>
 			        <div class="lschool">
-				        <h3><input id="school" type="text" placeholder="최종 졸업학교"><span><input id="graduationDate" type="text" placeholder="입학 및 졸업 일자"></span></h3>
+				        <h3>
+					        <input id="school" type="text" placeholder="최종 졸업학교">
+					        <span>
+					        	<!-- <input id="graduationDate" type="text" placeholder="입학 및 졸업 일자"> -->
+					        	<label>입학 일자 : <input id="enterDate" type="month" max="2040-12" min="1920-12" value="2025-03"></label>
+					        	<label>졸업 일자 : <input id="graduationDate" type="month" max="2040-12" min="1920-12" value="2025-02"></label>
+					        </span>
+				        </h3>
 				        <p><input id="major" type="text" placeholder="전공"></p>
-			        </div>
-			        <div class="lschool-post">
-			        	<% if(vo.getSchool() != null && vo.getGraduation_date() != null && vo.getMajor() != null){ %>
-				        <h3> <%= vo.getSchool() %><span> <%= vo.getGraduation_date() %> </span></h3>
+			        </div>   
+			        	<% if(vo.getSchool() != null && vo.getEnter_date() != null && vo.getGraduation_date() != null && vo.getMajor() != null){ %>
+				        <h3> <%= vo.getSchool() %><span> <%= vo.getEnter_date() %> ~ <%= vo.getGraduation_date() %> </span></h3>
 				        <p><%= vo.getMajor() %></p>
 				        <% } %>
 			        </div>
@@ -108,8 +114,15 @@
 			        </div>
 			        <hr>
 			        <div class="career-post">
-				        <h3><input id="company-name" type="text" placeholder="기업명"><span><input id="workDate" type="text" placeholder="근무 기간"></span></h3>
-					        <p><input id="work" type="text" placeholder="담당업무"></p>
+				        <h3>
+				        	<input id="company-name" type="text" placeholder="기업명">
+				        	<span>
+				        		<!-- <input id="workDate" type="text" placeholder="근무 기간"> -->
+				        		<label>입사년월 : <input id="workStartDate" type="month" max="2040-12" min="1920-12" value="2025-03"></label>
+				        		<label>퇴사년월 : <input id="workEndDate" type="month" max="2040-12" min="1920-12" value="2025-03"></label>
+				        	</span>
+				        </h3>
+					    <p><input id="work" type="text" placeholder="담당업무"></p>
 		        	</div>
 		        	<div class="mycareer-container">
 		        		<% 
@@ -119,8 +132,8 @@
 		        			<div>
 					        	<div class="mycareer">
 					        		<div>
-								        <% if(cvo.getCompany() != null || cvo.getCareer_date() != null || cvo.getWork() != null) { %>
-									        <h3> <%= cvo.getCompany() %><span> <%= cvo.getCareer_date() %> </span></h3>
+								        <% if(cvo.getCompany() != null || cvo.getCareer_start_date() != null || cvo.getWork() != null) { %>
+									        <h3> <%= cvo.getCompany() %> <span> <%= cvo.getCareer_start_date() %> ~ <%= cvo.getCareer_end_date() %></span></h3>
 										    <p><%= cvo.getWork() %></p>
 								    </div>
 								    <button onclick="deleteBtn(<%= cvo.getCno() %>, this)" id="caDelBtn">삭제</button>
@@ -140,7 +153,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </body>
 <script>
 
@@ -177,6 +189,7 @@
 		//페이지 로딩되었을 때 삭제버튼 없으면 객체 못찾음
 		
 		let school = $("#school");
+		let eDate = $("#enterDate");
 		let gDate = $("#graduationDate");
 		let major = $("#major");
 		let userId = "<%= user.getId() %>";
@@ -209,40 +222,56 @@
 			caokBtn.show();
 			caCelBtn.show();
 			caAddBtn.hide();
-			caokBtn.click(function(){
-				$.ajax({
-					url : "mypage_caAdd.jsp",
-					type : "post",
-					data : {
-						company : $("#company-name").val(),
-						cdate : $("#workDate").val(),
-						work : $("#work").val(),
-						id : userId
-					},
-					success : function(result){
-						if(result.trim() != "0"){
-							let html = "";
-							html += "<div>";
-							html += 	"<div class='mycareer'>";
-							html +=			"<div>";
-							html +=				"<h3>"+$("#company-name").val()+"<span>"+$("#workDate").val()+"</span></h3>";
-							html +=				"<p>"+$("#work").val()+"</p>";
-							html +=			"</div>";
-							html +=			"<button onclick='deleteBtn("+result.trim()+", this)' id='caDelBtn'>삭제</button>";
-							html +=		"</div>";
-							html +=		"<hr class='hr'>";
-							html += "</div>";
-							$(".mycareer-container").prepend(html);
-							caokBtn.hide();
-							caCelBtn.hide();
-							caAddBtn.show();
-							$(".career-post").css("display", "none");
-						}
-					},
-					error : function(){
-						console.log("에러 발생");
+		});
+		
+		//커리어 저장버튼
+		caokBtn.click(function(){
+			if($("#company-name").val().trim() == ""){
+				alert("기업명을 입력해주세요.");
+				return;
+			}
+			if($("#workStartDate").val().trim() == "" || $("#workEndDate").val().trim() == ""){
+				alert("입사/퇴사 날짜를 입력해주세요.");
+			}
+			if($("#work").trim() == ""){
+				alert("담당업무를 입력해주세요.");
+				return;
+			}
+			
+			$.ajax({
+				url : "mypage_caAdd.jsp",
+				type : "post",
+				data : {
+					company : $("#company-name").val(),
+					cStartDate : $("#workStartDate").val(),
+					cEndDate : $("#workEndDate").val(),
+					work : $("#work").val(),
+					id : userId
+				},
+				success : function(result){
+					if(result.trim() != "0"){
+						let html = "";
+						html += "<div>";
+						html += 	"<div class='mycareer'>";
+						html +=			"<div>";
+						html +=				"<h3>"+$("#company-name").val()+" <span> "+$("#workStartDate").val()+" ~ "+$("#workEndDate").val()+" </span></h3>";
+						html +=				"<p>"+$("#work").val()+"</p>";
+						html +=			"</div>";
+						html +=			"<button onclick='deleteBtn("+result.trim()+", this)' id='caDelBtn'>삭제</button>";
+						html +=		"</div>";
+						html +=		"<hr class='hr'>";
+						html += "</div>";
+						$(".mycareer-container").prepend(html);
+						caokBtn.hide();
+						caCelBtn.hide();
+						caAddBtn.show();
+						$(".career-post").css("display", "none");
+						console.log(result);
 					}
-				});
+				},
+				error : function(){
+					console.log("에러 발생");
+				}
 			});
 		});
 		
@@ -298,6 +327,9 @@
 				alert("졸업학교를 입력해주세요.");
 				return;
 			}
+			if(eDate.val().trim() == ""){
+				alert("입학날짜를 입력해주세요.");
+			}
 			if(gDate.val().trim() == ""){
 				alert("졸업날짜를 입력해주세요.");
 				return;
@@ -312,6 +344,7 @@
 				type : "post",
 				data : {
 					school : school.val(),
+					eDate : eDate.val(),
 					gDate : gDate.val(),
 					major : major.val(),
 					id : userId
@@ -324,6 +357,11 @@
 						eokBtn.hide();
 						ecBtn.hide();
 						eBtn.show();
+						
+						let html = "";
+						html += "<h3>"+school.val()+" <span> "+eDate.val()+" ~ "+gDate.val()+" </span></h3>";
+						html += "<p>"+major.val()+"</p>";
+						$(".lschool-post").html(html);
 						
 						if(edelBtn.length > 0){
 							edelBtn.remove();
@@ -359,10 +397,7 @@
 							});
 						});
 						
-						let html = "";
-						html += "<h3>"+school.val()+" <span>"+gDate.val()+" </span></h3>";
-						html += "<p>"+major.val()+"</p>";
-						$(".lschool-post").html(html);
+						
 						
 					}
 				},

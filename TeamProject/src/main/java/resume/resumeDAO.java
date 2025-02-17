@@ -10,11 +10,12 @@ public class resumeDAO extends DBManager{
 		String school = vo.getSchool();
 		String major = vo.getMajor();
 		String graduation = vo.getGraduation_date();
+		String enter = vo.getEnter_date();
 		
 		driverLoad();
 		DBConnect();
 		
-		String sql = "update resume set school = '"+school+"', major = '"+major+"', graduation_date = '"+graduation+"' where id = '"+id+"'";
+		String sql = "update resume set school = '"+school+"', major = '"+major+"', graduation_date = '"+graduation+"', enter_date = '"+enter+"' where id = '"+id+"'";
 		executeUpdate(sql);
 		
 		sql = "select count(*) as cnt from resume where id = '"+id+"'";
@@ -37,11 +38,12 @@ public class resumeDAO extends DBManager{
 		String major = vo.getMajor();
 		String graduation = vo.getGraduation_date();
 		String eno = vo.getNo();
+		String enter = vo.getEnter_date();
 		
 		driverLoad();
 		DBConnect();
 		
-		String sql = "update resume set school = '"+school+"', major = '"+major+"', graduation = '"+graduation+"' where id = '"+id+"'";
+		String sql = "update resume set school = '"+school+"', major = '"+major+"', graduation_date = '"+graduation+"', enter_date = '"+enter+"' where id = '"+id+"'";
 		executeUpdate(sql);
 		
 		DBDisConnect();
@@ -51,7 +53,7 @@ public class resumeDAO extends DBManager{
 	public void delete(String id) {
 		driverLoad();
 		DBConnect();
-		String sql = "update resume set school = null, major = null, graduation_date = null where id = '"+id+"'";
+		String sql = "update resume set school = null, major = null, graduation_date = null, enter_date = null where id = '"+id+"'";
 		executeUpdate(sql);
 	}
 	
@@ -69,6 +71,7 @@ public class resumeDAO extends DBManager{
 			String school = getString("school");
 			String major = getString("major");
 			String graduation = getString("graduation_date");
+			String enter = getString("enter_date");
 			
 			resumeVO vo = new resumeVO();
 			vo.setNo(eno);
@@ -76,6 +79,7 @@ public class resumeDAO extends DBManager{
 			vo.setSchool(school);
 			vo.setMajor(major);
 			vo.setGraduation_date(graduation);
+			vo.setEnter_date(enter);
 			DBDisConnect();
 			return vo;
 		}else {

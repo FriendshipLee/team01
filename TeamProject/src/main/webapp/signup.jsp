@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="back" onclick="goHome()">&larr;</div>
+        <div class="back" onclick="history.back();">&larr;</div>
         <div class="tabs">
             <div class="tab active" id="personalTab" onclick="showTab('personal')">개인회원</div>
             <div class="tab" id="businessTab" onclick="showTab('business')">기업회원</div>
@@ -70,6 +70,7 @@
     	</form>
     </div>
     <script>
+    
         function showTab(type) {
             document.getElementById('personalForm').style.display = (type === 'personal') ? 'block' : 'none';
             document.getElementById('businessForm').style.display = (type === 'business') ? 'block' : 'none';

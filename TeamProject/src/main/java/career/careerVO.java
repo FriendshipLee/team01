@@ -4,7 +4,8 @@ public class careerVO {
 	private String cno;
 	private String no;
 	private String company;
-	private String career_date;
+	private String career_start_date;
+	private String career_end_date;
 	private String work;
 	
 	public String getCno() {
@@ -16,8 +17,17 @@ public class careerVO {
 	public String getCompany() {
 		return company;
 	}
-	public String getCareer_date() {
-		return career_date;
+	public String getCareer_start_date() {
+		return career_start_date;
+	}
+	public void setCareer_start_date(String career_start_date) {
+		this.career_start_date = career_start_date;
+	}
+	public String getCareer_end_date() {
+		return career_end_date;
+	}
+	public void setCareer_end_date(String career_end_date) {
+		this.career_end_date = career_end_date;
 	}
 	public String getWork() {
 		return work;
@@ -30,9 +40,6 @@ public class careerVO {
 	}
 	public void setCompany(String company) {
 		this.company = company;
-	}
-	public void setCareer_date(String career_date) {
-		this.career_date = career_date;
 	}
 	public void setWork(String work) {
 		this.work = work;

@@ -70,7 +70,7 @@ public class boardDAO extends DBManager{
 		driverLoad();
 		DBConnect();
 		
-		String sql = "select * from board where board_type != 99 and board_type = "+boardType+" ";
+		String sql = "select * from board where board_type != 99 and board_type = "+boardType+" order by no desc";
 		executeQuery(sql);
 		
 		while(next()) {
@@ -111,6 +111,7 @@ public class boardDAO extends DBManager{
 			String author = getString("author");
 			String createDate = getString("create_date");
 			
+			
 			boardVO vo = new boardVO();
 			vo.setNo(no);
 			vo.setTitle(title);
@@ -150,13 +151,13 @@ public class boardDAO extends DBManager{
 	}
 	
 	//6.게시글 갯수 조회
-	public int getCount(String searchType, String keyword) {
+	public int getCount(String searchType, String keyword, String boardType) {
 		driverLoad();
 		DBConnect();
 		
-		String sql = " select count(*) as cnt from board where board_type != 99";
+		String sql = " select count(*) as cnt from board where board_type != 99 and board_type = "+boardType+" ";
 		if(searchType != null && keyword != null) {
-			sql += " and " + searchType + " like '%" + keyword + "%'";
+			sql += " and " + searchType + " like '%" + keyword + "%' ";
 		}
 		
 		executeQuery(sql);

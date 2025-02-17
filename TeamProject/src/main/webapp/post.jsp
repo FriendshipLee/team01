@@ -14,24 +14,12 @@
 		return;
 	} 
 
-	if(user.getUserType() != 0){
-		response.sendRedirect("login.jsp");
-		return;
-	} 
 
-	
-	
-	/* if(user == null){
-		response.sendRedirect("main.jsp");
-		return;
-		} */
-	
 	boardDAO dao = new boardDAO();
 	boardVO vo = dao.view(no);
 	String author = vo.getAuthor(); 
 	String title = vo.getTitle();
 	String content = vo.getContent();
-	int boardType = vo.getBoardType();
 	String createDate = vo.getCreateDate();
 	String updateDate = vo.getUpdateDate();
 	String deleteDate = vo.getDeleteDate();
@@ -69,6 +57,7 @@
 	//뒤로 가기 버튼을 클릭했을 때 board.jsp의 파라미터로 다시 넘겨준다.
 	String searchType = request.getParameter("searchType");
 	String keyword = request.getParameter("searchkeyword");
+	String boardType = request.getParameter("boardType");
 	
 	if(searchType == null){
 		searchType="";
@@ -93,9 +82,16 @@
             <div class="post-top">
             	<div>
             		<h2><%= title %></h2>
-	           		<p>작성자 : <%= boardType != 2 ? author : "익명" %> | <%= createDate %></p>
+	           		<p>작성자 : <%= !boardType.equals("2") ? author : "익명" %> | <%= createDate %></p>
           	  	</div>
-	            <div class="post-type">공지게시판</div>
+	            <div class="post-type">
+	            <%if(boardType.equals("0")){
+					%>공지게시판<%        	
+		        }else if(boardType.equals("1")){
+		        	%>정보공유게시판<%
+		        }else if(boardType.equals("2")){
+		        	%>익명게시판<%
+		        }%></div>
             </div>
             <hr>
             <p><%= content %></p>

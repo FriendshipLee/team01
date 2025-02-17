@@ -6,33 +6,35 @@
     pageEncoding="UTF-8"%>
 <%
 	String companyName = request.getParameter("company");
-	String cdate = request.getParameter("cdate");
+	String cStartDate = request.getParameter("cStartDate");
+	String cEndDate = request.getParameter("cEndDate");
 	String work = request.getParameter("work");
 	String id = request.getParameter("id");
 	
-	if(companyName == null || cdate == null || work == null){
+	if(companyName == null || cStartDate == null || work == null || cEndDate == null){
 		out.print("fail");
 		return;
 	}
 	
 	
-	if(companyName.isEmpty() || cdate.isEmpty() || work.isEmpty()){
+	if(companyName.isEmpty() || cStartDate.isEmpty() || work.isEmpty() || cEndDate.isEmpty()){
 		out.print("fail");
 		return;
 	}
 	
 	resumeDAO dao = new resumeDAO();
-	resumeVO vo = dao.select(id);
-	String no = vo.getNo();
+	resumeVO rvo = dao.select(id);
+	String no = rvo.getNo();
 	
-	careerVO cvo = new careerVO();
+	careerVO vo = new careerVO();
 	careerDAO cao = new careerDAO();
 	
-	cvo.setNo(no);
-	cvo.setCompany(companyName);
-	cvo.setCareer_date(cdate);
-	cvo.setWork(work);
+	vo.setNo(no);
+	vo.setCompany(companyName);
+	vo.setCareer_start_date(cStartDate);
+	vo.setWork(work);
+	vo.setCareer_end_date(cEndDate);
 
-	int result = cao.write(cvo);
+	int result = cao.write(vo);
 	out.print(result);
 %>

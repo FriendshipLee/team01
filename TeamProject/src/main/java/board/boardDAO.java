@@ -70,7 +70,7 @@ public class boardDAO extends DBManager{
 		driverLoad();
 		DBConnect();
 		
-		String sql = "select * from board where board_type != 99 and board_type = "+boardType+" ";
+		String sql = "select * from board where board_type != 99 and board_type = "+boardType+" order by no desc";
 		executeQuery(sql);
 		
 		while(next()) {

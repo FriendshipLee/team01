@@ -85,7 +85,7 @@
             	%>
         </div>
         <div class="actions">
-            <label><input type="checkbox" name="rememberId" value="true" id="saveid"> 아이디 저장</label>
+            <label><input type="checkbox">아이디 저장</label>
             <span onclick="goSignup()" style="cursor:pointer;">회원가입</span>
         </div>
         <button class="btn" type="submit">로그인</button>
@@ -160,21 +160,19 @@
         	}
         }
         
-        /*  $(function){
-        	init();
-        	
-        	function  init(){
-        		const saveid = session.setAttribute("saveid", saveid);
-        		
-        		if(saveid != "" && typeof(saveid) != "unfinded"){
-        			$("#saveid").prop("checked", true);
-        			$("#userid").val(saveid);
-        		}else{
-        			$("#saveid").prop("checked", false);
-        		}
-        	}
-        });
-          */
+    /*   document.addEventListener("DOMContentLoaded", function(){
+    	  var checkbox = document.getElementById(checkBoxId_Y);
+    	  var hiddenInput = document.getElementById(checkBoxId_N);
+    	  
+    	  checkbox.addEventListener("change", function(){
+    		  if(this.checked){
+    			  hiddenInput.value = "Y";
+    		  }else{
+    			  hiddenUnput.value = "N";
+    		  }
+    	  });
+      }); */
+   
         function goHome() {
             window.location.href = 'main.jsp';
         }

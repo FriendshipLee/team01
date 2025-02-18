@@ -19,17 +19,6 @@
 	String keyword = request.getParameter("searchKeyword");
 	String boardType = request.getParameter("boardType");
 	
-	boardDAO dao = new boardDAO();
-	List<boardVO> listAll = dao.boardList(boardType);
-	List<boardVO> list = dao.listView(searchType, keyword, startNum, limitperPage, boardType);
-	
-	
-	int totalCount = dao.getCount(searchType, keyword, boardType);
-	int pageGroupSize = 10;
-	int startPage = ((currentPage - 1) / pageGroupSize) * pageGroupSize + 1;
-	int totalPage = (int)Math.ceil(totalCount / (double)limitperPage);
-	int endPage = Math.min(startPage + pageGroupSize -1, totalPage);
-	
 	if(searchType == null){
 		searchType = "";
 	}
@@ -41,6 +30,18 @@
 		return;
 	}   
 	
+	boardDAO dao = new boardDAO();
+	List<boardVO> listAll = dao.boardList(boardType);
+	List<boardVO> list = dao.listView(searchType, keyword, startNum, limitperPage, boardType);
+	
+	
+	int totalCount = dao.getCount(searchType, keyword, boardType);
+	int pageGroupSize = 10;
+	int startPage = ((currentPage - 1) / pageGroupSize) * pageGroupSize + 1;
+	int totalPage = (int)Math.ceil(totalCount / (double)limitperPage);
+	int endPage = Math.min(startPage + pageGroupSize -1, totalPage);
+	
+	
 
 %>
 <!DOCTYPE html>
@@ -50,6 +51,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+	  (function(d) {
+	    var config = {
+	      kitId: 'amw5wcy',
+	      scriptTimeout: 3000,
+	      async: true
+	    },
+	    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+	  })(document);
+	</script>
     <link rel="stylesheet" href="./resources/css/board.css"></link>
 </head>
 <body>
@@ -61,19 +72,20 @@
         }else if(boardType.equals("2")){
         	%>익명게시판<%
         }%></h2>
-       	<form action="board.jsp" method="get">
-        	<div class="search-box">
-	        	<select name="searchType">
-	        		<option value="title" <%= searchType.equals("title")? "selected" : "" %>>제목</option>
-	        		<option value="content" <%= searchType.equals("content")? "selected" : "" %>>내용</option>
-	        		<option value="author" <%= searchType.equals("author")? "selected" : "" %>>작성자</option>
-	        	
-	        	</select>
-	        	<label class="search">
-		            <input value= "<%= keyword %>"  type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
-		            <button type="submit"><img alt="" src="./resources/img/search.png"></button>
-		        </label>
-		        
+       	<form action="board.jsp?boardType=<%=boardType %>" method="get">
+       		<input type="hidden"  value="<%=boardType%>" name="boardType">
+        	<div class="board-top">
+        		<div class="search-con">
+		        	<select name="searchType">
+		        		<option value="title" <%= searchType.equals("title")? "selected" : "" %>>제목</option>
+		        		<option value="content" <%= searchType.equals("content")? "selected" : "" %>>내용</option>
+		        		<option value="author" <%= searchType.equals("author")? "selected" : "" %>>작성자</option>
+		        	</select>
+		        	<div class="search-box">
+			            <input value= "<%= keyword %>" type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
+						<button type="submit" class="btn-img"></button>
+		        	</div>
+		        </div>
 		      <% 
 	            	//로그인 했고, 로그인했는데 userType이 0이고, boardType이 0이고
 	            	//공지게시판(boardType == 0)이면 관리자(userType ==0)한테만 글쓰기버튼
@@ -97,15 +109,28 @@
 			<% for(int i = 0; i < list.size(); i++){ 
 				boardVO vo = list.get(i);
 			%>
-				<div class="content" onclick="location.href='post.jsp?no=<%=vo.getNo()%>&boardType=<%= boardType %>'">
-					<div>
-						<h4><%=vo.getTitle() %></h4>
-						<%
-							if(!boardType.equals("2")){
-								%><span><%=vo.getAuthor() %></span><%
-							}
-						%>
-						<span><%=vo.getCreateDate() %></span>
+				<div class="content-box" onclick="location.href='post.jsp?no=<%=vo.getNo()%>&boardType=<%= boardType %>'">
+					<div class="content">
+						<div>
+							<span class="b-type">| <%
+								if(boardType.equals("0")){
+									%>공지사항<%
+								}else if(boardType.equals("1")){
+									%>정보공유게시판<%	
+								}else if(boardType.equals("2")){
+									%>익명게시판<%	
+								}
+								%> |</span>
+							<span class="b-title"><%=vo.getTitle() %></span>
+						</div>
+						<div class="author">
+							<%
+								if(!boardType.equals("2")){
+									%><p><%=vo.getAuthor() %></p><%
+								}
+							%>
+							<span><%=vo.getCreateDate() %></span>
+						</div>
 					</div>
 				</div>
 			<% } %>	

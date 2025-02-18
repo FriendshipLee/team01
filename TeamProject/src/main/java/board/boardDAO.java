@@ -66,7 +66,7 @@ public class boardDAO extends DBManager{
 	//글목록보기
 	public List<boardVO> boardList(String boardType){
 		List<boardVO> list = new ArrayList<boardVO>();
-		
+
 		driverLoad();
 		DBConnect();
 		
@@ -97,8 +97,8 @@ public class boardDAO extends DBManager{
 		DBConnect();
 		
 		String sql = "select * from board where board_type = "+ boardType;
-		if(searchType != null && searchKeyword != null) {
-			sql+= " and "+searchType+" like'%"+searchKeyword+"%'";
+		if(searchType != "" && searchKeyword != "") {
+			sql+= " and "+searchType+" like '%"+searchKeyword+"%'";
 		}
 		sql += " limit "+ startNum + ", " + limitSize;
 		executeQuery(sql);
@@ -155,9 +155,9 @@ public class boardDAO extends DBManager{
 		driverLoad();
 		DBConnect();
 		
-		String sql = " select count(*) as cnt from board where board_type != 99 and board_type = "+boardType+" ";
-		if(searchType != null && keyword != null) {
-			sql += " and " + searchType + " like '%" + keyword + "%' ";
+		String sql = " select count(*) as cnt from board where board_type != 99 and board_type = "+boardType;
+		if(searchType != "" && keyword != "") {
+			sql += " and " + searchType + " like '%" + keyword + "%'";
 		}
 		
 		executeQuery(sql);

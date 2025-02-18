@@ -72,7 +72,7 @@
             	%>
         </div>
         <div class="actions">
-            <label><input type="checkbox"> 아이디 저장</label>
+            <label for="saveid"><input type="checkbox" class="checkbox" id="saveid" > 아이디 저장</label>
             <span onclick="goSignup()" style="cursor:pointer;">회원가입</span>
         </div>
         <button class="btn" type="submit">로그인</button>
@@ -144,6 +144,18 @@
             	window.localStorage.setItem("bid", bid.val());
             	//window.localStorage.removeItem('bid',bid.val());
             	return true;
+        	}
+        }
+        
+        $(function){
+        	init();
+        	
+        	function  init(){
+        		const saveid = getCookie(saveid);
+        		
+        		if(saveid != "" && typeof(saveid) != "unfinded"){
+        			$("#saveid").prop("checked", true);
+        		}
         	}
         }
         

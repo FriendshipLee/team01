@@ -48,10 +48,11 @@
 		
 		
 		response.sendRedirect("main.jsp");
-	
-		
+		return;
+	}	
 		//기업회원 로그인
 		System.out.println("기업회원");
+		if(userType.equals("2")){
 		if(bid == null || bpw == null){
 			response.sendRedirect("login.jsp");
 			return;

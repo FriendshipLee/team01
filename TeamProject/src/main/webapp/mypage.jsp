@@ -10,6 +10,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <%
+	String path = request.getContextPath();
+	//톰캣의 contextPath -> 톰캣 경로
+	System.out.println(path);
 	if(user == null){
 		response.sendRedirect("login.jsp");
 		return;
@@ -29,30 +32,8 @@
 	list = cao.select(no);
 	
 	resumeFileDAO fdao = new resumeFileDAO();
-	resumeFileVO fvo = new resumeFileVO();
-	String originName = fvo.getAttachOriginName();
-	String uploadName = fvo.getAttachUploadName();
-	String location = fvo.getAttachLocation();
-	long fileSize = fvo.getFileSize();
-	
 	List<resumeFileVO> flist = fdao.list(no);
 	
-	String data = "";
-	if(fileSize < 1024){
-		data = fileSize + "B";
-	}else if(fileSize < 1024 * 1024){
-		double kb = fileSize / (double)1024;
-		kb = Math.round(kb * 100) / 100.0;
-		data = kb + "kb";
-	}else if(fileSize < 1024 * 1024 * 1024){
-		double mb = fileSize / (double)(1024 * 1024);
-		mb = Math.round(mb * 100) / 100.0;
-		data = mb + "mb";
-	}else if(fileSize < 1024 * 1024 * 1024 * 1024){
-		double gb = fileSize / (double)(1024 * 1024 * 1024);
-		gb = Math.round(gb * 100) / 100.0;
-		data = gb + "gb";
-	}
 	
 %>
 <!DOCTYPE html>
@@ -125,8 +106,8 @@
 				        <p><input id="major" type="text" placeholder="전공"></p>
 			        </div>   
 			        	<% if(vo.getSchool() != null && vo.getEnter_date() != null && vo.getGraduation_date() != null && vo.getMajor() != null){ %>
-				        <h3> <%= vo.getSchool() %><span> <%= vo.getEnter_date() %> ~ <%= vo.getGraduation_date() %> </span></h3>
-				        <p><%= vo.getMajor() %></p>
+					        <h3> <%= vo.getSchool() %><span> <%= vo.getEnter_date() %> ~ <%= vo.getGraduation_date() %> </span></h3>
+					        <p><%= vo.getMajor() %></p>
 				        <% } %>
 			        </div>
 		    	</div>
@@ -171,43 +152,51 @@
 						    <% } %>
 		       		</div>
 		        <div>
-			        <h3>자기소개서</h3>
-			        <div class="selfinfo">
-						<button id="selfinfo-modify">수정</button>
-<!-- 						<button id="selfinfo-ok">저장</button>
-						<button id="selfinfo-cancel">취소</button> -->
-			        </div>
-			        <hr>
-			        <% if(originName != null && !uploadName.equals("null")) { %>
+		        <div class="selfinfo">
+		        	<h3>자기소개서</h3>
+					<!-- <button id="selfinfo-add">추가</button> -->
+					<form id="uploadForm">
+						<label for="file">추가</label>
+	           			<input type="file" multiple="multiple" id="file" name="file">
+					</form>
+				</div>
+		        <hr id=hr>
+		        <%-- <% if(originName != null && !uploadName.equals("null")) { %> --%>
+		        	<% 
+		        		for(int i = 0; i < flist.size(); i++){ 
+		        			resumeFileVO rfvo = flist.get(i);
+		        			int fileSize = rfvo.getFileSize();
+		        			String data = "";
+		        			if(fileSize < 1024){
+		        				data = fileSize + "B";
+		        			}else if(fileSize < 1024 * 1024){
+		        				double kb = fileSize / (double)1024;
+		        				kb = Math.round(kb * 100) / 100.0;
+		        				data = kb + "kb";
+		        			}else if(fileSize < 1024 * 1024 * 1024){
+		        				double mb = fileSize / (double)(1024 * 1024);
+		        				mb = Math.round(mb * 100) / 100.0;
+		        				data = mb + "mb";
+		        			}else if(fileSize < 1024 * 1024 * 1024 * 1024){
+		        				double gb = fileSize / (double)(1024 * 1024 * 1024);
+		        				gb = Math.round(gb * 100) / 100.0;
+		        				data = gb + "gb";
+		        			}
+		        	%>
 				        <div class="attachment-item">
-							<a download="<%= originName %>" href="<%= uploadName %>" class="attachment-name"><%= originName %></a>
-							<span class="attachment-size">(<%= data %>)</span>
+							<div>
+								<a download="<%= rfvo.getAttachOriginName() %>" href="<%= rfvo.getAttachUploadName() %>" class="attachment-name"><%= rfvo.getAttachOriginName() %></a>
+								<span class="attachment-size">(<%= data %>)</span>
+							</div>
+							<button id="selfinfoDel" onclick="selfinfoDel(<%= rfvo.getFno() %>, this)">삭제</button>
 						</div>
 					<% } %>
-					<form id="uploadForm">
-						<label for="file">첨부파일</label>
-	           			<input type="file" id="file" name="file">
-					</form>
+				<%-- <% } %> --%>
 				</div>
 			</div>
 		</div>
 </body>
 <script>
-	/* let selfinfo-modify = $("#selfinfo-modify");
-	let selfinfo-ok = $("#selfinfo-ok");
-	let setfinfo-cancel = $("#selfinfo-cancel");
-	
-	selfinfo-ok.hide();
-	selfinfo-cancel.hide();
-	
-	//첨부파일 수정버튼
-	selfinfo-modify.click(function(){
-		$.ajax({
-			url : "mypageFileOk.jsp",
-			type : "post",
-			data : 
-		});
-	}); */
 	
 	//경력 삭제 함수
 	function deleteBtn(cno, obj){
@@ -218,10 +207,10 @@
 				cno : cno
 			},
 			success : function(result){
-					console.log(result);
-					if(result.trim() == "success"){
-						$(obj).parent().parent().remove();
-					}
+				console.log(result);
+				if(result.trim() == "success"){
+					$(obj).parent().parent().remove();
+				}
 			},
 			error : function(){
 				console.log("에러 발생");
@@ -229,7 +218,103 @@
 		});
 	}
 	
+	//첨부파일 삭제 함수
+	function selfinfoDel(fno, obj){
+		$.ajax({
+			url : "mypageFileDel.jsp",
+			type : "post",
+			data : {
+				fno : fno
+			},
+			success : function(result){
+				console.log(result);
+				if(result.trim() == "success"){
+					$(obj).parent().remove();
+				}
+			},
+			error : function(){
+				console.log("에러 발생");
+			}
+		});
+	}
+	
+	
 	$(document).ready(function(){
+		
+		$("#file").on("change", fileCheck);
+		
+		function fileCheck(){
+			<%-- var form = $("#uploadForm")[0];
+			var formData = new FormData(form);
+			formData.append("rno", <%= no %>); --%>
+			
+			var formData = new FormData();
+			formData.append("rno", <%= no %>)
+			//rno는 form에 한번만 추가
+			
+			/* console.log($("#file")[0].files); */
+			//file 태그에 업로드된 파일들
+			for(let i = 0; i < $("#file")[0].files.length; i ++){
+				//file 태그에 업로드된 파일 길이만큼 순회
+				formData.append("file"+i, $("#file")[0].files[i]);
+				//file 태그에 업로드된 파일을 하나씩 가져와서 form에 추가
+			}
+			
+			/* for(let i = $("#file")[0].files.length - 1; i >= 0; i --){
+				//file 태그에 업로드된 파일 길이만큼 순회
+				formData.append("file"+i, $("#file")[0].files[i]);
+				//file 태그에 업로드된 파일을 하나씩 가져와서 form에 추가
+			} */
+			
+			/* for (var [key, value] of formData.entries()) { 
+		  		console.log(key, value);
+			} */
+			
+			$.ajax({
+				url : "mypageFileOk.jsp",
+				type : "post",
+				enctype: 'multipart/form-data',
+				data : formData,
+				contentType : false,
+				processData : false,
+				success : function(response){
+					if(response.trim() == "fail"){
+						
+					}else{
+						const result = JSON.parse(response);
+						result.sort((a, b) => {
+						    if (parseInt(a.fno) < parseInt(b.fno)) return -1;
+						    if (parseInt(a.fno) > parseInt(b.fno)) return 1;
+
+						    return 0;
+						});
+						/* console.log("정렬 후 : ", result); */
+						
+						for(let i = 0; i < result.length; i ++){
+							const obj = result[i];
+							let html = 	'<div class="attachment-item">';
+							html +=			'<div>';
+							html += 			'<a download="'+obj.attachOriginName+'" href="<%= path %>/upload/'+obj.attachUploadName+'" class="attachment-name">'+obj.attachOriginName+'</a>'
+							html += 			'<span class="attachment-size">('+obj.fileSize+')</span>'
+							html += 		'</div>';
+							html +=			'<button id="selfinfoDel" onclick="selfinfoDel('+obj.fno+', this)">삭제</button>'
+							html +=		'</div>'
+							$("#hr").after(html);
+						}
+					}
+					selfinfoModify.show();
+				},
+				error : function(a, b, c){
+					//에러도 파라미터가 있다.
+					//첫번째가 요청 객체
+					//두번째가 요청상태(메시지)
+					//세번째가 오류(없을 수 있음)
+					console.log(a, b, c);
+				}
+			});
+		}
+		
+		
 		let mokBtn = $(".modifyokBtn");
 		let mBtn = $(".modifyBtn");
 		let celBtn = $(".cancleBtn");

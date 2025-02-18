@@ -110,9 +110,28 @@ label {
 .hr:last-child() {
 	border: none;
 }
+.selfinfo {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#uploadForm input[type="file"]{
+	display: none;
+}
+#uploadForm label {
+	background: #666;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
 .attachment-item {
     background: #aaa;
     padding: 20px;
     border-radius: 5px;
     margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

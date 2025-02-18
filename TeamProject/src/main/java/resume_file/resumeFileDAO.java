@@ -8,31 +8,27 @@ import db.DBManager;
 public class resumeFileDAO extends DBManager{
 	
 	//첨부파일 업로드
-	public int upload(resumeFileVO vo) {
-		String rno = vo.getRno();
-		String originName = vo.getAttachOriginName();
-		String uploadName = vo.getAttachUploadName();
-		String location = vo.getAttachLocation();
-		long fileSize = vo.getFileSize();
-		
+	public void upload(List<resumeFileVO> fileList) {
 		driverLoad();
 		DBConnect();
 		
-		String sql = "insert into resume_file(rno, attach_origin_name, attach_upload_name, attach_location, file_size) ";
-		sql += "values("+rno+", '"+originName+"', '"+uploadName+"', '"+location+"', "+fileSize+")";
-		executeUpdate(sql);
-		
-		sql = "select last_insert_id() as no";
-		executeQuery(sql);
-		
-		if(next()) {
-			int no = getInt("no");
+		if(fileList.size() == 0) {
 			DBDisConnect();
-			return no;
-		}else {
-			DBDisConnect();
-			return 0;
+			return;
 		}
+		
+		for(int i = 0; i < fileList.size(); i++) {
+			String no = fileList.get(i).getRno();
+			String originName = fileList.get(i).getAttachOriginName();
+			String uploadName = fileList.get(i).getAttachUploadName();
+			String location = fileList.get(i).getAttachLocation();
+			long fileSize = fileList.get(i).getFileSize();
+			
+			String sql = "insert into resume_file(rno, attach_origin_name, attach_upload_name, attach_location, file_size) ";
+			sql += "values("+no+", '"+originName+"', '"+uploadName+"', '"+location+"', "+fileSize+")";
+			executeUpdate(sql);
+		}
+		DBDisConnect();
 	}
 	
 	//첨부파일 수정
@@ -65,6 +61,7 @@ public class resumeFileDAO extends DBManager{
 		
 		while(next()) {
 			resumeFileVO vo = new resumeFileVO();
+			vo.setFno(getString("fno"));
 			vo.setRno(getString("rno"));
 			vo.setAttachOriginName(getString("attach_origin_name"));
 			vo.setAttachUploadName(getString("attach_upload_name"));
@@ -78,12 +75,11 @@ public class resumeFileDAO extends DBManager{
 	}
 	
 	//첨부파일 삭제
-	public void delete(resumeFileVO vo) {
-		String rno = vo.getRno();
+	public void delete(String fno) {
 		driverLoad();
 		DBConnect();
 		
-		String sql = "delete from resume_file where rno = " + rno;
+		String sql = "delete from resume_file where fno = "+fno+"";
 		executeUpdate(sql);
 		
 		DBDisConnect();

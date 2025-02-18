@@ -19,31 +19,35 @@ body {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    width: 450px;
+    width: 500px;
     text-align: center;
 }
 .tabs {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
 }
 .tab {
-    font-size: 18px;
+    font-size: 22px;
     padding: 10px;
     cursor: pointer;
+    color: #969696;
 }
 .active {
     font-weight: bold;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #373f73;
+    color: #373f73;
 }
 input {
 	margin-bottom: 5px;
 }
 input[type="text"], input[type="password"] {
     width: 100%;
+    height: 55px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 15px;
 }
 .feedback {
 	font-size: 13px;
@@ -61,31 +65,81 @@ input[type="text"], input[type="password"] {
 .flex{
 	display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 .flex input[type="text"]{
-	width: 65%;
+	width: 100%;
+    margin-right: 5px;
 }
+
+.radio {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 55px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+label {
+	width: 100%;
+	font-size: 18px;
+	line-height: 2rem;
+	padding: 0px 6px;
+}
+
+[type="radio"] {
+	vertical-align: middle;
+	appearance: none;
+  	display: none;
+}
+input[type="radio"]:checked + span {
+	background-color: #355beb;
+	border: 1px solid #355beb;
+	color: #fff;
+}
+
+.flex span {
+	width: 100%;
+	display: inline-block;
+	font-size: 16px;
+	line-height: 2rem;
+	background-color: #fff;
+	color: #969696;
+	border-radius: 5px;
+	border: 1px solid #969696;
+	cursor: pointer;
+}
+
+.flex [type="radio"], span {
+	vertical-align: middle;
+}
+
 .actions {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
     margin-bottom: 35px;
+    align-items: center;
+    color: #969696;
 }
 .btn {
-    background-color: black;
+    background-color: #355beb;
     color: white;
     padding: 10px;
     border: none;
     width: 100%;
+    height: 55px;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 17px;
+    margin-bottom: 9px;
+    font-weight: 600;
 }
 .back {
     position: absolute;
-    top: 0px;
-    left: 14px;
+    top: 6px;
+    left: 12px;
     font-size: 30px;
     cursor: pointer;
+    color: #969696;
 }

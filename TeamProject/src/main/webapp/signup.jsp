@@ -29,9 +29,15 @@
 	                <div id="userNick-feedback" class="feedback">닉네임 입력은 필수입니다.</div>
 	  				<div class="flex">
 		                <input type="text" id="userBirth" name="userBirth" placeholder="생년월일 6자리" maxlength="6">
-		                <div>
-			                <input type="radio" name="gender" value="남자" checked>남자
-			                <input type="radio" name="gender" value="여자">여자
+		                <div class="radio">
+		                	<label for="man">
+				                <input type="radio" id="man" name="gender" value="man" checked>
+				                <span>남자</span>
+			                </label>
+			                <label for="woman">
+				                <input type="radio" id="woman" name="gender" value="woman">
+				                <span>여자</span>
+			                </label>
 		                </div>
 	  				</div>
 	                <div id="userBirth-feedback" class="feedback">생년월일 6자리를 입력해주세요.</div>

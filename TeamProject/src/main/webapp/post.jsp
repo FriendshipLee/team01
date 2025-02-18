@@ -1,3 +1,4 @@
+<%@page import="info_file.infoFileVO"%>
 <%@page import="users.usersVO"%>
 <%@page import="reply.replyVO"%>
 <%@page import="java.util.List"%>
@@ -23,9 +24,11 @@
 	String createDate = vo.getCreateDate();
 	String updateDate = vo.getUpdateDate();
 	String deleteDate = vo.getDeleteDate();
-	String originName = vo.getAttachOriginName();
-	String uploadName = vo.getAttachUploadName();
-	long fileSize = vo.getFileSize(); 
+	
+	infoFileVO fvo = new infoFileVO();
+	String originName = fvo.getAttachOriginName();
+	String uploadName = fvo.getAttachUploadName();
+	long fileSize = fvo.getFileSize(); 
 	
 	replyDAO rdao = new replyDAO();
 	List<replyVO> list = rdao.select(no);

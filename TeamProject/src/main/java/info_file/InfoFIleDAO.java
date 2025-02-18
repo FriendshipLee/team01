@@ -6,6 +6,7 @@ import db.DBManager;
 
 public class InfoFIleDAO extends DBManager {
 	
+	
 	public void upload(List<infoFileVO> fileList) {
 		driverLoad();
 		DBConnect();
@@ -20,7 +21,7 @@ public class InfoFIleDAO extends DBManager {
 			String attachOriginName = fileList.get(i).getAttachOriginName();
 			String attachLocation = fileList.get(i).getAttachLocation();
 			String attachUploadName = fileList.get(i).getAttachUploadName();
-			int fileSize = fileList.get(i).getFileSize();
+			long fileSize = fileList.get(i).getFileSize();
 			
 			String sql = "insert into info_file(bno, attach_origin_name, attach_upload_name, attach_location, file_size)";
 			sql += "values("+no+", '"+ attachOriginName +"', '"+attachUploadName+"', '"+attachLocation+"', "+fileSize+")";

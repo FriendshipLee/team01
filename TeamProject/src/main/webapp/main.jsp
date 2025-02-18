@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <%
 	usersVO user = (usersVO)session.getAttribute("user");
-	companyVO company = (companyVO)session.getAttribute("company");
+	companyVO company = (companyVO)session.getAttribute("company"); 
 %>
 <!DOCTYPE html>
 <html lang="ko">

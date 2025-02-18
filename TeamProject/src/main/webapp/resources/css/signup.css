@@ -9,6 +9,9 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    background: url("../img/bg.jpg") no-repeat center top fixed;
+    font-family: "pretendard", sans-serif;
+	font-style: normal;
 }
 .container {
 	position: relative;

@@ -6,7 +6,7 @@
 	request.setCharacterEncoding("utf-8");
 	String no = request.getParameter("no");
 	String rauthor = request.getParameter("rauthor");
-	String rcontent = request.getParameter("content");
+	String rcontent = request.getParameter("rcontent");
 	
 	if(no == null || rauthor == null || rcontent == null){
 		return;
@@ -22,6 +22,7 @@
 	vo.setRauthor(rauthor);
 	vo.setContent(rcontent);
 	
-dao.write(vo);
+	int result = dao.write(vo);
+	out.print(result);
 	
 %>

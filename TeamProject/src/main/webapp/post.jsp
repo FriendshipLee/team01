@@ -101,14 +101,14 @@
             <p><%= content %></p>
             <br>
            	<%
-        	if(uploadName == null || !uploadName.equals("null")){
+        	if(uploadName != null && !uploadName.equals("null")){
         	%>
            	<div class="attachments">
-           	<h3>첨부파일</h3>
-           	<div class="attachment-item">
-				<a download="<%= originName %>" href="/JspBoard/upload/<%= uploadName %>" class="attachment-name"><%= originName %></a>
-				<span class="attachment-size">(<%= data %>)</span>
-			</div>
+	           	<h3>첨부파일</h3>
+	           	<div class="attachment-item">
+					<a download="<%= originName %>" href="/JspBoard/upload/<%= uploadName %>" class="attachment-name"><%= originName %></a>
+					<span class="attachment-size">(<%= data %>)</span>
+				</div>
 			</div>
 			<% } %>
 			
@@ -125,7 +125,7 @@
 		</div>
 		<%
 			//if(user != null && ((user.getId().equals(author) || vo.getBoardType() == 0)){
- 			if(user != null && vo.getBoardType() != 0){
+ 			if(user != null && !boardType.equals("0")){
  		%>	
         <div class="comment-box">
  			<input type="text" id="new-comment" class="comment-input" placeholder="댓글을 입력하세요.">

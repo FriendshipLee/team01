@@ -36,18 +36,10 @@
 <body>
 	<div class="board-container">
 		<h2>새 게시글 작성</h2>
-		<form method="post" action="writeok.jsp?boardType="<%= boardType%> enctype="multipart/form-data">
-<!-- 			<input type="radio" name="boardtype">공지게시판
-			<input type="radio" name="boardtype" checked>자유게시판
-			<input type="radio" name="boardtype">익명게시판 -->
+		<form method="post" action="writeok.jsp?boardType=<%= boardType%>" enctype="multipart/form-data">
 			<input type="hidden"  value="<%=boardType%>" name="boardType">
-			<div class="search-box">
-	        	<select name="searchType">
-	        		<option value="board" <%= boardType.equals("0")? "selected" : "" %>>공지게시판</option>
-	        		<option value="info" <%= boardType.equals("1")? "selected" : "" %>>정보공유게시판</option>
-	        		<option value="innoy" <%= boardType.equals("2")? "selected" : "" %>>익명게시판</option>
-				</select>
-				<!-- <label for="title">제목</label><br> -->
+			<div class="title">
+				<label for="title">제목</label><br>
 	            <input type="text" id="title" name="title" placeholder="제목을 입력하세요"><br>
 			</div>
 			<div>

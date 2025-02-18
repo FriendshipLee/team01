@@ -12,7 +12,7 @@ public class replyDAO extends DBManager{
 	//조회
 	
 	//1. 쓰기
-	public void write(replyVO vo) {
+	public int write(replyVO vo) {
 		driverLoad();
 		DBConnect();
 		
@@ -20,7 +20,17 @@ public class replyDAO extends DBManager{
 		sql += "valuse('"+vo.getBno()+"', '"+vo.getRauthor()+"', '"+vo.getContent()+"');";
 		executeUpdate(sql);
 		
-		DBDisConnect();
+		sql = "select last_insert_id() as bno";
+		executeQuery(sql);
+		
+		if(next()) {
+			int bno = getInt("bno");
+			DBDisConnect();
+			return bno;
+		}else {
+			DBDisConnect();
+			return 0;
+		}
 	}
 	
 	//2. 수정

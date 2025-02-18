@@ -7,7 +7,7 @@
 	
 	String id = (String)session.getAttribute("id");
 	String bid = (String)session.getAttribute("bid");
-	String saveid = (String)session.getAttribute("saveid");
+	
 	
 	
 	session.removeAttribute("id");

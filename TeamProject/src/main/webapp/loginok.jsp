@@ -10,6 +10,7 @@
 	String bid = request.getParameter("buser");
 	String bpw = request.getParameter("bpassword");
 	String userType = request.getParameter("userType");
+	String rememberId = request.getParameter("rememberId");
 	//로그인 타입. 1이면 일반회원, 2면 기업회원
 	
 	if(userType == null){
@@ -25,7 +26,10 @@
 			System.out.println("아이디 비밀번호 null?");
 			response.sendRedirect("login.jsp");
 			return;
-		}
+		}else {
+        	if( remember == null){  // 체크 안하면 null, 공백 넣어서 비교
+                remember = "";
+            }
 		
 		if(id.isEmpty() || pw.isEmpty()){
 			response.sendRedirect("login.jsp");
@@ -42,12 +46,17 @@
 			session.setAttribute("id", id);
 			response.sendRedirect("login.jsp?error=pe"+"&userType="+userType);
 			return;
+		}else if(rememberId != null && rememberId.equals("true")){
+			session.setAttribute("id", id);
+		}else{
+			session.removeAttribute("Id");
+			response.sendRedirect("login.jsp");
 		}
 		
 		session.setAttribute("user", user);
-		
 		response.sendRedirect("main.jsp");
-	}else{
+	
+		
 		//기업회원 로그인
 		System.out.println("기업회원");
 		if(bid == null || bpw == null){
@@ -70,6 +79,11 @@
 			session.setAttribute("bid", bid);
 			response.sendRedirect("login.jsp?error=pe"+"&userType="+userType);
 			return;
+		}else if(rememberId != null && rememberId.equals("true")){
+			session.setAttribute("bid", bid);
+		}else{
+			session.removeAttribute("bId");
+			response.sendRedirect("login.jsp");
 		}
 		
 		session.setAttribute("user", cuser);

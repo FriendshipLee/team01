@@ -7,9 +7,12 @@
 	
 	String id = (String)session.getAttribute("id");
 	String bid = (String)session.getAttribute("bid");
+	String saveid = (String)session.getAttribute("saveid");
+	
 	
 	session.removeAttribute("id");
 	session.removeAttribute("bid");
+	
 	
 	if(userType == null){
 		userType = "1";
@@ -82,7 +85,7 @@
             	%>
         </div>
         <div class="actions">
-            <label for="saveid"><input type="checkbox" class="checkbox" id="saveid" > 아이디 저장</label>
+            <label><input type="checkbox" name="rememberId" value="true" id="saveid"> 아이디 저장</label>
             <span onclick="goSignup()" style="cursor:pointer;">회원가입</span>
         </div>
         <button class="btn" type="submit">로그인</button>
@@ -157,18 +160,21 @@
         	}
         }
         
-        $(function){
+        /*  $(function){
         	init();
         	
         	function  init(){
-        		const saveid = getCookie(saveid);
+        		const saveid = session.setAttribute("saveid", saveid);
         		
         		if(saveid != "" && typeof(saveid) != "unfinded"){
         			$("#saveid").prop("checked", true);
+        			$("#userid").val(saveid);
+        		}else{
+        			$("#saveid").prop("checked", false);
         		}
         	}
-        }
-        
+        });
+          */
         function goHome() {
             window.location.href = 'main.jsp';
         }

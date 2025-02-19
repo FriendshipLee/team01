@@ -31,11 +31,11 @@
 		                <input type="text" id="userBirth" name="userBirth" placeholder="생년월일 6자리" maxlength="6">
 		                <div class="radio">
 		                	<label for="man">
-				                <input type="radio" id="man" name="gender" value="man" checked>
+				                <input type="radio" id="man" name="gender" value="남자" checked>
 				                <span>남자</span>
 			                </label>
 			                <label for="woman">
-				                <input type="radio" id="woman" name="gender" value="woman">
+				                <input type="radio" id="woman" name="gender" value="여자">
 				                <span>여자</span>
 			                </label>
 		                </div>
@@ -407,7 +407,6 @@
 				},
 				error : function(){
 					console.log("오류발생");
-				}
 			});
        	});
        	

@@ -25,6 +25,6 @@
 	
 	int result = dao.addEducation(vo);
 	
-	out.print("success");
+	out.print(result); //success 넘겨줘도 가능한 이유?
 	
 %>

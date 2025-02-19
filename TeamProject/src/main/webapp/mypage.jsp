@@ -105,6 +105,7 @@
 				        </h3>
 				        <p><input id="major" type="text" placeholder="전공"></p>
 			        </div>   
+			        <div class="lschool-post">
 			        	<% if(vo.getSchool() != null && vo.getEnter_date() != null && vo.getGraduation_date() != null && vo.getMajor() != null){ %>
 					        <h3> <%= vo.getSchool() %><span> <%= vo.getEnter_date() %> ~ <%= vo.getGraduation_date() %> </span></h3>
 					        <p><%= vo.getMajor() %></p>
@@ -468,6 +469,7 @@
 			}
 			if(eDate.val().trim() == ""){
 				alert("입학날짜를 입력해주세요.");
+				return;
 			}
 			if(gDate.val().trim() == ""){
 				alert("졸업날짜를 입력해주세요.");
@@ -488,7 +490,7 @@
 					major : major.val(),
 					id : userId
 				},
-				success : function(result){
+				success : function(result){ //?
 					console.log(result);
 					if(result.trim() != "0"){
 						$(".lschool").css("display", "none");
@@ -535,9 +537,6 @@
 								}
 							});
 						});
-						
-						
-						
 					}
 				},
 				error : function(){

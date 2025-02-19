@@ -407,8 +407,9 @@
 				},
 				error : function(){
 					console.log("오류발생");
+				}
 			});
-       	});
+       	}
        	
        	$("#number").keyup(function(e){
 			let num = e.target.value;

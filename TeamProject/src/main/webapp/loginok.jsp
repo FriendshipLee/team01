@@ -10,6 +10,9 @@
 	String bid = request.getParameter("buser");
 	String bpw = request.getParameter("bpassword");
 	String userType = request.getParameter("userType");
+	String idSaveCheck = request.getParameter("idSaveCheck");
+	//null이면 체크박스 해제, on이면 체크 한거
+	
 	//로그인 타입. 1이면 일반회원, 2면 기업회원
 	
 	if(userType == null){
@@ -43,10 +46,15 @@
 			return;
 		}
 	
-		session.removeAttribute("Id");
+		session.removeAttribute("id");
 		session.setAttribute("user", user);
-		
-		
+		if(idSaveCheck != null){
+			//화면에서 자동로그인 체크 했을 때 아이디 저장
+			Cookie cookie = new Cookie("id", "id_"+id);
+			cookie.setMaxAge(1 * 60 * 60 * 24 * 10);
+			
+			response.addCookie(cookie);
+		}
 		response.sendRedirect("main.jsp");
 		return;
 	}	
@@ -74,9 +82,14 @@
 			response.sendRedirect("login.jsp?error=pe"+"&userType="+userType);
 			return;
 		}
-		session.removeAttribute("bId");
+		if(idSaveCheck != null){
+			Cookie cookie = new Cookie("id", "id_"+bid);
+			cookie.setMaxAge(1 * 60 * 60 * 24 * 10);
+			
+			response.addCookie(cookie);
+		}
+		session.removeAttribute("bid");
 		session.setAttribute("user", cuser);
-		
 		
 		response.sendRedirect("main.jsp");
 	}

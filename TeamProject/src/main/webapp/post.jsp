@@ -104,7 +104,8 @@
             <p><%= content %></p>
             <br>
            	<%
-        	if(uploadName != null && !uploadName.equals("null")){
+           		
+        		if(uploadName != null && !uploadName.equals("null")){
         	%>
            	<div class="attachments">
 	           	<h3>첨부파일</h3>
@@ -113,7 +114,9 @@
 					<span class="attachment-size">(<%= data %>)</span>
 				</div>
 			</div>
-			<% } %>
+			<%
+				}
+           	%>
 			
 			<%
         	//로그인을 하였고, 로그인한 사용자의 아이디(user.getId())와 
@@ -129,7 +132,7 @@
 		<%
 			//if(user != null && ((user.getId().equals(author) || vo.getBoardType() == 0)){
  			if(user != null && !boardType.equals("0")){
- 		%>	
+ 		%>
         <div class="comment-box">
  			<input type="text" id="new-comment" class="comment-input" placeholder="댓글을 입력하세요.">
             <input type="button" id="add-comment" value="댓글 작성">

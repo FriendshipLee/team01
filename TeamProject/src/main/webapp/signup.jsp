@@ -383,7 +383,7 @@
        	$("#companyNumber").keyup(function(e){
 			let companyNumber = e.target.value;
 			let companyNumberFeedback = $("#companyNumber-feedback");
-			companyNumberFeedback.css("display", "block").text("-를 포함한 10자리 번호를 입력해주세요.").removeClass("success");
+			companyNumberFeedback.css("display", "block").text("-를 포함한 12자리 번호를 입력해주세요.").removeClass("success");
 			companyNumberCheckFlag = false;
 			
 			if(!companyNumberRegex.test(companyNumber)) {
@@ -457,7 +457,7 @@
 			if(!companyNumberRegex.test(companyNumber.val())){
 				companyNumber.focus();
 				companyNumber.val();
-				companyNumberFeedback.css("display", "block").text("-를 포함한 10자리 번호를 입력해주세요.").removeClass("success");
+				companyNumberFeedback.css("display", "block").text("-를 포함한 12자리 번호를 입력해주세요.").removeClass("success");
 				return false;
 			}
 			

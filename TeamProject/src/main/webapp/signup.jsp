@@ -13,8 +13,8 @@
     <div class="container">
         <div class="back" onclick="history.back();">&larr;</div>
         <div class="tabs">
-            <div class="tab active" id="personalTab" onclick="showTab('personal')">개인회원</div>
-            <div class="tab" id="businessTab" onclick="showTab('business')">기업회원</div>
+            <div class="tab active" id="personalTab">개인회원</div>
+            <div class="tab" id="businessTab">기업회원</div>
         </div>
     	<form action="userSignupok.jsp" method="post" onsubmit="return userFormCheck()">
 	        <div id="personalForm">
@@ -64,7 +64,7 @@
 	                <div id="ceoName-feedback" class="feedback">대표자명 입력은 필수입니다.</div>
 	                <input type="text" id="companyName" name="companyName" placeholder="기업명">
 	                <div id="companyName-feedback" class="feedback">기업명 입력은 필수입니다.</div>
-	                <input type="text" id="number" name="number" placeholder="담당자전화번호">
+	                <input type="text" id="number" name="number" placeholder="담당자 전화번호">
 	                <div id="number-feedback" class="feedback">담당자 전화번호 입력은 필수입니다.</div>
 	            </div>
 		        <div class="actions">
@@ -77,12 +77,22 @@
     </div>
     <script>
     
-        function showTab(type) {
-            document.getElementById('personalForm').style.display = (type === 'personal') ? 'block' : 'none';
-            document.getElementById('businessForm').style.display = (type === 'business') ? 'block' : 'none';
-            document.getElementById('personalTab').classList.toggle('active', type === 'personal');
-            document.getElementById('businessTab').classList.toggle('active', type === 'business');
-        }
+	   document.addEventListener("DOMContentLoaded", function () {
+	       function showTab(type) {
+	           document.getElementById('personalForm').style.display = (type === 'personal') ? 'block' : 'none';
+	           document.getElementById('businessForm').style.display = (type === 'business') ? 'block' : 'none';
+	           document.getElementById('personalTab').classList.toggle('active', type === 'personal');
+	           document.getElementById('businessTab').classList.toggle('active', type === 'business');
+	       }
+	
+	       document.getElementById('personalTab').addEventListener('click', function () {
+	           showTab('personal');
+	       });
+	
+	       document.getElementById('businessTab').addEventListener('click', function () {
+	           showTab('business');
+	       });
+	   });
         
        	let idRegex = /^[a-zA-Z0-9]{4,12}$/;
        	let idCheckFlag = false;
@@ -409,7 +419,7 @@
 					console.log("오류발생");
 				}
 			});
-       	}
+       	});
        	
        	$("#number").keyup(function(e){
 			let num = e.target.value;

@@ -10,10 +10,10 @@ public class gonggoVO {
 	private String location;
 	private String deadline;
 	private String link;
-	private String create_date;
-	private String update_date;
-	private String delete_date;
-	private int gonggo_type;
+	private String createDate;
+	private String updateDate;
+	private String deleteDate;
+	private int gonggoType;
 	
 	public String getNo() {
 		return no;
@@ -69,29 +69,29 @@ public class gonggoVO {
 	public void setLink(String link) {
 		this.link = link;
 	}
-	public String getCreate_date() {
-		return create_date;
+	public String getCreateDate() {
+		return createDate;
 	}
-	public void setCreate_date(String create_date) {
-		this.create_date = create_date;
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
-	public String getUpdate_date() {
-		return update_date;
+	public String getUpdateDate() {
+		return updateDate;
 	}
-	public void setUpdate_date(String update_date) {
-		this.update_date = update_date;
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
 	}
-	public String getDelete_date() {
-		return delete_date;
+	public String getDeleteDate() {
+		return deleteDate;
 	}
-	public void setDelete_date(String delete_date) {
-		this.delete_date = delete_date;
+	public void setDeleteDate(String deleteDate) {
+		this.deleteDate = deleteDate;
 	}
-	public int getGonggo_type() {
-		return gonggo_type;
+	public int getGonggoType() {
+		return gonggoType;
 	}
-	public void setGonggo_type(int gonggo_type) {
-		this.gonggo_type = gonggo_type;
+	public void setGonggoType(int gonggoType) {
+		this.gonggoType = gonggoType;
 	}
 	
 }

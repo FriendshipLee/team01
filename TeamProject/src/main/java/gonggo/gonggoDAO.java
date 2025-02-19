@@ -18,7 +18,7 @@ public class gonggoDAO extends DBManager{
 		String location = vo.getLocation();
 		String deadline = vo.getDeadline();
 		String link = vo.getLink();
-		int gonggoType = vo.getGonggo_type();
+		int gonggoType = vo.getGonggoType();
 				
 		
 		driverLoad();
@@ -87,9 +87,9 @@ public class gonggoDAO extends DBManager{
 			vo2.setLocation(getString("location"));
 			vo2.setDeadline(getString("deadline"));
 			vo2.setLink(getString("link"));
-			vo2.setCreate_date(getString("create_date"));
-			vo2.setUpdate_date(getString("update_date"));
-			vo2.setGonggo_type(getInt("gonggo_type"));
+			vo2.setCreateDate(getString("create_date"));
+			vo2.setUpdateDate(getString("update_date"));
+			vo2.setGonggoType(getInt("gonggo_type"));
 			list.add(vo2);
 		}
 		
@@ -117,9 +117,9 @@ public class gonggoDAO extends DBManager{
 			vo.setLocation(getString("location"));
 			vo.setDeadline(getString("deadline"));
 			vo.setLink(getString("link"));
-			vo.setCreate_date(getString("create_date"));
-			vo.setUpdate_date(getString("update_date"));
-			vo.setGonggo_type(getInt("gonggo_type"));
+			vo.setCreateDate(getString("create_date"));
+			vo.setUpdateDate(getString("update_date"));
+			vo.setGonggoType(getInt("gonggo_type"));
 			DBDisConnect();
 			return vo;
 		}else {
@@ -128,6 +128,31 @@ public class gonggoDAO extends DBManager{
 		}
 	}
 	
-	
+	//글 목록조회
+	public List<gonggoVO> gonggoList(){
+		List<gonggoVO> list = new ArrayList<gonggoVO>();
+
+		driverLoad();
+		DBConnect();
+		
+		String sql = "select * from board where gonggo_type != 99 order by no desc";
+		executeQuery(sql);
+		
+		while(next()) {
+			gonggoVO vo = new gonggoVO();
+			vo.setNo(getString("no"));
+			vo.setAuthor(getString("author"));
+			vo.setTitle(getString("title"));
+			vo.setContent(getString("content"));
+			vo.setCreateDate(getString("create_date"));
+			vo.setUpdateDate(getString("update_date"));
+			vo.setDeleteDate(getString("delete_date"));
+			list.add(vo);
+		}
+		
+		DBDisConnect();
+		
+		return list;
+	}
 	
 }

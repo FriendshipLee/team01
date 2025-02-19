@@ -1,6 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
+<%
+	String searchType = request.getParameter("searchType");
+	String keyword = request.getParameter("searchKeyword");
+	String boardType = request.getParameter("boardType");
+	
+	if(searchType == null){
+		searchType = "";
+	}
+	if(keyword == null){
+		keyword = "";
+	}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,12 +36,20 @@
     <div class="container">
         <h2>채용공고</h2>
         <div class="board-top">
-        	<div class="search-box">
-	            <input type="text" placeholder="검색어를 입력하세요.">
-				<input type="button" class="btn-img">        	
+        	<div class="search-con">
+	        	<select name="searchType">
+	        		<option value="title" <%= searchType.equals("title")? "selected" : "" %>>제목</option>
+	        		<option value="content" <%= searchType.equals("content")? "selected" : "" %>>내용</option>
+	        		<option value="author" <%= searchType.equals("author")? "selected" : "" %>>작성자</option>
+	        	</select>
+	        	<div class="search-box">
+		            <input type="text" placeholder="검색어를 입력하세요.">
+					<input type="button" class="btn-img">        	
+	        	</div>
         	</div>
-        	
+        	<%if(user != null && user.getCompanyName() != null){ %>
             <input type="button" id="write-btn" value="글쓰기">
+            <%} %>
         </div>
         
         <div class="filters">

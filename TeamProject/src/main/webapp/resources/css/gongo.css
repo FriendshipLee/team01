@@ -42,7 +42,7 @@ input {
 	position: relative;
     display: flex;
     align-items: center;
-    width: 79%;
+    width: 100%;
 }
 .board-top input {
     border: 1px solid #ccc;
@@ -74,6 +74,7 @@ input {
     background-color: #355beb;
     color: #fff;
     font-size: 18px;
+    margin-left: 3%;
 }
 .filters {
     margin-bottom: 30px;

@@ -106,8 +106,8 @@
 	        </div>
 	        </form>
 	     <div class="list">
-			<% for(int i = 0; i < list.size(); i++){ 
-				boardVO vo = list.get(i);
+			<% for(int i = 0; i < listAll.size(); i++){ 
+				boardVO vo = listAll.get(i);
 			%>
 				<div class="content-box" onclick="location.href='post.jsp?no=<%=vo.getNo()%>&boardType=<%= boardType %>'">
 					<div class="content">

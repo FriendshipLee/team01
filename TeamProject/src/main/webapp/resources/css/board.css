@@ -76,7 +76,7 @@ input {
 }
 .search-con {
 	display: flex;
-	width: 79%;
+	width: 100%;
 }
 .search-box {
 	position: relative;
@@ -92,6 +92,7 @@ input {
     background-color: #355beb;
     color: #fff;
     font-size: 18px;
+    margin-left: 3%;
 }
 
 .list {

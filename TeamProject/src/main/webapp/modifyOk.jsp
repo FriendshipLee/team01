@@ -1,4 +1,4 @@
-<%@page import="info_file.InfoFIleDAO"%>
+<%@page import="info_file.infoFileDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="info_file.infoFileVO"%>
@@ -10,7 +10,6 @@
 <%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="header.jsp" %>
 <%
 	request.setCharacterEncoding("utf-8");
 	//String boardType = request.getParameter("boardType");
@@ -54,12 +53,24 @@
 	boardVO vo = new boardVO();
 	List<infoFileVO> fileList = new ArrayList<>();
 	
-	InfoFIleDAO fileDao = new InfoFIleDAO();
 	
 	Enumeration files = multi.getFileNames();
 	while(files.hasMoreElements()){
+		//modify.jsp에 form안에 file태그가 하나라도 있으면 동작
+		
 		String name = (String)files.nextElement();
+		//form안의 file태그의 name속성 값(file)
+		
+		System.out.println(name);
 		String fileName = multi.getFilesystemName(name);
+		//form안의 name이 file인 html태그에 업로드된 파일 이름
+		
+		System.out.println(fileName);
+		if(fileName == null){
+			//file 태그는 있지만, file태그 안에 선택된(업로드된) 파일이 없으면
+			continue;
+			//다음 루프로
+		}
 		String originName = multi.getOriginalFileName(name);
 		
 		File uploadFile = new File(savePath + "/"+ fileName);
@@ -70,9 +81,11 @@
 		fileVO.setFileSize((int)fileSize);
 		fileVO.setAttachOriginName(originName);
 		fileVO.setAttachUploadName(fileName);
-		fileVO.setNo(no);
+		fileVO.setFno(no);
 		fileList.add(fileVO);
 	}
+	
+	infoFileDAO fileDao = new infoFileDAO();
 	
 	fileDao.upload(fileList);
 	

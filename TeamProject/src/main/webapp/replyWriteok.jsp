@@ -7,6 +7,13 @@
 	String no = request.getParameter("no");
 	String rauthor = request.getParameter("rauthor");
 	String rcontent = request.getParameter("rcontent");
+	String boardType = request.getParameter("replyType");
+	
+	if(boardType == null || boardType == ""){
+		return;
+	}
+	
+	int replyType = Integer.parseInt(boardType);
 	
 	if(no == null || rauthor == null || rcontent == null){
 		return;
@@ -21,6 +28,7 @@
 	vo.setBno(no);
 	vo.setRauthor(rauthor);
 	vo.setContent(rcontent);
+	vo.setReplyType(replyType);
 	
 	int result = dao.write(vo);
 	out.print(result);

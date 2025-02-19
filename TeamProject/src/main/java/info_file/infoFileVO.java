@@ -3,7 +3,7 @@ package info_file;
 public class infoFileVO {
 	
 	private String fno;
-	private String no;
+	private String bno;
 	private String attachOriginName;
 	private String attachUploadName;
 	private String attachLocation;
@@ -15,11 +15,11 @@ public class infoFileVO {
 	public void setFno(String fno) {
 		this.fno = fno;
 	}
-	public String getNo() {
-		return no;
+	public String getBno() {
+		return bno;
 	}
-	public void setNo(String no) {
-		this.no = no;
+	public void setBno(String bno) {
+		this.bno = bno;
 	}
 	public String getAttachOriginName() {
 		return attachOriginName;
@@ -45,7 +45,6 @@ public class infoFileVO {
 	public void setFileSize(long fileSize) {
 		this.fileSize = fileSize;
 	}
-	
 	
 	
 }

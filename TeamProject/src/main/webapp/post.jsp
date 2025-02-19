@@ -1,3 +1,4 @@
+<%@page import="info_file.infoFileDAO"%>
 <%@page import="info_file.infoFileVO"%>
 <%@page import="users.usersVO"%>
 <%@page import="reply.replyVO"%>
@@ -10,11 +11,12 @@
 <%@ include file="header.jsp" %>
 <%
 	String no = request.getParameter("no");
+	String path = request.getContextPath();
+	
 	if(no == null || user == null){
 		response.sendRedirect("main.jsp");
 		return;
 	} 
-
 
 	boardDAO dao = new boardDAO();
 	boardVO vo = dao.view(no);
@@ -25,36 +27,13 @@
 	String updateDate = vo.getUpdateDate();
 	String deleteDate = vo.getDeleteDate();
 	
-	infoFileVO fvo = new infoFileVO();
-	String originName = fvo.getAttachOriginName();
-	String uploadName = fvo.getAttachUploadName();
-	long fileSize = fvo.getFileSize(); 
-	
 	replyDAO rdao = new replyDAO();
 	List<replyVO> list = rdao.select(no);
 	
-	String data = "";
-	//fileSize의 크기에 따라서 kb, mb, gb 단위 변환
-	if(fileSize < 1024){
-		//바이트(b)
-		data = fileSize + "B";
-	}else if(fileSize < 1024 * 1024){
-		//키로바이트(kb)
-		double kb = fileSize / (double)1024;
-		kb = Math.round(kb * 100) / 100.0;
-		data = kb + "kb";
-		
-	}else if(fileSize < 1024 * 1024 * 1024){
-		//메가바이트(mb)
-		double mb = fileSize / (double)(1024 * 1024);
-		mb = Math.round(mb * 100) / 100.0;
-		data = mb+"mb";
-	}else if(fileSize < 1024 * 1024 * 1024 * 1024){
-		//기가바이트(gb)
-		double gb = fileSize / (double)(1024*1024*1024);
-		gb = Math.round(gb * 100) / 100.0;
-		data = gb + "gb";
-	}
+	infoFileDAO fdao = new infoFileDAO();
+	List<infoFileVO> flist = fdao.list(no);
+	
+	
 	
 	//board.jsp에서 전달해준 searchType과 searchTypw를 받아
 	//뒤로 가기 버튼을 클릭했을 때 board.jsp의 파라미터로 다시 넘겨준다.
@@ -103,19 +82,44 @@
             <hr>
             <p><%= content %></p>
             <br>
+              	<h3>첨부파일</h3>
            	<%
-           		
-        		if(uploadName != null && !uploadName.equals("null")){
+           		for(int i = 0; i < flist.size(); i++){
+           			infoFileVO fvo = flist.get(i);
+           			long fileSize = fvo.getFileSize(); 
+           			
+           			String data = "";
+           			//fileSize의 크기에 따라서 kb, mb, gb 단위 변환
+           			if(fileSize < 1024){
+           				//바이트(b)
+           				data = fileSize + "B";
+           			}else if(fileSize < 1024 * 1024){
+           				//키로바이트(kb)
+           				double kb = fileSize / (double)1024;
+           				kb = Math.round(kb * 100) / 100.0;
+           				data = kb + "kb";
+           			}else if(fileSize < 1024 * 1024 * 1024){
+           				//메가바이트(mb)
+           				double mb = fileSize / (double)(1024 * 1024);
+           				mb = Math.round(mb * 100) / 100.0;
+           				data = mb+"mb";
+           			}else if(fileSize < 1024 * 1024 * 1024 * 1024){
+           				//기가바이트(gb)
+           				double gb = fileSize / (double)(1024*1024*1024);
+           				gb = Math.round(gb * 100) / 100.0;
+           				data = gb + "gb";
+           			}
+        			if(fvo.getAttachOriginName() != null && !fvo.getAttachOriginName().equals("null")){
         	%>
            	<div class="attachments">
-	           	<h3>첨부파일</h3>
 	           	<div class="attachment-item">
-					<a download="<%= originName %>" href="/JspBoard/upload/<%= uploadName %>" class="attachment-name"><%= originName %></a>
+					<a download="<%= fvo.getAttachOriginName() %>" href="<%= path %>/upload/<%= fvo.getAttachUploadName() %>" class="attachment-name"><%= fvo.getAttachOriginName() %></a>
 					<span class="attachment-size">(<%= data %>)</span>
 				</div>
 			</div>
 			<%
-				}
+					}
+           		}
            	%>
 			
 			<%
@@ -174,6 +178,7 @@
 <script>
 	//로그인한 사용자 아이디
 	let userId = "<%= user != null ? user.getId() : "" %>";
+	let boardType = "<%= boardType %>";
 	console.log(userId);
 	
 	function cancelBtn(obj){
@@ -272,39 +277,38 @@
 		}
 	}
 	
-	//아이디가 replyBtn인 html요소를 jquery를 이용해서 찾아오는 방법
-	$("#replyBtn").click(function(){
-		//reply테이블에 insert
+	$("#add-comment").click(function(){
+		let rcontent = $("#new-comment").val();
+		let no = "<%= no %>";
 		$.ajax({
 			url : "replyWriteok.jsp",
 			type : "post",
 			data : {
-				no : "<%= no %>",
+				no : <%= no %>,
 				rauthor : userId,
-				rcontent : $("#rcontent").val()
+				rcontent : rcontent,
+				replyType : boardType
 			},
 			success : function(result){
-				let time = getTime();
 				console.log(result);
-				if(result.trim() != "0"){
-					let rcontent = $("#rcontent");
-					
+				let time = getTime();
+				if(result != "0"){
 					let html = "";
 					html += "<div class='comments'>";
-					html += 	"<div class='meta'>작성자: "+userId+" | 작성일: "+time+"</div>";
-					html += 	"<p>"+rcontent.val()+"</p>";
 					html += 	"<div class='comments-top'>";
-					html += 		"<input type='button' class='dpnone' onclick='replyBtn(this)' value='수정'>";
-					html += 		"<input type='button' class='dpnone' onclick='modifyReply(`"+result.trim()+"`, this)' value='확인'>"
-					html += 		"<input type='button' class='dpnone' onclick='cancelBtn(this, `"+rcontent.val()+"`)' value='취소'>"
-					html +=			"<input type='button' onclick='deleteReply(`"+result.trim()+"`, this)' vlaue='삭제'>";
-					html += 	"</div>";
-					html += "</div>";
-					$("#comments").prepend(html);
-					
-					rcontent.val("");
-				}else{
-					
+					html +=			"<p>작성자 : "+userId+" | "+time+"</p>";
+					html +=			"<div>";
+					html +=				"<input type='button' onclick='replyBtn(this)' value='수정'>";
+					html +=				"<input type='button' class='dpnone' onclick='modifyReply("+no+", this)' value='확인'>";
+					html +=				"<input type='button' class='dpnone' onclick='cancelBtn(this, '"+rcontent+"')' value='취소'>";
+					html +=				"<input type='button' onclick='deleteReply("+no+",this)' value='삭제'>";
+					html +=			"</div>";
+					html +=		"</div>"
+					html +=		"<hr>"
+					html +=		"<div class='comment-content'>"+rcontent+"</div>"
+					html += "</div>"
+					$(".comment-box").append(html);
+					$("#new-comment").val("").focus();
 				}
 			},
 			error : function(){
@@ -313,3 +317,4 @@
 		});
 	});
 </script>
+</html>

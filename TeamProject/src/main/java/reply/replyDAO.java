@@ -16,8 +16,8 @@ public class replyDAO extends DBManager{
 		driverLoad();
 		DBConnect();
 		
-		String sql = "insert into reply(bno, rautor, content)";
-		sql += "valuse('"+vo.getBno()+"', '"+vo.getRauthor()+"', '"+vo.getContent()+"');";
+		String sql = "insert into reply(bno, rauthor, content, reply_type) ";
+		sql += "values('"+vo.getBno()+"', '"+vo.getRauthor()+"', '"+vo.getContent()+"', "+vo.getReplyType()+");";
 		executeUpdate(sql);
 		
 		sql = "select last_insert_id() as bno";
@@ -70,7 +70,7 @@ public class replyDAO extends DBManager{
 		driverLoad();
 		DBConnect();
 		
-		String sql = "select * from reply where bno = " + bno;
+		String sql = "select * from reply where bno = "+bno+" order by rno desc";
 		executeQuery(sql);
 		
 		List<replyVO> list = new ArrayList<>();

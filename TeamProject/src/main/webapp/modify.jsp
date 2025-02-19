@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="info_file.infoFileVO"%>
+<%@page import="info_file.infoFileDAO"%>
 <%@page import="board.boardVO"%>
 <%@page import="board.boardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -16,6 +19,11 @@
 	boardVO vo = dao.view(no);
 	String title = vo.getTitle();
 	String content = vo.getContent();
+	
+	infoFileDAO fdao = new infoFileDAO();
+	List<infoFileVO> flist = fdao.list(no);
+	
+	
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -29,7 +37,7 @@
 <body>
     	<h2>게시글 수정</h2>
     <div class="container">
-    <form action="modifyOk.jsp" method="post" enctype="multipart/form-data">
+    <form id="modify-form" action="modifyOk.jsp" method="post" enctype="multipart/form-data">
 	    <input type="hidden" name="no" value="<%= no %>">
 	    <input type="hidden" name="boardType" value="<%= boardType %>">
 	    	<div>
@@ -42,8 +50,39 @@
 	    	</div>
 	    	<div>
 	    		<h3>첨부파일</h3>
-	    		<input type="file" id="file" name="file">
+	    		<input type="file" id="file" name="file" multiple="multiple">
 	    	</div>
+	    	<% 
+		    	for(int i = 0; i < flist.size(); i++){ 
+		    		infoFileVO fvo = flist.get(i);
+		    		long fileSize = fvo.getFileSize();
+		    		String data = "";
+		    		if(fileSize < 1024){
+        				data = fileSize + "B";
+        			}else if(fileSize < 1024 * 1024){
+        				double kb = fileSize / (double)1024;
+        				kb = Math.round(kb * 100) / 100.0;
+        				data = kb + "kb";
+        			}else if(fileSize < 1024 * 1024 * 1024){
+        				double mb = fileSize / (double)(1024 * 1024);
+        				mb = Math.round(mb * 100) / 100.0;
+        				data = mb + "mb";
+        			}else if(fileSize < 1024 * 1024 * 1024 * 1024){
+        				double gb = fileSize / (double)(1024 * 1024 * 1024);
+        				gb = Math.round(gb * 100) / 100.0;
+        				data = gb + "gb";
+        			}
+	    	%>
+	    		<% if(fvo.getAttachOriginName() != null || fvo.getAttachOriginName() == ""){ %>
+			    	<div class="attachment-item">
+						<div>
+							<a download="<%= fvo.getAttachOriginName() %>" href="<%= fvo.getAttachUploadName() %>" class="attachment-name"><%= fvo.getAttachOriginName() %></a>
+							<span class="attachment-size">(<%= data %>)</span>
+						</div>
+						<button type="button" onclick="infoFileDel(<%= fvo.getFno() %>, this)">삭제</button>
+					</div>
+				<% } %>
+	    	<% } %>
 			<div class="modify">
 				<input type="submit" value="수정">
 				<input type="button" onclick="history.back()" value="취소">
@@ -51,4 +90,36 @@
 		</form>
 	</div>
 </body>
+<script>
+
+	$("#file").on("change", function(e){
+		console.log(e);
+		for(let i = 0; i < e.target.files.length; i ++){
+			let html = "";
+			html += '<div>';
+			html += 	'<h3>첨부파일</h3>';
+			html += 	'<input type="file" id="file" name="file">';
+			html += '</div>';
+			$("#modify-form").append(html);	
+		}
+		
+	});
+	function infoFileDel(fno, obj){
+		$.ajax({
+			url : "modifyFileDel.jsp",
+			type : "post",
+			data : {
+				fno : fno
+			},
+			success : function(result){
+				if(result.trim() == "success"){
+					$(obj).parent().remove();
+				}
+			},
+			error : function(){
+				console.log("에러 발생");
+			}
+		});
+	};
+</script>
 </html>

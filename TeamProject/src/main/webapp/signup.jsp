@@ -383,7 +383,7 @@
        	$("#companyNumber").keyup(function(e){
 			let companyNumber = e.target.value;
 			let companyNumberFeedback = $("#companyNumber-feedback");
-			companyNumberFeedback.css("display", "block").text("-를 포함한 12자리 번호를 입력해주세요.").removeClass("success");
+			companyNumberFeedback.css("display", "block").text("-를 포함한 12자리를 입력해주세요.").removeClass("success");
 			companyNumberCheckFlag = false;
 			
 			if(!companyNumberRegex.test(companyNumber)) {
@@ -399,10 +399,10 @@
 				success : function(result){
 					if(result.trim()=="0"){
 						companyNumberCheckFlag = true;
-						companyNumberFeedback.css("display", "block").addClass("success").text("사용 가능한 전화번호입니다.");
+						companyNumberFeedback.css("display", "block").addClass("success").text("사용 가능한 사업자등록번호입니다.");
 					}else{
 						companyNumberCheckFlag = false;
-						companyNumberFeedback.css("display", "block").removeClass("success").text("사용 불가능한 전화번호입니다.");
+						companyNumberFeedback.css("display", "block").removeClass("success").text("사용 불가능한 사업자등록번호입니다.");
 					}
 				},
 				error : function(){
@@ -457,7 +457,7 @@
 			if(!companyNumberRegex.test(companyNumber.val())){
 				companyNumber.focus();
 				companyNumber.val();
-				companyNumberFeedback.css("display", "block").text("-를 포함한 12자리 번호를 입력해주세요.").removeClass("success");
+				companyNumberFeedback.css("display", "block").text("-를 포함한 12자리를 입력해주세요.").removeClass("success");
 				return false;
 			}
 			

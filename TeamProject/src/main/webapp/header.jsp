@@ -1,13 +1,17 @@
+<%@page import="users.User"%>
 <%@page import="board.boardVO"%>
 <%@page import="company.companyVO"%>
 <%@page import="users.usersVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	usersVO user = (usersVO)session.getAttribute("user");
-	companyVO company = (companyVO)session.getAttribute("company");
-	/* boardVO bType = (boardVO)session.getAttribute("boardType"); */
+	/* String user = request.getParameter("user");
+	String cuser = request.getParameter("cuser");
+	String userType = request.getParameter("userType"); */
+	User user = (User)session.getAttribute("user");
+	
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,12 +39,12 @@
 				<li><a href="#" onclick="location.href='board.jsp?boardType=1'">정보공유게시판</a></li>
 				<li><a href="#" onclick="location.href='board.jsp?boardType=2'">익명게시판</a></li>
 			</ul>
-			<%
+			<% 
 				if(user == null){
 					%><a href="#" onclick="location.href='login.jsp'">로그인</a><%
 				}else{
 					%>
-						<a href="mypage.jsp"><span><%=user.getName() %></span>님</a>
+						<a href="mypage.jsp"><span><%=user.getName() != null ? user.getName() : user.getCompanyName() %></span>님</a>
 						<a href="logout.jsp">로그아웃</a>
 					<%
 				}

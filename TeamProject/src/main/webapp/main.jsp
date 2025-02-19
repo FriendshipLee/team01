@@ -1,10 +1,15 @@
-<%@page import="users.usersVO"%>
+<%-- <%@page import="users.usersVO"%>
+<%@page import="company.companyVO"%> --%>
+<%@page import="users.User"%>
 <%@page import="company.companyVO"%>
+<%@page import="users.usersVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	usersVO user = (usersVO)session.getAttribute("user");
-	companyVO company = (companyVO)session.getAttribute("company"); 
+
+<%	
+	User user = (User)session.getAttribute("user");
+	//user -> 개인 로그인 했을 때
+	//cuser -> 기업 로그인 했을 때
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -35,17 +40,17 @@
 			  <li><a href="#" onclick="location.href='board.jsp?boardType=2'">익명게시판</a></li>
 			</ul>
 			<%
-				if(user == null){
-					%>
-					<button type="button" onclick="location.href='signup.jsp'">회원가입</button>
-					<button type="button" onclick="location.href='login.jsp'">로그인</button>
-					<%
-				}else{
-					%>
-					<button type="button" onclick="location.href='mypage.jsp'">마이페이지</button>
-					<button type="button" onclick="location.href='logout.jsp'">로그아웃</button>
-					<%
-				}
+			if(user == null){
+				%>
+				<button type="button" onclick="location.href='signup.jsp'">회원가입</button>
+				<button type="button" onclick="location.href='login.jsp'">로그인</button>
+				<%
+			}else{
+				%>
+				<button type="button" onclick="location.href='mypage.jsp'">마이페이지</button>
+				<button type="button" onclick="location.href='logout.jsp'">로그아웃</button>
+				<%
+			}
 			%>
 		</div>
 		<div class="slider__wrap">

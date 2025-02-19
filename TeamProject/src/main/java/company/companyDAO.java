@@ -29,14 +29,15 @@ public class companyDAO extends DBManager{
 	//2. 로그인
 	//select * from user where id = '??' and pw = '??';
 	public companyVO login(companyVO cvo) {
-		String companyNumber = cvo.getCompanyNumber();
-		String pw = cvo.getPw();
+		  String companyNumber = cvo.getCompanyNumber(); 
+		  String pw = cvo.getPw();
+		 
 		
 		driverLoad();
 		DBConnect();
 		
-		String sql = "select * from company where";
-		sql += " company_number = '"+companyNumber+"' and pw = '"+pw+"' and company_type != 99";
+		String sql = "select * from company where ";
+		sql += "company_number = '"+companyNumber+"' and pw = '"+pw+"' and company_type != 99";
 		executeQuery(sql);
 		
 		if(next()) {
@@ -44,6 +45,7 @@ public class companyDAO extends DBManager{
 			
 			companyVO vo = new companyVO();
 			vo.setCompanyNumber(companyNumber);
+			vo.setCompanyName(getString("company_name"));
 			vo.setPw(pw);
 			vo.setCompanyType(companyType);
 		

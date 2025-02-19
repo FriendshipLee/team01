@@ -1,3 +1,4 @@
+<%@page import="users.User"%>
 <%@page import="users.usersDAO"%>
 <%@page import="company.companyVO"%>
 <%@page import="company.companyDAO"%>
@@ -39,7 +40,7 @@
 		vo.setId(id);
 		vo.setPw(pw);
 		
-		usersVO user = dao.login(vo);
+		User user = dao.login(vo);
 		if(user == null){
 			session.setAttribute("id", id);
 			response.sendRedirect("login.jsp?error=pe"+"&userType="+userType);
@@ -57,10 +58,10 @@
 		}
 		response.sendRedirect("main.jsp");
 		return;
-	}	
-		//기업회원 로그인
+	}
+	if(userType.equals("2")){
+     	//기업회원 로그인
 		System.out.println("기업회원");
-		if(userType.equals("2")){
 		if(bid == null || bpw == null){
 			response.sendRedirect("login.jsp");
 			return;
@@ -76,21 +77,25 @@
 		cvo.setCompanyNumber(bid);
 		cvo.setPw(bpw);
 		
-		companyVO cuser = cdao.login(cvo);
+		User cuser = cdao.login(cvo);
 		if(cuser == null){
+			
 			session.setAttribute("bid", bid);
 			response.sendRedirect("login.jsp?error=pe"+"&userType="+userType);
 			return;
 		}
+		
+		session.removeAttribute("bid");
+		session.setAttribute("user", cuser);
+		
 		if(idSaveCheck != null){
 			Cookie cookie = new Cookie("id", "id_"+bid);
 			cookie.setMaxAge(1 * 60 * 60 * 24 * 10);
 			
 			response.addCookie(cookie);
 		}
-		session.removeAttribute("bid");
-		session.setAttribute("user", cuser);
 		
 		response.sendRedirect("main.jsp");
 	}
+	
 %>

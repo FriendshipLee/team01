@@ -151,7 +151,7 @@
 	       %>
            	<div class="comments">
             	<div class="comments-top">
-	            	<p>작성자: <%= rauthor %> | <%= rcreateDate %></p>
+	            	<p>작성자: <%= !boardType.equals("2") ? author : author.equals(rauthor) ? "작성자" : "익명" %> | <%= rcreateDate %></p>
 	         <%
                	//댓글 목록을 반복하며 댓글의 작성자가 로그인한 사용자의 아이디와
                	//동일하면 수정 삭제 버튼을 보여준다.
@@ -245,7 +245,7 @@
 			},
 			success : function(result){
 				if(result.trim() == "success"){
-					$(obj).parent().parent().remove();
+					$(obj).parent().parent().parent().remove();
 				}
 			},
 			error : function(){
@@ -279,6 +279,11 @@
 	
 	$("#add-comment").click(function(){
 		let rcontent = $("#new-comment").val();
+		if(rcontent == "" || rcontent == null){
+			$("#new-comment").focus();
+			alert("댓글 내용을 입력해주세요.");
+			return;
+		}
 		let no = "<%= no %>";
 		$.ajax({
 			url : "replyWriteok.jsp",
@@ -292,11 +297,12 @@
 			success : function(result){
 				console.log(result);
 				let time = getTime();
+				let anonyAuthor = "<%= !boardType.equals("2") ? author : user.getId().equals(author) ? "작성자" : "익명" %>";
 				if(result != "0"){
 					let html = "";
 					html += "<div class='comments'>";
 					html += 	"<div class='comments-top'>";
-					html +=			"<p>작성자 : "+userId+" | "+time+"</p>";
+					html +=			"<p>작성자 : "+anonyAuthor+" | "+time+"</p>";
 					html +=			"<div>";
 					html +=				"<input type='button' onclick='replyBtn(this)' value='수정'>";
 					html +=				"<input type='button' class='dpnone' onclick='modifyReply("+no+", this)' value='확인'>";
@@ -307,7 +313,7 @@
 					html +=		"<hr>"
 					html +=		"<div class='comment-content'>"+rcontent+"</div>"
 					html += "</div>"
-					$(".comment-box").append(html);
+					$("#add-comment").after(html);
 					$("#new-comment").val("").focus();
 				}
 			},

@@ -84,7 +84,7 @@
 		fileVO.setAttachLocation(savePath);
 		fileVO.setAttachOriginName(originFileName);
 		fileVO.setAttachUploadName(fileName);
-		fileVO.setNo(wno+"");
+		fileVO.setFno(wno+"");
 		
 		fileList.add(fileVO);
 	}

@@ -50,7 +50,7 @@
 	    	</div>
 	    	<div>
 	    		<h3>첨부파일</h3>
-	    		<input type="file" id="file" name="file" multiple="multiple">
+	    		<input type="file" id="file" name="file">
 	    	</div>
 	    	<% 
 		    	for(int i = 0; i < flist.size(); i++){ 
@@ -58,7 +58,7 @@
 		    		long fileSize = fvo.getFileSize();
 		    		String data = "";
 		    		if(fileSize < 1024){
-        				data = fileSize + "B";
+        				data = fileSize + "b";
         			}else if(fileSize < 1024 * 1024){
         				double kb = fileSize / (double)1024;
         				kb = Math.round(kb * 100) / 100.0;
@@ -92,7 +92,7 @@
 </body>
 <script>
 
-	$("#file").on("change", function(e){
+	/* $("#file").on("change", function(e){
 		console.log(e);
 		for(let i = 0; i < e.target.files.length; i ++){
 			let html = "";
@@ -103,7 +103,29 @@
 			$("#modify-form").append(html);	
 		}
 		
-	});
+	}); */
+	
+	/* document.getElementById("file").addEventListener("change", function(event) {
+        const files = event.target.files;
+        const form = document.getElementById("modify-form");
+
+        for (let i = 0; i < files.length; i++) {
+            const newFileInput = document.createElement("input");
+            newFileInput.type = "file";
+            newFileInput.name = "file"+(i + 1); // file1, file2, file3 형식으로 설정
+            newFileInput.classList.add("dynamic-file");
+
+            // FileList는 직접 할당할 수 없기 때문에 DataTransfer를 사용
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(files[i]);
+            newFileInput.files = dataTransfer.files;
+
+            form.appendChild(newFileInput);
+            
+            //
+        }
+    }); */
+	
 	function infoFileDel(fno, obj){
 		$.ajax({
 			url : "modifyFileDel.jsp",

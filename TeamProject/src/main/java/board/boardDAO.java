@@ -91,8 +91,8 @@ public class boardDAO extends DBManager{
 		return list;
 	}
 	
-	//글 조회(여러건)
-	public List<boardVO> listView(String searchType, String searchKeyword, int startNum, int limitSize, String boardType){
+	//글 조회(여러건-최신순)
+	public List<boardVO> listViewDesc(String searchType, String searchKeyword, int startNum, int limitSize, String boardType){
 		driverLoad();
 		DBConnect();
 		
@@ -100,7 +100,8 @@ public class boardDAO extends DBManager{
 		if(searchType != "" && searchKeyword != "") {
 			sql+= " and "+searchType+" like '%"+searchKeyword+"%'";
 		}
-		sql += " limit "+ startNum + ", " + limitSize;
+		sql += " order by no desc limit "+ startNum +", "+ limitSize;
+		System.out.println(sql);
 		executeQuery(sql);
 		
 		List<boardVO> list = new ArrayList<>();
@@ -123,6 +124,40 @@ public class boardDAO extends DBManager{
 		DBDisConnect();
 		return list;
 	}
+	
+	//글 조회(여러건-오래된순)
+		public List<boardVO> listViewAsc(String searchType, String searchKeyword, int startNum, int limitSize, String boardType){
+			driverLoad();
+			DBConnect();
+			
+			String sql = "select * from board where board_type = "+ boardType;
+			if(searchType != "" && searchKeyword != "") {
+				sql+= " and "+searchType+" like '%"+searchKeyword+"%'";
+			}
+			sql += " order by no asc limit "+ startNum +", "+ limitSize;
+			System.out.println(sql);
+			executeQuery(sql);
+			
+			List<boardVO> list = new ArrayList<>();
+			
+			while(next()) {
+				String no = getString("no");
+				String title = getString("title");
+				String author = getString("author");
+				String createDate = getString("create_date");
+				
+				
+				boardVO vo = new boardVO();
+				vo.setNo(no);
+				vo.setTitle(title);
+				vo.setAuthor(author);
+				vo.setCreateDate(createDate);
+				
+				list.add(vo);
+			}
+			DBDisConnect();
+			return list;
+		}
 	
 	//상세조회
 	public boardVO view(String no) {

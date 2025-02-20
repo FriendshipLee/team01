@@ -17,6 +17,7 @@
 	
 	String searchType = request.getParameter("searchType");
 	String keyword = request.getParameter("searchKeyword");
+	String listArray = request.getParameter("listArray");
 	String boardType = request.getParameter("boardType");
 	
 	if(searchType == null){
@@ -25,14 +26,16 @@
 	if(keyword == null){
 		keyword = "";
 	}
+	if(listArray == null){
+		listArray = "desc";
+	}
 	if(boardType == null){
 		response.sendRedirect("board.jsp?boardType=0");
 		return;
 	}   
 	
 	boardDAO dao = new boardDAO();
-	List<boardVO> listAll = dao.boardList(boardType);
-	List<boardVO> list = dao.listView(searchType, keyword, startNum, limitperPage, boardType);
+	List<boardVO> list = dao.listViewDesc(searchType, keyword, startNum, limitperPage, boardType);
 	
 	
 	int totalCount = dao.getCount(searchType, keyword, boardType);
@@ -104,10 +107,14 @@
 	            	}
 	            %>
 	        </div>
-	        </form>
-	     <div class="list">
-			<% for(int i = 0; i < listAll.size(); i++){ 
-				boardVO vo = listAll.get(i);
+	        <select name="listArray" id="listArray">
+	        	<option value="desc" selected>최신순</option>
+	        	<option value="asc">오래된순</option>
+	        </select>
+		</form>
+	    <div class="list">
+			<% for(int i = 0; i < list.size(); i++){ 
+				boardVO vo = list.get(i);
 			%>
 				<div class="content-box" onclick="location.href='post.jsp?no=<%=vo.getNo()%>&boardType=<%= boardType %>'">
 					<div class="content">
@@ -173,6 +180,26 @@
                 window.location.href = 'write.jsp?boardType=<%= boardType %>';
             });
         });
+        $("#listArray").click(function(){
+        	$("#listArray").submit();
+	        $.ajax({
+				url : "listArray.jsp",
+				type : "post",
+				data : {
+					searchType : "<%=searchType%>",
+					keyword : "<%=keyword%>",
+					listArray : $("#listArray option:selected").val(),
+					boardType : "<%=boardType%>"
+				},
+				success : function(result){
+					console.log(result);
+				},
+				error : function(){
+					console.log("에러 발생");
+				}
+	        });
+        });
+        
     </script>
 </body>
 </html>

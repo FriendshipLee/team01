@@ -14,6 +14,7 @@ public class gonggoVO {
 	private String updateDate;
 	private String deleteDate;
 	private int gonggoType;
+	private String due;
 	
 	public String getNo() {
 		return no;
@@ -92,6 +93,12 @@ public class gonggoVO {
 	}
 	public void setGonggoType(int gonggoType) {
 		this.gonggoType = gonggoType;
+	}
+	public String getDue() {
+		return due;
+	}
+	public void setDue(String due) {
+		this.due = due;
 	}
 	
 }

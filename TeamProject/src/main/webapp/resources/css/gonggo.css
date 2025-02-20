@@ -178,5 +178,4 @@ input[id="cb4"]:checked + label::after{
 	color: white;
 	text-decoration: none;
 	background-color: #e9eef6;
-	
 }

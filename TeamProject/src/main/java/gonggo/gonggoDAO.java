@@ -18,14 +18,12 @@ public class gonggoDAO extends DBManager{
 		String location = vo.getLocation();
 		String deadline = vo.getDeadline();
 		String link = vo.getLink();
-		int gonggoType = vo.getGonggoType();
-				
 		
 		driverLoad();
 		DBConnect();
 		
-		String sql="insert gonggo into(title, content, author, career, education, location, deadline, link, gonggo_type)";
-		sql+="values('"+title+"', '"+content+"', '"+author+"', "+career+", "+education+", '"+location+"', '"+deadline+"', '"+link+"', "+gonggoType+")";
+		String sql="insert into gonggo(title, content, author, career, education, location, deadline, link)";
+		sql+="values('"+title+"', '"+content+"', '"+author+"', "+career+", "+education+", '"+location+"', '"+deadline+"', '"+link+"')";
 		executeUpdate(sql);
 		
 		DBDisConnect();

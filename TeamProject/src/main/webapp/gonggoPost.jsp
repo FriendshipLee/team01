@@ -1,6 +1,31 @@
+<%@page import="gonggo.gonggoVO"%>
+<%@page import="gonggo.gonggoDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
+<%
+	String no = request.getParameter("no");
+	if(no == null || user == null) {
+		response.sendRedirect("main.jsp");
+		return;
+	}
+	
+	gonggoDAO dao = new gonggoDAO();
+	gonggoVO vo = dao.view(no);
+	
+	String title = vo.getTitle();
+	String author = vo.getAuthor();
+	String content = vo.getContent();
+	String career = vo.getCareer();
+	String education = vo.getEducation();
+	String location = vo.getLocation();
+	String deadline = vo.getDeadline();
+	String link = vo.getLink();
+	String createDate = vo.getCreateDate();
+	
+	String searchType = request.getParameter("searchType");
+	String keyword = request.getParameter("searchkeyword");
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -25,23 +50,22 @@
 	     	<div class="post-box">
 	            <div class="post-top">
 	            	<div>
-	            		<h2>제목</h2>
-		           		<p>기업명 :  | 작성일 : | 마감일: 2025-11-10</p>
+	            		<h2><%=title %></h2>
+		           		<p>기업명 :<%=author %>  | 작성일 : <%=createDate %> | 마감일: <%=deadline %></p>
 	          	  	</div>
 		            <hr>
-			        <span>경력 : 무관</span>    
-			        <span>학력 : 고졸이상</span>    
-			        <p>근무위치 :  전북특별자치도 전주시 덕진구 123-123 2</p>
-		            <p>본문</p>
+			        <span>경력 : <%=career %></span>    
+			        <span>학력 : <%=education %></span>    
+			        <p>근무위치 :  <%=location %></p>
+		            <p><%=content %></p>
 		            <br>
 				</div>
-				
-				<a href="#">접수하러 가기</a>
-					<div class="modify">
-						<input type="button" value="수정">
-						<input type="button" value="삭제">
-					</div>
-	       	<input type="button" class="button" value="뒤로가기">
+				<a href="<%=link %>">접수하러 가기</a>
+				<div class="modify">
+					<input type="button" onclick="location.href='gonggoModify.jsp?no=<%=no %>'" value="수정">
+					<input type="button" onclick="location.href='gonggoDel.jsp?no=<%=no %>'" value="삭제">
+				</div>
+	       		<input type="button" class="button" onclick="location.href='gonggo.jsp?no=<%=no %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchkeyword=" + keyword : ""%>" value="뒤로가기">
 	   		</div>
 	   	</div>
 	</body>

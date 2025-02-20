@@ -2,29 +2,60 @@
 *{
 	box-sizing: border-box;
 }
-.dpnone{
-	display: none;
-}
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
+body{
+	background: url("../img/bg.jpg") no-repeat center top fixed;
+    font-family: "pretendard", sans-serif;
+	font-style: normal;
+	margin: 0;
 }
 h1, h2, h3, h4, h5, h6, p{
 	margin: 0;
 }
+h2 {
+	font-size: 26px;
+}
+p {
+	font-size: 18px;
+	margin-top: 10px;
+}
+a {
+	font-size: 18px;
+}
 .container {
-    max-width: 850px;
+    max-width: 900px;
     margin: auto;
 }
 .post-box {
+    position: relative;
     background-color: white;
-    padding: 20px;
+    padding: 50px 30px;
     border-radius: 10px;
     margin: 0 auto;
     margin-top: 50px;
 }
+.back{
+	position: absolute;
+    top: 6px;
+    left: 12px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #969696;
+}
+.post-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
 .post-top p{
-	font-size: 14px;
+	font-size: 15px;
+	color: #969696;
+	margin-top: 5px;
+}
+hr {
+    margin: 10px 0;
+}
+.info span{
+	padding-right: 10px;
 }
 .modify{
 	display: flex;
@@ -33,13 +64,15 @@ h1, h2, h3, h4, h5, h6, p{
 }
 .modify input[type="button"]{
 	border-radius: 50px;
-	background-color: #969696;
 	color: #fff;
 	border: none;
-	width: 120px;
-	height: 40px;
-	margin-left: 5px;
+	width: 18%;
+	height: 50px;
 	cursor: pointer;
+	text-align: center;
+	background-color: #355beb;
+    font-size: 16px;
+    margin-top: 30px;
 }
 .button{
 	width: 130px;
@@ -54,3 +87,4 @@ h1, h2, h3, h4, h5, h6, p{
 	margin: 0 auto;
 	margin-top: 20px;
 }
+

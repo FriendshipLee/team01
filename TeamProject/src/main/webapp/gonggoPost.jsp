@@ -48,24 +48,26 @@
 	<body>
 		<div class="container">
 	     	<div class="post-box">
+				<div class="back" onclick="location.href='gonggo.jsp?no=<%=no %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchkeyword=" + keyword : ""%>"">&larr;</div>
 	            <div class="post-top">
-	            	<div>
-	            		<h2><%=title %></h2>
-		           		<p>기업명 :<%=author %>  | 작성일 : <%=createDate %> | 마감일: <%=deadline %></p>
-	          	  	</div>
-		            <hr>
+            		<h2><%=title %></h2>
+	           		<p>기업명 :<%=author %>  | 작성일 : <%=createDate %> | 마감일: <%=deadline %></p>
+				</div>
+	            <hr>
+	            <div class="info">
 			        <span>경력 : <%=career %></span>    
 			        <span>학력 : <%=education %></span>    
-			        <p>근무위치 :  <%=location %></p>
-		            <p><%=content %></p>
-		            <br>
-				</div>
+			        <span>근무위치 :  <%=location %></span>
+	            </div>
+	            <p><%=content %></p>
+	            <br>
 				<a href="<%=link %>">접수하러 가기</a>
-				<div class="modify">
-					<input type="button" onclick="location.href='gonggoModify.jsp?no=<%=no %>'" value="수정">
-					<input type="button" onclick="location.href='gonggoDel.jsp?no=<%=no %>'" value="삭제">
-				</div>
-	       		<input type="button" class="button" onclick="location.href='gonggo.jsp?no=<%=no %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchkeyword=" + keyword : ""%>" value="뒤로가기">
+				<%if(user != null && user.getId().equals(author)){ %>
+					<div class="modify">
+						<input type="button" onclick="location.href='gonggoModify.jsp?no=<%=no %>'" value="수정">
+						<input type="button" onclick="location.href='gonggoDel.jsp?no=<%=no %>'" value="삭제">
+					</div>
+				<%} %>				
 	   		</div>
 	   	</div>
 	</body>

@@ -1,10 +1,30 @@
+<%@page import="gonggo.gonggoVO"%>
+<%@page import="java.util.List"%>
+<%@page import="gonggo.gonggoDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <%
+	String pageNum = request.getParameter("page");
+	if(pageNum == null){
+		pageNum = "1";
+	}
+	
+	int currentPage = Integer.parseInt(pageNum);
+	int startNum = (currentPage-1) * 10;
+	int limitperPage = 10;
+	
 	String searchType = request.getParameter("searchType");
 	String keyword = request.getParameter("searchKeyword");
-	String boardType = request.getParameter("boardType");
+	//String boardType = request.getParameter("boardType");
+	
+	gonggoDAO dao = new gonggoDAO();
+	List<gonggoVO> list = dao.gonggoList(searchType, keyword, startNum, limitperPage);
+	
+	int totalCount = dao.getCount(searchType, keyword);
+	
+	int pageGroupSize = 10;
+	int startPage = ((currentPage - 1) / pageGroup);
 	
 	if(searchType == null){
 		searchType = "";
@@ -43,7 +63,7 @@
 	        		<option value="author" <%= searchType.equals("author")? "selected" : "" %>>작성자</option>
 	        	</select>
 	        	<div class="search-box">
-		            <input type="text" placeholder="검색어를 입력하세요.">
+		            <input type="text" value="<%= keyword %>" name="searchkeyword" placeholder="검색어를 입력하세요.">
 					<input type="button" class="btn-img">        	
 	        	</div>
         	</div>

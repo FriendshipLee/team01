@@ -52,7 +52,9 @@ public class gonggoDAO extends DBManager{
 	}
 	
 	//글삭제
-	public void delete(String no) {
+	public void delete(gonggoVO vo) {
+		String no = vo.getNo();
+		
 		driverLoad();
 		DBConnect();
 		
@@ -63,14 +65,19 @@ public class gonggoDAO extends DBManager{
 	}
 	
 	//글목록 조회
-	public List<gonggoVO> gonggoList(gonggoVO vo){
-		List<gonggoVO> list = new ArrayList<gonggoVO>();
+	public List<gonggoVO> gonggoList(String searchType, String keyword, int startNum, int limitSize){
+		//List<gonggoVO> list = new ArrayList<gonggoVO>();
 		
 		driverLoad();
 		DBConnect();
 		
 		String sql = "select * from gonggo where gonggo_type != 99";
+		if(searchType != null && keyword != null) {
+			sql += " and "+searchType+" like '%"+keyword+"%'%";
+		}
 		executeQuery(sql);
+		
+		List<gonggoVO> list = new ArrayList<>();
 		
 		while(next()) {
 			gonggoVO vo2 = new gonggoVO();
@@ -90,7 +97,6 @@ public class gonggoDAO extends DBManager{
 		}
 		
 		DBDisConnect();
-		
 		return list;
 	}
 	
@@ -124,31 +130,45 @@ public class gonggoDAO extends DBManager{
 		}
 	}
 	
-	//글 목록조회
-	public List<gonggoVO> gonggoList(){
-		List<gonggoVO> list = new ArrayList<gonggoVO>();
-
+	/*
+	 * //글 목록조회 public List<gonggoVO> gonggoList(){ List<gonggoVO> list = new
+	 * ArrayList<gonggoVO>();
+	 * 
+	 * driverLoad(); DBConnect();
+	 * 
+	 * String sql = "select * from board where gonggo_type != 99 order by no desc";
+	 * executeQuery(sql);
+	 * 
+	 * while(next()) { gonggoVO vo = new gonggoVO(); vo.setNo(getString("no"));
+	 * vo.setAuthor(getString("author")); vo.setTitle(getString("title"));
+	 * vo.setContent(getString("content"));
+	 * vo.setCreateDate(getString("create_date"));
+	 * vo.setUpdateDate(getString("update_date"));
+	 * vo.setDeleteDate(getString("delete_date")); list.add(vo); }
+	 * 
+	 * DBDisConnect();
+	 * 
+	 * return list; }
+	 */
+	
+	//게시글 갯수 조회
+	public int getCount(String searchType, String keyword) {
 		driverLoad();
 		DBConnect();
 		
-		String sql = "select * from board where gonggo_type != 99 order by no desc";
+		String sql = " select count(*) as cnt from gonggo where gonggo_type != 99";
+		if(searchType != null && keyword != null) {
+			sql += " and " + searchType + "like '%" + keyword + "%'";
+		}
 		executeQuery(sql);
 		
-		while(next()) {
-			gonggoVO vo = new gonggoVO();
-			vo.setNo(getString("no"));
-			vo.setAuthor(getString("author"));
-			vo.setTitle(getString("title"));
-			vo.setContent(getString("content"));
-			vo.setCreateDate(getString("create_date"));
-			vo.setUpdateDate(getString("update_date"));
-			vo.setDeleteDate(getString("delete_date"));
-			list.add(vo);
+		if(next()) {
+			int count = getInt("cnt");
+			DBDisConnect();
+			return count;
+		}else {
+			DBDisConnect();
+			return 0;
 		}
-		
-		DBDisConnect();
-		
-		return list;
 	}
-	
 }

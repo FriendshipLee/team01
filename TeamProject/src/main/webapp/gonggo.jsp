@@ -65,7 +65,7 @@
 		
 		<div class="list">
 			<% for(int i = 0; i < 10; i++){ %>
-				<div class="content" onclick="location.href='post.jsp'">
+				<div class="content" onclick="location.href='gonggoPost.jsp'">
 					<div>
 						<span>(주)엑셈</span>
 						<h4>플랫폼 백엔드 API 개발자 모집 <%=i %></h4>

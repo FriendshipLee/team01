@@ -14,7 +14,7 @@
 	String path = request.getContextPath();
 	
 	if(no == null || user == null){
-		response.sendRedirect("main.jsp");
+		response.sendRedirect("login.jsp");
 		return;
 	} 
 

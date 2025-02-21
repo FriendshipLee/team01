@@ -1,3 +1,5 @@
+<%@page import="gonggo.gonggoVO"%>
+<%@page import="gonggo.gonggoDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
@@ -18,7 +20,12 @@
 		return;
 	}
 	
-
+	gonggoDAO dao = new gonggoDAO();
+	gonggoVO vo = dao.view(no);
+	
+	String career = vo.getCareer();
+	String education = vo.getEducation();
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -46,7 +53,7 @@
 				<input type="hidden" value="<%= no %>" name="no">
 				<div class="title">
 					<label for="title">제목</label>
-		            <input type="text" id="title" name="title" placeholder="제목을 입력하세요"><br>
+		            <input type="text" id="title" name="title" placeholder="제목을 입력하세요" value="<%= vo.getTitle() %>"><br>
 				</div>
 				<div class="radio">
 	       	  		<div>
@@ -83,19 +90,19 @@
 				</div>
 				<div>
 		            <label for="content">내용</label><br>
-		            <textarea id="content" name="content" placeholder="내용을 입력하세요"></textarea><br>
+		            <textarea id="content" name="content" placeholder="내용을 입력하세요"><%= vo.getContent() %></textarea><br>
 				</div>
 	       	  	<div class="location">
 	       	  		<label for="location">근무위치</label>
-	       	  		<input type="text" id="location" name="location" placeholder="근무위치를 입력하세요">
+	       	  		<input type="text" id="location" name="location" placeholder="근무위치를 입력하세요" value="<%= vo.getLocation() %>">
 	       	  	</div>
 	       	  	<div class="deadline">
 	       	  		<label for="deadline">공고 마감일</label>
-	       	  		<input type="date" id="deadline" name="deadline">
+	       	  		<input type="date" id="deadline" name="deadline" value="<%= vo.getDeadline() %>">
 	       	  	</div>
 	       	  	<div class="link">
 	       	  		<label for="link">접수 링크 주소</label>
-	       	  		<input type="text" id="link" name="link" placeholder="채용접수 링크를 입력하세요">
+	       	  		<input type="text" id="link" name="link" placeholder="채용접수 링크를 입력하세요" value="<%= vo.getLink() %>">
 	       	  	</div>
 	            <div class="action">
 	                <button type="submit">등록</button>
@@ -105,6 +112,30 @@
 	    </div>
 	</body>
 	<script>
+		$(":radio[name='career']").each(function(){
+			let career = "<%= career %>";
+			var $this = $(this);
+			if(career == '0'){
+				$("#cnothing").attr('checked', true);
+			}else if(career == '1'){
+				$("#new").attr('checked', true);
+			}else {
+				$("#old").attr('checked', true);
+			}
+		});
+		
+		$(":radio[name='education']").each(function(){
+			let education = "<%= education %>";
+			var $this = $(this);
+			if(education == '0'){
+				$("#enothing").attr('checked', true);
+			}else if(education == '1'){
+				$("#associate").attr('checked', true);
+			}else {
+				$("#bachelors").attr('checked', true);
+			}
+		});
+	
 		function formCheck(){
 			let career = $("input:radio[name='career']:checked").val();
 			let education = $("input:radio[name='education']:checked").val();

@@ -16,7 +16,17 @@
 	
 	String searchType = request.getParameter("searchType");
 	String keyword = request.getParameter("searchKeyword");
-	//String boardType = request.getParameter("boardType");
+	String listArray = request.getParameter("listArray");
+	
+	if(searchType == null){
+		searchType = "";
+	}
+	if(keyword == null){
+		keyword = "";
+	}
+	if(listArray == null){
+		listArray = "desc";
+	}
 	
 	gonggoDAO dao = new gonggoDAO();
 	List<gonggoVO> list = dao.gonggoList(searchType, keyword, startNum, limitperPage);
@@ -31,12 +41,6 @@
 	System.out.println("전체 게시글" + totalCount);
 	System.out.println("전체 페이지" + totalPage);
 	
-	if(searchType == null){
-		searchType = "";
-	}
-	if(keyword == null){
-		keyword = "";
-	}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -69,7 +73,7 @@
 	        	</select>
 	        	<div class="search-box">
 		            <input type="text" value="<%= keyword %>" name="searchkeyword" placeholder="검색어를 입력하세요.">
-					<input type="button" class="btn-img">        	
+					<button type="submit" class="btn-img"></button>        	
 	        	</div>
         	</div>
         	<%if(user != null && user.getCompanyName() != null){ %>

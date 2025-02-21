@@ -62,7 +62,7 @@
 	            <p><%=content %></p>
 	            <br>
 				<a href="<%=link %>">접수하러 가기</a>
-				<%if(user != null && user.getId().equals(author)){ %>
+				<%if(user != null && user.getCompanyNumber().equals(author)){ %>
 					<div class="modify">
 						<input type="button" onclick="location.href='gonggoModify.jsp?no=<%=no %>'" value="수정">
 						<input type="button" onclick="location.href='gonggoDel.jsp?no=<%=no %>'" value="삭제">

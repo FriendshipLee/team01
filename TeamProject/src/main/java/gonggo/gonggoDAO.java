@@ -83,7 +83,7 @@ public class gonggoDAO extends DBManager{
 		DBConnect();
 		
 		String sql = "select *, if(deadline >= date(now()), '채용중', '접수마감') as due from gonggo where gonggo_type != 99";
-		if(searchType != null && keyword != null) {
+		if(searchType != null && keyword != null && !searchType.equals("") && !keyword.equals("")) {
 			sql += " and "+searchType+" like '%"+keyword+"%'";
 		}
 		executeQuery(sql);
@@ -169,7 +169,7 @@ public class gonggoDAO extends DBManager{
 		DBConnect();
 		
 		String sql = " select count(*) as cnt from gonggo where gonggo_type != 99";
-		if(searchType != null && keyword != null) {
+		if(searchType != null && keyword != null && !searchType.equals("") && !keyword.equals("")) {
 			sql += " and " + searchType + "like '%" + keyword + "%'";
 		}
 		executeQuery(sql);

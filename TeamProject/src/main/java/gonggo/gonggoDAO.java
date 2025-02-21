@@ -63,8 +63,7 @@ public class gonggoDAO extends DBManager{
 	}
 	
 	//글삭제
-	public void delete(gonggoVO vo) {
-		String no = vo.getNo();
+	public void delete(String no) {
 		
 		driverLoad();
 		DBConnect();

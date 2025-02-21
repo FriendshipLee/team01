@@ -10,6 +10,11 @@
 		return;
 	}
 	
+	if(user.getCompanyNumber()==null){
+		user.setCompanyNumber("1");
+	}
+		
+	
 	gonggoDAO dao = new gonggoDAO();
 	gonggoVO vo = dao.view(no);
 	

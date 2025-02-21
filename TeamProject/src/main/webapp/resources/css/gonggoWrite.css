@@ -1,56 +1,102 @@
-@charset "UTF-8";
 *{
 	box-sizing: border-box;
 }
-.dpnone{
-	display: none;
+body{
+	background: url("../img/bg.jpg") no-repeat center top fixed;
+    font-family: "pretendard", sans-serif;
+	font-style: normal;
 }
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
+h2{
+	color: #000;
+	text-align: center;
+	font-size: 35px;
 }
-h1, h2, h3, h4, h5, h6, p{
-	margin: 0;
+.board-container {
+	max-width: 900px;
+	margin: 20px auto;
+	padding: 20px;
 }
-.container {
-    max-width: 850px;
-    margin: auto;
-}
-.post-box {
-    background-color: white;
-    padding: 20px;
+form{
+	margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
     border-radius: 10px;
-    margin: 0 auto;
-    margin-top: 50px;
+    padding: 25px;
 }
-.post-top p{
-	font-size: 14px;
+.title input{
+    padding: 10px;
+    border: 1px solid #ccc;
 }
-.modify{
-	display: flex;
-	align-items: center;
-    justify-content: flex-end;
+input[type=text], textarea, input[type="file"]{
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ddd;
+	font-size: 1rem;
 }
-.modify input[type="button"]{
+.radio {
+    display: flex;
+    width: 100%;
+    height: 55px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+label {
+	width: 100%;
+	font-size: 18px;
+	line-height: 2rem;
+	padding: 0px 6px;
+}
+[type="radio"] {
+	vertical-align: middle;
+	appearance: none;
+  	display: none;
+}
+input[type="radio"]:checked + span {
+	background-color: #355beb;
+	border: 1px solid #355beb;
+	color: #fff;
+}
+.flex span {
+	width: 100%;
+	display: inline-block;
+	font-size: 16px;
+	line-height: 2rem;
+	background-color: #fff;
+	color: #969696;
+	border-radius: 5px;
+	border: 1px solid #969696;
+	cursor: pointer;
+}
+
+.flex [type="radio"], span {
+	vertical-align: middle;
+}
+.title input[type="text"]{
+	width: 100%;
+	margin-right: 7px;
+	height: 55px;
+}
+textarea{
+	height: 300px;
+	resize: none;
+	width: 100%;
+}
+.action {
+	text-align: center;
+}
+.action button{
 	border-radius: 50px;
-	background-color: #969696;
 	color: #fff;
 	border: none;
-	width: 120px;
-	height: 40px;
-	margin-left: 5px;
-	cursor: pointer;
-}
-.button{
-	width: 130px;
-	height: 50px;
-	background-color: #969696;
-	color: white;
-	border: none;
-	border-radius: 30px;
+	width: 20%;
+	height: 55px;
 	cursor: pointer;
 	text-align: center;
-	display: block;
-	margin: 0 auto;
-	margin-top: 20px;
+	background-color: #355beb;
+    font-size: 16px;
+    margin-top: 30px;
 }

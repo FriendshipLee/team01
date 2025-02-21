@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
+<%
+	if(user == null){
+		response.sendRedirect("gonggo.jsp");
+		return;
+	}
+
+	String author = user.getCompanyNumber();
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -21,28 +29,88 @@
 	    <link rel="stylesheet" href="./resources/css/gonggoWrite.css"></link>
 	</head>
 	<body>
-		<div class="container">
-	     	<div class="post-box">
-	            <div class="post-top">
-	            	<div>
-	            		<h2>제목</h2>
-		           		<p>기업명 :  | 작성일 : | 마감일: 2025-11-10</p>
-	          	  	</div>
-		            <hr>
-			        <span>경력 : 무관</span>    
-			        <span>학력 : 고졸이상</span>    
-			        <p>근무위치 :  전북특별자치도 전주시 덕진구 123-123 2</p>
-		            <p>본문</p>
-		            <br>
+		<div class="board-container">
+			<h2>채용공고 작성</h2>
+			<form method="post" action="gonggoWriteok.jsp">
+				<input type="hidden" value="<%= author %>" name="author">
+				<div class="title">
+					<label for="title">제목</label>
+		            <input type="text" id="title" name="title" placeholder="제목을 입력하세요"><br>
 				</div>
-				
-				<a href="#">접수하러 가기</a>
-					<div class="modify">
-						<input type="button" value="수정">
-						<input type="button" value="삭제">
+				<div class="radio">
+	       	  		<div>
+	       	  			<span>경력</span>
+		       	  		<label for="cnothing">
+			       	  		<input type="radio" id="cnothing" name="career" value="0">
+			       	  		<span>무관</span>
+		       	  		</label>
+		       	  		<label for="new">
+			       	  		<input type="radio" id="new" name="career" value="1">
+			       	  		<span>신입</span>
+		       	  		</label>
+		       	  		<label for="old">
+			       	  		<input type="radio" id="old" name="career" value="2">
+			       	  		<span>경력</span>
+		       	  		</label>
+	       	  		</div>
+	       	  		<br>
+	       	  		<div>
+		       	  		<span>학력</span>
+		       	  		<label for="enothing">
+			       	  		<input type="radio" id="enothing" name="education" value="0">
+			       	  		<span>무관</span>
+		       	  		</label>
+		       	  		<label for="associate">
+			       	  		<input type="radio" id="associate" name="education" value="1">
+			       	  		<span>초대졸</span>
+		       	  		</label>
+		       	  		<label for="bachelors">
+			       	  		<input type="radio" id="bachelors" name="education" value="2">
+			       	  		<span>대졸</span>
+		       	  		</label>
 					</div>
-	       	<input type="button" class="button" value="뒤로가기">
-	   		</div>
-	   	</div>
+				</div>
+				<div>
+		            <label for="content">내용</label><br>
+		            <textarea id="content" name="content" placeholder="내용을 입력하세요"></textarea><br>
+				</div>
+	       	  	<div class="location">
+	       	  		<label for="location">근무위치</label>
+	       	  		<input type="text" id="location" name="location" placeholder="근무위치를 입력하세요">
+	       	  	</div>
+	       	  	<div class="deadline">
+	       	  		<label for="deadline">공고 마감일</label>
+	       	  		<input type="date" id="deadline" name="deadline">
+	       	  	</div>
+	       	  	<div class="link">
+	       	  		<label for="link">접수 링크 주소</label>
+	       	  		<input type="text" id="link" name="link" placeholder="채용접수 링크를 입력하세요">
+	       	  	</div>
+	            <div class="action">
+	                <button type="submit">등록</button>
+	                <button type="button">취소</button>
+	            </div>
+			</form>
+	    </div>
 	</body>
+	<script>
+		function formCheck(){
+			let career = $("input:radio[name='career']:checked").val();
+			let education = $("input:radio[name='education']:checked").val();
+			$.ajax({
+				url : "gonggoWriteok.jsp",
+				type : "post",
+				data : {
+					career : career,
+					educatoin : education
+				},
+				success : function(result){
+					console.log(result);
+				},
+				error : function(){
+					console.log("에러 발생");
+				}
+			});
+		}
+	</script>
 </html>

@@ -9,7 +9,7 @@ import db.DBManager;
 public class gonggoDAO extends DBManager{
 	
 	//글작성
-	public void write(gonggoVO vo) {
+	public int write(gonggoVO vo) {
 		String title = vo.getTitle();
 		String content = vo.getContent();
 		String author = vo.getAuthor();
@@ -26,7 +26,18 @@ public class gonggoDAO extends DBManager{
 		sql+="values('"+title+"', '"+content+"', '"+author+"', "+career+", "+education+", '"+location+"', '"+deadline+"', '"+link+"')";
 		executeUpdate(sql);
 		
-		DBDisConnect();
+		sql = "select last_insert_id() as no";
+		executeQuery(sql);
+		
+		if(next()) {
+			int no = getInt("no");
+			DBDisConnect();
+			return no;
+		}else {
+			DBDisConnect();
+			return 0;
+		}
+		
 	}
 	
 	//글수정

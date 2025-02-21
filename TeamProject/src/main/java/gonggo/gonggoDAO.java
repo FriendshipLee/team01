@@ -75,7 +75,7 @@ public class gonggoDAO extends DBManager{
 	}
 	
 	//글목록 조회
-	public List<gonggoVO> gonggoList(String searchType, String keyword, int startNum, int limitSize){
+	public List<gonggoVO> gonggoList(String searchType, String keyword, int startNum, int limitSize, String listArray){
 		//List<gonggoVO> list = new ArrayList<gonggoVO>();
 		
 		driverLoad();
@@ -85,6 +85,8 @@ public class gonggoDAO extends DBManager{
 		if(searchType != null && keyword != null && !searchType.equals("") && !keyword.equals("")) {
 			sql += " and "+searchType+" like '%"+keyword+"%'";
 		}
+		sql += " order by no " + listArray;
+		
 		sql += " limit " + startNum +", " + limitSize;
 		executeQuery(sql);
 		System.out.println(sql);

@@ -105,8 +105,19 @@
 				String location = vo.getLocation();
 				String deadline = vo.getDeadline();
 				String due = vo.getDue();
-			%>
-				<div class="content" onclick="location.href='gonggoPost.jsp'">
+			%> 
+				<%
+					if(due.equals("채용중")){
+						%>
+							<div class="content" onclick="location.href='gonggoPost.jsp?no=<%=no%>'">
+						<%
+					}else{
+						%>
+							<div class="content">
+						<%
+					}
+				%>
+					<%-- <div class="content" <%= due.equals("채용중") ? `onclick="location.href='gonggoPost.jsp?no=<%=no%>'"` : "" %> > --%>
 					<div>
 						<span><%= author  %></span>
 						<h4><%= title %></h4>
@@ -116,6 +127,7 @@
 						<p style="color:<%= due.equals("채용중") ? "blue" : "red" %>"><%=due %></p>
 						<span>~<%= deadline %></span>
 					</div>
+					
 				</div>
 			<% } %>	
 	        <div class="page">
@@ -153,7 +165,7 @@
     </div>
 
     <script>
-        $(document).ready(function() {
+    	$(document).ready(function() {
             $('#write-btn').click(function() {
                 window.location.href = 'gonggoWrite.jsp';
             });

@@ -17,7 +17,8 @@
 	
 	String searchType = request.getParameter("searchType");
 	String keyword = request.getParameter("searchKeyword");
-	String listArray = request.getParameter("listArray");
+	//searchkeyword
+	//String listArray = request.getParameter("listArray");
 	
 	if(searchType == null){
 		searchType = "";
@@ -25,9 +26,9 @@
 	if(keyword == null){
 		keyword = "";
 	}
-	if(listArray == null){
+	/* if(listArray == null){
 		listArray = "desc";
-	}
+	} */
 	
 	gonggoDAO dao = new gonggoDAO();
 	List<gonggoVO> list = dao.gonggoList(searchType, keyword, startNum, limitperPage);
@@ -65,6 +66,7 @@
 <body>
     <div class="container">
         <h2>채용공고</h2>
+        <form method="get" action="gonggo.jsp">
         <div class="board-top">
         	<div class="search-con">
 	        	<select name="searchType">
@@ -73,15 +75,15 @@
 	        		<option value="author" <%= searchType.equals("author")? "selected" : "" %>>작성자</option>
 	        	</select>
 	        	<div class="search-box">
-		            <input type="text" value="<%= keyword %>" name="searchkeyword" placeholder="검색어를 입력하세요.">
-					<button type="submit" class="btn-img"></button>        	
+		            <input type="text" value="<%= keyword %>" name="searchKeyword" placeholder="검색어를 입력하세요.">
+					<button type="submit" class="btn-img" ></button>        	
 	        	</div>
         	</div>
         	<%if(user != null && user.getCompanyName() != null){ %>
             <input type="button" id="write-btn" value="글쓰기">
             <%} %>
         </div>
-        
+        </form>
         <!-- <div class="filters">
             <input type="checkbox" id="cb1" value="#프로그래머">
             <label for="cb1">#프로그래머</label>
@@ -162,6 +164,7 @@
             %>
 	        </div>
 		</div>
+    </div>
     </div>
 
     <script>

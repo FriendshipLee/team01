@@ -85,7 +85,9 @@ public class gonggoDAO extends DBManager{
 		if(searchType != null && keyword != null && !searchType.equals("") && !keyword.equals("")) {
 			sql += " and "+searchType+" like '%"+keyword+"%'";
 		}
+		sql += " limit " + startNum +", " + limitSize;
 		executeQuery(sql);
+		System.out.println(sql);
 		
 		List<gonggoVO> list = new ArrayList<>();
 		
@@ -169,8 +171,9 @@ public class gonggoDAO extends DBManager{
 		
 		String sql = " select count(*) as cnt from gonggo where gonggo_type != 99";
 		if(searchType != null && keyword != null && !searchType.equals("") && !keyword.equals("")) {
-			sql += " and " + searchType + "like '%" + keyword + "%'";
+			sql += " and " + searchType + " like '%" + keyword + "%'";
 		}
+		System.out.println(sql);
 		executeQuery(sql);
 		
 		if(next()) {

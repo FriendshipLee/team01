@@ -73,7 +73,7 @@ public class gonggoDAO extends DBManager{
 		
 		String sql = "select *, if(deadline >= date(now()), '채용중', '접수마감') as due from gonggo where gonggo_type != 99";
 		if(searchType != null && keyword != null) {
-			sql += " and "+searchType+" like '%"+keyword+"%'%";
+			sql += " and "+searchType+" like '%"+keyword+"%'";
 		}
 		executeQuery(sql);
 		

@@ -5,6 +5,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <%
+
 	String pageNum = request.getParameter("page");
 	if(pageNum == null){
 		pageNum = "1";

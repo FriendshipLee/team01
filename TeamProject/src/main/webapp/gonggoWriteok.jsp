@@ -6,13 +6,6 @@
 <%
 	request.setCharacterEncoding("utf-8");
 
-	usersVO user = (usersVO)session.getAttribute("user");
-	
-	if(user == null){
-		response.sendRedirect("login.jsp");
-		return;
-	}
-	
 	String title = request.getParameter("title");
 	String career = request.getParameter("career");
 	String education = request.getParameter("education");

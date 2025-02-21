@@ -6,6 +6,11 @@
 		response.sendRedirect("gonggo.jsp");
 		return;
 	}
+	
+	if(user.getCompanyNumber() == null || user.getCompanyNumber() == ""){
+		response.sendRedirect("gonggo.jsp");
+		return;
+	}
 
 	String author = user.getCompanyNumber();
 %>

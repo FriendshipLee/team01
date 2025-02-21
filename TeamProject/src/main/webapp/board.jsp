@@ -26,7 +26,6 @@
 	if(keyword == null){
 		keyword = "";
 	}
-	System.out.println(listArray);
 	if(listArray == null){
 		listArray = "desc";
 	}
@@ -46,7 +45,7 @@
 	int totalPage = (int)Math.ceil(totalCount / (double)limitperPage);
 	int endPage = Math.min(startPage + pageGroupSize -1, totalPage);
 	
-	
+	System.out.println(keyword);
 
 %>
 <!DOCTYPE html>
@@ -87,7 +86,7 @@
 		        		<option value="author" <%= searchType.equals("author")? "selected" : "" %>>작성자</option>
 		        	</select>
 		        	<div class="search-box">
-			            <input value= "<%= keyword %>" type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
+			            <input type="text" name="searchKeyword" value="<%= keyword %>" placeholder="검색어를 입력하세요.">
 						<button type="submit" class="btn-img"></button>
 		        	</div>
 		        </div>
@@ -118,7 +117,7 @@
 			<% for(int i = 0; i < list.size(); i++){ 
 				boardVO vo = list.get(i);
 			%>
-				<div class="content-box" onclick="location.href='post.jsp?no=<%=vo.getNo()%>&boardType=<%= boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>'">
+				<div class="content-box" onclick="location.href='post.jsp?no=<%=vo.getNo()%>&boardType=<%= boardType %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchKeyword=" + keyword : ""%><%= listArray == null ? "" : "&listArray=" + listArray %>'">
 					<div class="content">
 						<div>
 							<span class="b-type">| <%
@@ -147,19 +146,19 @@
 	        <%
 	        	if(currentPage > 1){
 	        %>
-	        	<a href="board.jsp?page=1<%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>">&lt;&lt;</a>
-        		<a href="board.jsp?page=<%=currentPage -1 %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>">&lt;</a>
+	        	<a href="board.jsp?page=1<%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchKeyword=" +keyword : "" %><%= "&boardType=" +boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>">&lt;&lt;</a>
+        		<a href="board.jsp?page=<%=currentPage -1 %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchKeyword=" +keyword : "" %><%= "&boardType=" +boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>">&lt;</a>
         	<%
 	        	}
         	%>
 				<% for(int i = startPage; i <= endPage; i++){
 						if(i == currentPage){
 				%>
-					<a class="active" href="board.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>"><%= i %></a>
+					<a class="active" href="board.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchKeyword=" +keyword : "" %><%= "&boardType=" +boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>"><%= i %></a>
 				<% 
 				}else{ 
 				%>  
-				 <a href="board.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>"><%= i %></a>     	
+				 <a href="board.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchKeyword=" +keyword : "" %><%= "&boardType=" +boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>"><%= i %></a>     	
 				<%
 				}
 			}
@@ -167,8 +166,8 @@
 			<%
             	if(currentPage < totalPage){
             %>
-            <a href="board.jsp?page=<%=currentPage +1 %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %>">&gt;</a>
-            <a href="board.jsp?page=<%=totalPage %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %>">&gt;&gt;</a>
+            <a href="board.jsp?page=<%=currentPage +1 %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchKeyword=" +keyword : "" %><%= "&boardType=" +boardType %>">&gt;</a>
+            <a href="board.jsp?page=<%=totalPage %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchKeyword=" +keyword : "" %><%= "&boardType=" +boardType %>">&gt;&gt;</a>
             <%
             	}
             %>	

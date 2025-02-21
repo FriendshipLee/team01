@@ -14,8 +14,9 @@
 	String path = request.getContextPath();
 	
 
-	if(no == null || user == null || user.getCompanyNumber() != null){
+	if(no == null || user == null){
 		response.sendRedirect("main.jsp");
+	}
 	if(no == null || user == null){
 		response.sendRedirect("login.jsp");
 		return;
@@ -41,7 +42,7 @@
 	//board.jsp에서 전달해준 searchType과 searchTypw를 받아
 	//뒤로 가기 버튼을 클릭했을 때 board.jsp의 파라미터로 다시 넘겨준다.
 	String searchType = request.getParameter("searchType");
-	String keyword = request.getParameter("searchkeyword");
+	String keyword = request.getParameter("searchKeyword");
 	String boardType = request.getParameter("boardType");
 	String listArray = request.getParameter("listArray");
 	
@@ -175,7 +176,7 @@
             </div>
           <% } %>
        	</div>
-       	<input type="button" class="button" onclick="location.href='board.jsp?no=<%=no %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchkeyword=" + keyword : ""%>&boardType=<%=boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>'" value="뒤로가기">
+       	<input type="button" class="button" onclick="location.href='board.jsp?no=<%=no %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchKeyword=" + keyword : ""%>&boardType=<%=boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>'" value="뒤로가기">
    	</div>
 </body>
 
@@ -293,7 +294,7 @@
 			url : "replyWriteok.jsp",
 			type : "post",
 			data : {
-				no : <%= no %>,
+				no : "<%= no %>",
 				rauthor : userId,
 				rcontent : rcontent,
 				replyType : boardType
@@ -313,10 +314,10 @@
 					html +=				"<input type='button' class='dpnone' onclick='cancelBtn(this, '"+rcontent+"')' value='취소'>";
 					html +=				"<input type='button' onclick='deleteReply("+no+",this)' value='삭제'>";
 					html +=			"</div>";
-					html +=		"</div>"
-					html +=		"<hr>"
-					html +=		"<div class='comment-content'>"+rcontent+"</div>"
-					html += "</div>"
+					html +=		"</div>";
+					html +=		"<hr>";
+					html +=		"<div class='comment-content'>"+rcontent+"</div>";
+					html += "</div>";
 					$("#add-comment").after(html);
 					$("#new-comment").val("").focus();
 				}

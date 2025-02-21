@@ -35,22 +35,41 @@
 	<div class="content-box">
 		<div>
 			<img alt="채용 고민과 사내 고민을 모두 해결할 수 있는 익명 커뮤니티가 제공되는 구인구직 플랫폼" src="./resources/img/main_text.png">
-			<ul class="nav">
-				<li><a href="#" onclick="location.href='gonggo.jsp'">채용공고</a></li>
-				<li> | <a href="#" onclick="location.href='board.jsp?boardType=0'">공지게시판</a></li>
-				<li> | <a href="#" onclick="location.href='board.jsp?boardType=1'">정보공유게시판</a></li>
-				<li> | <a href="#" onclick="location.href='board.jsp?boardType=2'">익명게시판</a></li>
-			</ul>
 			<%
-			if(user == null){
+				if(user != null){
+			%>
+			<ul class="nav">
+				<li><a onclick="location.href='gonggo.jsp'">채용공고</a></li>
+				<li> | <a onclick="location.href='board.jsp?boardType=0'">공지게시판</a></li>
+				<%
+					if(user.getCompanyNumber() != null){
+						%>
+						<li> | <a onclick="alert('기업은 못쓴다 개인으로 와라')">정보공유게시판</a></li>
+						<li> | <a onclick="alert('기업은 못쓴다 개인으로 와라')">익명게시판</a></li>
+						<%
+					}else{
+						%>
+						<li> | <a onclick="location.href='board.jsp?boardType=1'">정보공유게시판</a></li>
+						<li> | <a onclick="location.href='board.jsp?boardType=2'">익명게시판</a></li>
+						<%
+					}
 				%>
-				<button type="button" onclick="location.href='signup.jsp'">회원가입</button>
-				<button type="button" onclick="location.href='login.jsp'">로그인</button>
+			</ul>
+				<button type="button" onclick="location.href='mypage.jsp'">마이페이지</button>
+				<button type="button" onclick="location.href='logout.jsp'">로그아웃</button>
+				
 				<%
 			}else{
 				%>
-				<button type="button" onclick="location.href='mypage.jsp'">마이페이지</button>
-				<button type="button" onclick="location.href='logout.jsp'">로그아웃</button>
+			<ul class="nav">
+				<li><a onclick="location.href='gonggo.jsp'">채용공고</a></li>
+				<li> | <a onclick="location.href='board.jsp?boardType=0'">공지게시판</a></li>
+				<li> | <a onclick="location.href='board.jsp?boardType=1'">정보공유게시판</a></li>
+				<li> | <a onclick="location.href='board.jsp?boardType=2'">익명게시판</a></li>
+			</ul>
+				<button type="button" onclick="location.href='signup.jsp'">회원가입</button>
+				<button type="button" onclick="location.href='login.jsp'">로그인</button>
+				
 				<%
 			}
 			%>
@@ -68,7 +87,7 @@
 	        </div>
 		</div>
 	</div>
-	<!-- <span>Team A. 김다영, 이우정, 김지선</span> -->
+	<!-- <span>Team A. 김다영, 이우정, 김지선, 이도경</span> -->
 </body>
 <script type="text/javascript">
     $(document).ready(function () {

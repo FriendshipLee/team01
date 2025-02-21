@@ -13,7 +13,7 @@
 	String no = request.getParameter("no");
 	String path = request.getContextPath();
 	
-	if(no == null || user == null){
+	if(no == null || user == null || user.getCompanyNumber() != null){
 		response.sendRedirect("main.jsp");
 		return;
 	} 
@@ -40,6 +40,7 @@
 	String searchType = request.getParameter("searchType");
 	String keyword = request.getParameter("searchkeyword");
 	String boardType = request.getParameter("boardType");
+	String listArray = request.getParameter("listArray");
 	
 	if(searchType == null){
 		searchType="";
@@ -171,7 +172,7 @@
             </div>
           <% } %>
        	</div>
-       	<input type="button" class="button" onclick="location.href='board.jsp?no=<%=no %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchkeyword=" + keyword : ""%>&boardType=<%=boardType %>'" value="뒤로가기">
+       	<input type="button" class="button" onclick="location.href='board.jsp?no=<%=no %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchkeyword=" + keyword : ""%>&boardType=<%=boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>'" value="뒤로가기">
    	</div>
 </body>
 

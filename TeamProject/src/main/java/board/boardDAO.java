@@ -92,7 +92,7 @@ public class boardDAO extends DBManager{
 	}
 	
 	//글 조회(여러건-최신순)
-	public List<boardVO> listViewDesc(String searchType, String searchKeyword, int startNum, int limitSize, String boardType){
+	public List<boardVO> listViewDesc(String searchType, String searchKeyword, int startNum, int limitSize, String boardType, String listArray){
 		driverLoad();
 		DBConnect();
 		
@@ -100,8 +100,11 @@ public class boardDAO extends DBManager{
 		if(searchType != "" && searchKeyword != "") {
 			sql+= " and "+searchType+" like '%"+searchKeyword+"%'";
 		}
-		sql += " order by no desc limit "+ startNum +", "+ limitSize;
-		System.out.println(sql);
+		sql += " order by no " + listArray;
+		
+		
+		sql += " limit "+ startNum +", "+ limitSize;
+		
 		executeQuery(sql);
 		
 		List<boardVO> list = new ArrayList<>();
@@ -135,7 +138,7 @@ public class boardDAO extends DBManager{
 				sql+= " and "+searchType+" like '%"+searchKeyword+"%'";
 			}
 			sql += " order by no asc limit "+ startNum +", "+ limitSize;
-			System.out.println(sql);
+			
 			executeQuery(sql);
 			
 			List<boardVO> list = new ArrayList<>();

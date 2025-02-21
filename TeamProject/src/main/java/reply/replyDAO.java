@@ -72,7 +72,6 @@ public class replyDAO extends DBManager{
 		
 		String sql = "select * from reply where bno = "+bno+" order by rno desc";
 		executeQuery(sql);
-		
 		List<replyVO> list = new ArrayList<>();
 		
 		while(next()) {

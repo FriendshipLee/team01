@@ -26,6 +26,7 @@
 	if(keyword == null){
 		keyword = "";
 	}
+	System.out.println(listArray);
 	if(listArray == null){
 		listArray = "desc";
 	}
@@ -35,7 +36,8 @@
 	}   
 	
 	boardDAO dao = new boardDAO();
-	List<boardVO> list = dao.listViewDesc(searchType, keyword, startNum, limitperPage, boardType);
+	
+	List<boardVO> list = dao.listViewDesc(searchType, keyword, startNum, limitperPage, boardType, listArray);
 	
 	
 	int totalCount = dao.getCount(searchType, keyword, boardType);
@@ -75,7 +77,7 @@
         }else if(boardType.equals("2")){
         	%>익명게시판<%
         }%></h2>
-       	<form action="board.jsp?boardType=<%=boardType %>" method="get">
+       	<form action="board.jsp?boardType=<%=boardType %>" method="get" id="form">
        		<input type="hidden"  value="<%=boardType%>" name="boardType">
         	<div class="board-top">
         		<div class="search-con">
@@ -108,15 +110,15 @@
 	            %>
 	        </div>
 	        <select name="listArray" id="listArray">
-	        	<option value="desc" selected>최신순</option>
-	        	<option value="asc">오래된순</option>
+	        	<option value="desc" <%= listArray.equals("desc") ? "selected" : "" %>>최신순</option>
+	        	<option value="asc" <%= listArray.equals("asc") ? "selected" : "" %>>오래된순</option>
 	        </select>
 		</form>
 	    <div class="list">
 			<% for(int i = 0; i < list.size(); i++){ 
 				boardVO vo = list.get(i);
 			%>
-				<div class="content-box" onclick="location.href='post.jsp?no=<%=vo.getNo()%>&boardType=<%= boardType %>'">
+				<div class="content-box" onclick="location.href='post.jsp?no=<%=vo.getNo()%>&boardType=<%= boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>'">
 					<div class="content">
 						<div>
 							<span class="b-type">| <%
@@ -145,19 +147,19 @@
 	        <%
 	        	if(currentPage > 1){
 	        %>
-	        	<a href="board.jsp?page=1<%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %>">&lt;&lt;</a>
-        		<a href="board.jsp?page=<%=currentPage -1 %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %>">&lt;</a>
+	        	<a href="board.jsp?page=1<%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>">&lt;&lt;</a>
+        		<a href="board.jsp?page=<%=currentPage -1 %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>">&lt;</a>
         	<%
 	        	}
         	%>
 				<% for(int i = startPage; i <= endPage; i++){
 						if(i == currentPage){
 				%>
-					<a class="active" href="board.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %>"><%= i %></a>
+					<a class="active" href="board.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>"><%= i %></a>
 				<% 
 				}else{ 
 				%>  
-				 <a href="board.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %>"><%= i %></a>     	
+				 <a href="board.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= "&boardType=" +boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>"><%= i %></a>     	
 				<%
 				}
 			}
@@ -175,14 +177,20 @@
     </div>
 
     <script>
+    	
+    	
+    	
         $(document).ready(function() {
             $('#write-btn').click(function() {
                 window.location.href = 'write.jsp?boardType=<%= boardType %>';
             });
         });
-        $("#listArray").click(function(){
-        	$("#listArray").submit();
-	        $.ajax({
+        
+        $("#listArray").change(function(){
+        	$("#form").submit();
+        	
+        	
+	        <%-- $.ajax({
 				url : "listArray.jsp",
 				type : "post",
 				data : {
@@ -197,7 +205,7 @@
 				error : function(){
 					console.log("에러 발생");
 				}
-	        });
+	        }); --%>
         });
         
     </script>

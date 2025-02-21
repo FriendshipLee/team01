@@ -44,8 +44,8 @@
 				<%
 					if(user.getCompanyNumber() != null){
 						%>
-						<li> | <a onclick="alert('기업은 못쓴다 개인으로 와라')">정보공유게시판</a></li>
-						<li> | <a onclick="alert('기업은 못쓴다 개인으로 와라')">익명게시판</a></li>
+						<li> | <a onclick="alert('개인회원 전용 게시판입니다.')">정보공유게시판</a></li>
+						<li> | <a onclick="alert('개인회원 전용 게시판입니다.')">익명게시판</a></li>
 						<%
 					}else{
 						%>
@@ -64,8 +64,8 @@
 			<ul class="nav">
 				<li><a onclick="location.href='gonggo.jsp'">채용공고</a></li>
 				<li> | <a onclick="location.href='board.jsp?boardType=0'">공지게시판</a></li>
-				<li> | <a onclick="location.href='board.jsp?boardType=1'">정보공유게시판</a></li>
-				<li> | <a onclick="location.href='board.jsp?boardType=2'">익명게시판</a></li>
+				<li> | <a onclick="alert('개인회원 로그인 시 이용 가능합니다.')">정보공유게시판</a></li>
+				<li> | <a onclick="alert('개인회원 로그인 시 이용 가능합니다.')">익명게시판</a></li>
 			</ul>
 				<button type="button" onclick="location.href='signup.jsp'">회원가입</button>
 				<button type="button" onclick="location.href='login.jsp'">로그인</button>

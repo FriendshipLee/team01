@@ -26,6 +26,7 @@ a {
 	color: #373f73;
 	font-size: 19px;
     font-weight: 600;
+    cursor: pointer;
 }
 a:hover {
 	text-decoration: underline;
@@ -44,4 +45,9 @@ a:hover {
 	display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.none:hover {
+	text-decoration: none;
+	cursor: default;
+	color: #373f73;
 }

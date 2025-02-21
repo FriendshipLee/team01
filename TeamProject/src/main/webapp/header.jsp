@@ -29,20 +29,46 @@
 <body>
 	<div class="wrap">
 		<div class="header">
+		
+			<%
+				if(user != null){
+			%>
 			<ul class="nav">
-				<li><a href="#" onclick="location.href='main.jsp'">홈</a></li>
-				<li><a href="#" onclick="location.href='gonggo.jsp'">채용공고</a></li>
-				<li><a href="#" onclick="location.href='board.jsp?boardType=0'">공지게시판</a></li>
-				<li><a href="#" onclick="location.href='board.jsp?boardType=1'">정보공유게시판</a></li>
-				<li><a href="#" onclick="location.href='board.jsp?boardType=2'">익명게시판</a></li>
+				<li><a onclick="location.href='main.jsp'">홈</a></li>
+				<li><a onclick="location.href='gonggo.jsp'">채용공고</a></li>
+				<li><a onclick="location.href='board.jsp?boardType=0'">공지게시판</a></li>
+				<%
+					if(user.getCompanyNumber() != null){
+						%>
+						<li><a onclick="alert('개인회원 전용 게시판입니다.')">정보공유게시판</a></li>
+						<li><a onclick="alert('개인회원 전용 게시판입니다.')">익명게시판</a></li>
+						<%
+					}else{
+						%>
+						<li><a onclick="location.href='board.jsp?boardType=1'">정보공유게시판</a></li>
+						<li><a onclick="location.href='board.jsp?boardType=2'">익명게시판</a></li>
+						<%
+					}
+				%>
 			</ul>
+			<%
+			}else{
+				%>
+			<ul class="nav">
+				<li><a onclick="location.href='main.jsp'">홈</a></li>
+				<li><a onclick="location.href='gonggo.jsp'">채용공고</a></li>
+				<li><a onclick="location.href='board.jsp?boardType=0'">공지게시판</a></li>
+				<li><a onclick="alert('개인회원 로그인 시 이용 가능합니다.')">정보공유게시판</a></li>
+				<li><a onclick="alert('개인회원 로그인 시 이용 가능합니다.')">익명게시판</a></li>
+			</ul>
+			<%} %>
 			<div>
 			<% 
 				if(user == null){
 					%><a href="#" onclick="location.href='login.jsp'">로그인</a><%
 				}else{
 					%>
-						<a href="mypage.jsp"><span><%=user.getName() != null ? user.getName() : user.getCompanyName() %></span>님</a>
+						<a <%=user.getCompanyNumber() != null ? "class='none'" : "href='mypage.jsp'" %>><span><%=user.getName() != null ? user.getName() : user.getCompanyName() %></span>님</a>
 						<a href="logout.jsp">로그아웃</a>
 					<%
 				}

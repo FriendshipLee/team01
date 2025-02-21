@@ -13,8 +13,13 @@
 	String no = request.getParameter("no");
 	String path = request.getContextPath();
 	
+<<<<<<< HEAD
 	if(no == null || user == null || user.getCompanyNumber() != null){
 		response.sendRedirect("main.jsp");
+=======
+	if(no == null || user == null){
+		response.sendRedirect("login.jsp");
+>>>>>>> branch 'main' of https://github.com/FriendshipLee/team01.git
 		return;
 	} 
 

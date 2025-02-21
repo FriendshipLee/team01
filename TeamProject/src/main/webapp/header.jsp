@@ -36,6 +36,7 @@
 				<li><a href="#" onclick="location.href='board.jsp?boardType=1'">정보공유게시판</a></li>
 				<li><a href="#" onclick="location.href='board.jsp?boardType=2'">익명게시판</a></li>
 			</ul>
+			<div>
 			<% 
 				if(user == null){
 					%><a href="#" onclick="location.href='login.jsp'">로그인</a><%
@@ -46,6 +47,7 @@
 					<%
 				}
 			%>
+			</div>
 		</div>
 	</div>
 </body>

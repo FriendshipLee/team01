@@ -24,15 +24,19 @@ li:last-child{
 a {
 	text-decoration: none;
 	color: #373f73;
+	font-size: 19px;
+    font-weight: 600;
 }
 a:hover {
 	text-decoration: underline;
+	color: #98a1c1;
 }
+
 .wrap {
 	width: 100%;
 	background-color: #fff;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
 .header {
 	max-width: 850px;
 	margin: 0 auto;

@@ -145,7 +145,7 @@ input[id="cb4"]:checked + label::after{
 	cursor: pointer;
 }
 .content:hover {
-	box-shadow: 0px 0px 3px 0px #bbc0cf;
+	background-color: #dde4ef;
 	
 }
 .content span {

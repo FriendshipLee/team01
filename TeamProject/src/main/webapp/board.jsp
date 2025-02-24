@@ -119,7 +119,7 @@
 			%>
 				<div class="content-box" onclick="location.href='post.jsp?no=<%=vo.getNo()%>&boardType=<%= boardType %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchKeyword=" + keyword : ""%><%= listArray == null ? "" : "&listArray=" + listArray %>'">
 					<div class="content">
-						<div>
+						<div class="type-content">
 							<span class="b-type">| <%
 								if(boardType.equals("0")){
 									%>공지사항<%
@@ -129,14 +129,17 @@
 									%>익명게시판<%	
 								}
 								%> |</span>
+						</div>
+						<div class="title-content">
 							<span class="b-title"><%=vo.getTitle() %></span>
 						</div>
 						<div class="author">
-							<%
-								if(!boardType.equals("2")){
-									%><p><%=vo.getAuthor() %></p><%
-								}
-							%>
+							
+							
+								
+							<p>작성자 : <%= user != null && user.getId().equals(vo.getAuthor()) ? user.getId() : !boardType.equals("2") ? vo.getAuthor() : "익명" %></p>
+								
+							
 							<span><%=vo.getCreateDate() %></span>
 						</div>
 					</div>

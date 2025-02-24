@@ -123,11 +123,17 @@ input {
 	font-size: 24px;
     font-weight: 600;
     margin-left: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: inline-block;
 }
 .author {
 	text-align: right;
 	font-size: 17px;
     /* color: #898989; */
+    min-width: 200px;
 }
 .page {
     text-align: center;
@@ -141,4 +147,13 @@ input {
 	color: white;
 	text-decoration: none;
 	background-color: #e9eef6;
+}
+
+.type-content{
+	min-width: 100px;
+}
+
+.title-content{
+	width: 100%;
+    min-width: 100px;
 }

@@ -73,7 +73,8 @@
             <div class="post-top">
             	<div>
             		<h2><%= title %></h2>
-	           		<p>작성자 : <%= !boardType.equals("2") ? author : "익명" %> | <%= createDate %></p>
+	           		 <p>작성자 : <%= user != null && user.getId().equals(author) ? user.getId() : !boardType.equals("2") ? author : "익명" %> | <%= createDate %></p>
+  					 
           	  	</div>
 	            <div class="post-type">
 	            <%if(boardType.equals("0")){

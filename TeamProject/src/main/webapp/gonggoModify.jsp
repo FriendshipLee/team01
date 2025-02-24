@@ -49,7 +49,7 @@
 	<body>
 		<div class="board-container">
 			<h2>채용공고 수정</h2>
-			<form method="post" action="gonggoWriteok.jsp" onsubmit="return formCheck();">
+			<form method="post" action="gonggoModifyok.jsp" onsubmit="return formCheck();">
 				<input type="hidden" value="<%= no %>" name="no">
 				<div class="title">
 					<label for="title">제목</label>
@@ -106,7 +106,7 @@
 	       	  	</div>
 	            <div class="action">
 	                <button type="submit">등록</button>
-	                <button onclick="location.href='gonggoPost.jsp?no=<%= no %>'">취소</button>
+	                <button type="button" onclick="history.back();">취소</button>
 	            </div>
 			</form>
 	    </div>

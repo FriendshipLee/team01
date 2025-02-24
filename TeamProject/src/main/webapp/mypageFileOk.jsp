@@ -46,7 +46,6 @@
 		
 		List<resumeFileVO> fileList = new ArrayList<>();
 		while(files.hasMoreElements()){
-			System.out.println("work!");
 			resumeFileVO fvo = new resumeFileVO();
 			String name = (String)files.nextElement();
 			/* System.out.println(name); */
@@ -62,15 +61,19 @@
 			fvo.setAttachUploadName(fileName);
 			fvo.setFileSize((int)fileSize);
 			fvo.setRno(rno+"");
-			fvo.setFno(index-- + "");
 			fileList.add(fvo);
 		}
 		ObjectMapper mapper = new ObjectMapper();
-		//jackson 라이브러리를 이용한 list 객체를 json형태의 문자열로 변환
 		
+		int[] fnoList = dao.upload(fileList);
+		//업로드된 파일의 개수와 동일한 길이로 파일의 fno를 반환
+		
+		for(int i = 0; i < fileList.size(); i ++){
+			fileList.get(i).setFno(fnoList[i] + "");
+		}
+		//jackson 라이브러리를 이용한 list 객체를 json형태의 문자열로 변환
 		String jsonList = mapper.writeValueAsString(fileList);
-		System.out.println(jsonList);
-		dao.upload(fileList);
+		//"[{'fileSize' : '500', 'attachOriginName' : '복구키', 'fno' : 97}, {}...]"
 				
 		out.print(jsonList);
 %>

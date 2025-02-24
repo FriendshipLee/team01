@@ -46,10 +46,12 @@
 	            <label for="content">내용</label><br>
 	            <textarea id="content" name="content" placeholder="내용을 입력하세요"></textarea><br>
 			</div>
+			<% if(boardType.equals("1")) { %>
 			<div>
 	            <label for="file">첨부파일</label><br>
 	            <input type="file" id="file" name="file"><br>
             </div>
+            <% } %>
             <div class="action">
                 <button type="submit">등록</button>
                 <button type="button" onclick="location.href='board.jsp?boardType=<%=boardType%>'">취소</button>

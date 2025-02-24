@@ -196,6 +196,10 @@
 				</div>
 			</div>
 		</div>
+		<div class="back">
+			<input type="button" onclick="history.back();" value="뒤로가기">
+		</div>
+	</div>
 </body>
 <script>
 	
@@ -279,13 +283,17 @@
 				contentType : false,
 				processData : false,
 				success : function(response){
+					console.log(response.trim());
+					//fno가 추가된 파일정보 문자열
 					if(response.trim() == "fail"){
 						
 					}else{
 						const result = JSON.parse(response);
+						console.log(result);
+						//문자열을 json형태로 변환
 						result.sort((a, b) => {
-						    if (parseInt(a.fno) < parseInt(b.fno)) return -1;
-						    if (parseInt(a.fno) > parseInt(b.fno)) return 1;
+						    if (parseInt(a.fno) > parseInt(b.fno)) return -1;
+						    if (parseInt(a.fno) < parseInt(b.fno)) return 1;
 
 						    return 0;
 						});
@@ -293,6 +301,7 @@
 						
 						for(let i = 0; i < result.length; i ++){
 							const obj = result[i];
+							
 							let html = 	'<div class="attachment-item">';
 							html +=			'<div>';
 							html += 			'<a download="'+obj.attachOriginName+'" href="<%= path %>/upload/'+obj.attachUploadName+'" class="attachment-name">'+obj.attachOriginName+'</a>'
@@ -303,7 +312,6 @@
 							$("#hr").after(html);
 						}
 					}
-					selfinfoModify.show();
 				},
 				error : function(a, b, c){
 					//에러도 파라미터가 있다.

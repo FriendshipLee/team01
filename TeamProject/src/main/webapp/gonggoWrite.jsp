@@ -93,7 +93,7 @@
 	       	  	</div>
 	            <div class="action">
 	                <button type="submit">등록</button>
-	                <button type="button">취소</button>
+	                <button type="button" onclick="history.back();">취소</button>
 	            </div>
 			</form>
 	    </div>

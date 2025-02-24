@@ -81,7 +81,8 @@ public class gonggoDAO extends DBManager{
 		driverLoad();
 		DBConnect();
 		
-		String sql = "select *, if(deadline >= date(now()), '채용중', '접수마감') as due from gonggo where gonggo_type != 99";
+		String sql = "select *, if(deadline >= date(now()), '채용중', '접수마감') as due ";
+		sql += "from gonggo left join company on gonggo.author = company.company_number where gonggo_type != 99";
 		if(searchType != null && keyword != null && !searchType.equals("") && !keyword.equals("")) {
 			sql += " and "+searchType+" like '%"+keyword+"%'";
 		}
@@ -108,6 +109,7 @@ public class gonggoDAO extends DBManager{
 			vo2.setUpdateDate(getString("update_date"));
 			vo2.setGonggoType(getInt("gonggo_type"));
 			vo2.setDue(getString("due"));
+			vo2.setCompayName(getString("company_name"));
 			list.add(vo2);
 		}
 		
@@ -171,7 +173,8 @@ public class gonggoDAO extends DBManager{
 		driverLoad();
 		DBConnect();
 		
-		String sql = " select count(*) as cnt from gonggo where gonggo_type != 99";
+		String sql = " select count(*) as cnt ";
+		sql += "from gonggo left join company on gonggo.author = company.company_number where gonggo_type != 99";
 		if(searchType != null && keyword != null && !searchType.equals("") && !keyword.equals("")) {
 			sql += " and " + searchType + " like '%" + keyword + "%'";
 		}

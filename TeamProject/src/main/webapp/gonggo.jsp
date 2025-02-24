@@ -71,7 +71,7 @@
 	        	<select name="searchType">
 	        		<option value="title" <%= searchType.equals("title")? "selected" : "" %>>제목</option>
 	        		<option value="content" <%= searchType.equals("content")? "selected" : "" %>>내용</option>
-	        		<option value="author" <%= searchType.equals("author")? "selected" : "" %>>작성자</option>
+	        		<option value="company.company_name" <%= searchType.equals("company.company_name")? "selected" : "" %>>작성자</option>
 	        	</select>
 	        	<div class="search-box">
 		            <input type="text" value="<%= keyword %>" name="searchKeyword" placeholder="검색어를 입력하세요.">
@@ -106,6 +106,7 @@
 				String location = vo.getLocation();
 				String deadline = vo.getDeadline();
 				String due = vo.getDue();
+				String CompanyName = vo.getCompayName();
 			%> 
 				<%
 					if(due.equals("채용중")){
@@ -120,9 +121,9 @@
 				%>
 					<%-- <div class="content" <%= due.equals("채용중") ? `onclick="location.href='gonggoPost.jsp?no=<%=no%>'"` : "" %> > --%>
 					<div>
-						<span><%= author  %></span>
+						<span><%= CompanyName  %></span>
 						<h4><%= title %></h4>
-						<span><%= location %><%= career %><%= education %></span>
+						<span>근무지 : <%= location %> 경력 : <%= career.equals("0") ? "무관" : career.equals("1") ? "신입" : "경력" %> 학력 : <%= education.equals("0") ? "무관" : education.equals("1") ? "초대졸" : "대졸" %></span>
 					</div>
 					<div class="deadline">
 						<p style="color:<%= due.equals("채용중") ? "blue" : "red" %>"><%=due %></p>
@@ -135,8 +136,8 @@
 				<%
 	        	 if(currentPage > 1){
 	        	%>
-	        	<a href="gonggo.jsp?page=1<%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= listArray == null ? "" : "&listArray=" + listArray %>">&lt;&lt;</a>
-        		<a href="gonggo.jsp?page=<%=currentPage -1 %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= listArray == null ? "" : "&listArray=" + listArray %>">&lt;</a>
+	        	<a href="gonggo.jsp?page=1<%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchKeyword=" +keyword : "" %><%= listArray == null ? "" : "&listArray=" + listArray %>">&lt;&lt;</a>
+        		<a href="gonggo.jsp?page=<%=currentPage -1 %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchKeyword=" +keyword : "" %><%= listArray == null ? "" : "&listArray=" + listArray %>">&lt;</a>
         	    <%
 	        	 }
         	    %>
@@ -144,11 +145,11 @@
         	    	for(int i = startPage; i <= endPage; i++){
         	    		if(i == currentPage){
         	    	%>
-        	    	<a class="active" href="gonggo.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= listArray == null ? "" : "&listArray=" + listArray %>"><%= i %></a>
+        	    	<a class="active" href="gonggo.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchKeyword=" +keyword : "" %><%= listArray == null ? "" : "&listArray=" + listArray %>"><%= i %></a>
         	    	<%
       	    		}else{
         	    	 	%>
-        	    	 	<a href="gonggo.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %><%= listArray == null ? "" : "&listArray=" + listArray %>"><%= i %></a>
+        	    	 	<a href="gonggo.jsp?page=<%= i %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchKeyword=" +keyword : "" %><%= listArray == null ? "" : "&listArray=" + listArray %>"><%= i %></a>
         	    	 	<%
       	    			}
       	    		}
@@ -156,8 +157,8 @@
         	    <%
 					if(currentPage < totalPage){        	    
         	    %>
-        	    <a href="gonggo.jsp?page=<%=currentPage +1 %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %>">&gt;</a>
-            	<a href="gonggo.jsp?page=<%=totalPage %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchkeyword=" +keyword : "" %>">&gt;&gt;</a>
+        	    <a href="gonggo.jsp?page=<%=currentPage +1 %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchKeyword=" +keyword : "" %>">&gt;</a>
+            	<a href="gonggo.jsp?page=<%=totalPage %><%= searchType != "" ? "&searchType=" +searchType : "" %><%= keyword != "" ? "&searchKeyword=" +keyword : "" %>">&gt;&gt;</a>
             <%
 				}
             %>

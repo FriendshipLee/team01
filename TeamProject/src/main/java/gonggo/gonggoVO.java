@@ -15,7 +15,15 @@ public class gonggoVO {
 	private String deleteDate;
 	private int gonggoType;
 	private String due;
+	private String CompanyName;
 	
+	
+	public String getCompayName() {
+		return CompanyName;
+	}
+	public void setCompayName(String compayName) {
+		CompanyName = compayName;
+	}
 	public String getNo() {
 		return no;
 	}

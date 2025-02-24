@@ -19,6 +19,9 @@
 	String keyword = request.getParameter("searchKeyword");
 	String listArray = request.getParameter("listArray");
 	String boardType = request.getParameter("boardType");
+	String id = user.getCompanyNumber() != null ? user.getCompanyNumber() : user.getId();
+	
+	
 	
 	if(searchType == null){
 		searchType = "";
@@ -32,7 +35,7 @@
 	if(boardType == null){
 		response.sendRedirect("board.jsp?boardType=0");
 		return;
-	}   
+	}    
 	
 	boardDAO dao = new boardDAO();
 	
@@ -98,7 +101,7 @@
 	            		//게시판 타입이 0(공지) 일 때
 	            		if(boardType.equals("0")){
 	            			//유저 타입이 0(관리자)이여야만 글쓰기를 보여준다
-	            			if(user.getUserType() == 0){
+	            			if(user.getUserType() == 0 && user.getId() != null){
 	            				%><input type="button" id="write-btn" value="글쓰기"><%	
 	            			}
 	            		//게시판 타입이 0(공지)이 아닐 때
@@ -134,12 +137,7 @@
 							<span class="b-title"><%=vo.getTitle() %></span>
 						</div>
 						<div class="author">
-							
-							
-								
-							<p>작성자 : <%= user != null && user.getId().equals(vo.getAuthor()) ? user.getId() : !boardType.equals("2") ? vo.getAuthor() : "익명" %></p>
-								
-							
+							<p>작성자 : <%= user != null && id.equals(vo.getAuthor()) ? id : !boardType.equals("2") ? vo.getAuthor() : "익명" %></p>
 							<span><%=vo.getCreateDate() %></span>
 						</div>
 					</div>

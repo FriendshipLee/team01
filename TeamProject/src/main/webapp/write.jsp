@@ -11,7 +11,7 @@
 	
 
 	if(user == null){
-		response.sendRedirect("board.jsp");
+		response.sendRedirect("main.jsp");
 		return;
 	}
 	if(searchType == null){

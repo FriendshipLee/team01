@@ -55,7 +55,7 @@ public class gonggoDAO extends DBManager{
 		driverLoad();
 		DBConnect();
 		
-		String sql = "update gonggo set title = '"+title+"', content = '"+content+"', career = "+career+", education = "+education+", location = '"+location+"', deadline = '"+deadline+"', link = '"+link+"' ";
+		String sql = "update gonggo set title = '"+title+"', content = '"+content+"', career = "+career+", education = "+education+", location = '"+location+"', deadline = '"+deadline+"', link = '"+link+"', ";
 		sql += "update_date = now() where no = "+no+" ";
 		executeUpdate(sql);
 		

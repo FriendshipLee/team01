@@ -88,6 +88,7 @@
             <hr>
             <p><%= content %></p>
             <br>
+            <% if(boardType.equals("1")) { %>
               	<h3>첨부파일</h3>
            	<%
            		for(int i = 0; i < flist.size(); i++){
@@ -123,6 +124,7 @@
 					<span class="attachment-size">(<%= data %>)</span>
 				</div>
 			</div>
+			<% } %>
 			<%
 					}
            		}
@@ -311,9 +313,9 @@
 					html +=			"<p>작성자 : "+anonyAuthor+" | "+time+"</p>";
 					html +=			"<div>";
 					html +=				"<input type='button' onclick='replyBtn(this)' value='수정'>";
-					html +=				"<input type='button' class='dpnone' onclick='modifyReply("+no+", this)' value='확인'>";
+					html +=				"<input type='button' class='dpnone' onclick='modifyReply("+result+", this)' value='확인'>";
 					html +=				"<input type='button' class='dpnone' onclick='cancelBtn(this, '"+rcontent+"')' value='취소'>";
-					html +=				"<input type='button' onclick='deleteReply("+no+",this)' value='삭제'>";
+					html +=				"<input type='button' onclick='deleteReply("+result+",this)' value='삭제'>";
 					html +=			"</div>";
 					html +=		"</div>";
 					html +=		"<hr>";

@@ -1,3 +1,4 @@
+<%@page import="users.User"%>
 <%@page import="users.usersVO"%>
 <%@page import="gonggo.gonggoDAO"%>
 <%@page import="gonggo.gonggoVO"%>
@@ -6,7 +7,7 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	
-	usersVO user = (usersVO)session.getAttribute("user");
+	User user = (User)session.getAttribute("user");
 	
 	if(user == null){
 		response.sendRedirect("login.jsp");

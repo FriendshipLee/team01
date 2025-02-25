@@ -123,7 +123,7 @@
 					<div>
 						<span><%= CompanyName  %></span>
 						<h4><%= title %></h4>
-						<span>근무지 : <%= location %> 경력 : <%= career.equals("0") ? "무관" : career.equals("1") ? "신입" : "경력" %> 학력 : <%= education.equals("0") ? "무관" : education.equals("1") ? "초대졸" : "대졸" %></span>
+						<span>근무지 : <%= location %> | 경력 : <%= career.equals("0") ? "무관" : career.equals("1") ? "신입" : "경력" %> | 학력 : <%= education.equals("0") ? "무관" : education.equals("1") ? "초대졸" : "대졸" %></span>
 					</div>
 					<div class="deadline">
 						<p style="color:<%= due.equals("채용중") ? "blue" : "red" %>"><%=due %></p>

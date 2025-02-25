@@ -29,8 +29,7 @@ a {
     background-color: white;
     padding: 50px 30px;
     border-radius: 10px;
-    margin: 0 auto;
-    margin-top: 50px;
+    margin: 70px auto;
 }
 .aa {
 	display: flex;
@@ -73,6 +72,7 @@ button {
     padding: 10px;
     text-align: left;
     width: 100%;
+    line-break: anywhere;
 }
 
 input[type="password"] {

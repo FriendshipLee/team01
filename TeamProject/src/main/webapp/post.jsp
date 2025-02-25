@@ -70,6 +70,7 @@
 <body>
     <div class="container">
      	 <div class="post-box">
+     	 	<div class="back" onclick="location.href='board.jsp?no=<%=no %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchKeyword=" + keyword : ""%>&boardType=<%=boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>'">&larr;</div>
             <div class="post-top">
             	<div>
             		<h2><%= title %></h2>
@@ -179,7 +180,6 @@
             </div>
           <% } %>
        	</div>
-       	<input type="button" class="button" onclick="location.href='board.jsp?no=<%=no %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchKeyword=" + keyword : ""%>&boardType=<%=boardType %><%= listArray == null ? "" : "&listArray=" + listArray %>'" value="뒤로가기">
    	</div>
 </body>
 

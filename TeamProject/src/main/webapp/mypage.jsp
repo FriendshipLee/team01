@@ -48,7 +48,7 @@
 <body>
 		<div class="container">
 	       <div class="aa">
-		        <img src="./resources/img/profile.jpg" alt="프로필 사진" class="profile-img">
+		        <img src="./resources/img/rupy.webp" alt="프로필 사진" class="profile-img">
 			   	<div class="profile-container">
 				    <div class="profile-header">
 				        <div class="profile-info">
@@ -105,12 +105,14 @@
 				        </h3>
 				        <p><input id="major" type="text" placeholder="전공"></p>
 			        </div>   
-			        <div class="lschool-post">
+			        
 			        	<% if(vo.getSchool() != null && vo.getEnter_date() != null && vo.getGraduation_date() != null && vo.getMajor() != null){ %>
-					        <h3> <%= vo.getSchool() %><span> <%= vo.getEnter_date() %> ~ <%= vo.getGraduation_date() %> </span></h3>
-					        <p><%= vo.getMajor() %></p>
+			        		<div class="lschool-post">
+						        <h3> <%= vo.getSchool() %><span> <%= vo.getEnter_date() %> ~ <%= vo.getGraduation_date() %> </span></h3>
+						        <p><%= vo.getMajor() %></p>
+					        </div>
 				        <% } %>
-			        </div>
+			        
 		    	</div>
 		        <div class="career">
 		        	<div class="career-info">
@@ -434,7 +436,7 @@
 					if(result.trim() == "success"){
 						eBtn.show();
 						let html = "";
-						$(".lschool-post").html(html);
+						$(".lschool-post").remove();
 						edelBtn.hide();
 					}
 				},
@@ -464,7 +466,7 @@
 				edelBtn.show();
 			}
 			$(".lschool").css("display", "none");
-			$(".lschool-post").css("display", "inline");
+			$(".lschool-post").css("display", "block");
 		});
 		
 		//최종학력 저장버튼
@@ -505,10 +507,12 @@
 						ecBtn.hide();
 						eBtn.show();
 						
+						$(".lschool-post").re ;
+						
 						let html = "";
-						html += "<h3>"+school.val()+" <span> "+eDate.val()+" ~ "+gDate.val()+" </span></h3>";
-						html += "<p>"+major.val()+"</p>";
-						$(".lschool-post").html(html);
+						html += "<div class='lschool-post'><h3>"+school.val()+" <span> "+eDate.val()+" ~ "+gDate.val()+" </span></h3>";
+						html += "<p>"+major.val()+"</p></div>";
+						$(".lschool").after(html);
 						
 						if(edelBtn.length > 0){
 							edelBtn.remove();
@@ -532,7 +536,7 @@
 									if(result.trim() == "success"){
 										eBtn.show();
 										let html = "";
-										$(".lschool-post").html(html);
+										$(".lschool-post").remove();
 										edelBtn.hide();
 										
 									}

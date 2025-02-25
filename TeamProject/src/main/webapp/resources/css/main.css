@@ -78,3 +78,6 @@ span {
     right: 45px;
     color: #fff;
 }
+.none {
+	display: none;
+}

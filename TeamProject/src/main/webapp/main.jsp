@@ -55,7 +55,7 @@
 					}
 				%>
 			</ul>
-				<button type="button" onclick="location.href='mypage.jsp'">마이페이지</button>
+				<button type="button" onclick="location.href='mypage.jsp'" class=<%=user.getCompanyNumber() != null ? "none": "" %>>마이페이지</button>
 				<button type="button" onclick="location.href='logout.jsp'">로그아웃</button>
 				
 				<%

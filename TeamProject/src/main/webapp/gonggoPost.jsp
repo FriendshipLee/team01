@@ -27,6 +27,12 @@
 	
 	String searchType = request.getParameter("searchType");
 	String keyword = request.getParameter("searchKeyword");
+	if(searchType == null){
+		searchType = "";
+	}
+	if(keyword == null){
+		keyword = "";
+	}
 %>
 <!DOCTYPE html>
 <html>

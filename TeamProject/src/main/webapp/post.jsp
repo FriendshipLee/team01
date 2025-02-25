@@ -89,7 +89,6 @@
             <p class="contents"><%= content %></p>
             <br>
             <% if(boardType.equals("1")) { %>
-              	<h3>첨부파일</h3>
            	<%
            		for(int i = 0; i < flist.size(); i++){
            			infoFileVO fvo = flist.get(i);
@@ -118,6 +117,7 @@
            			}
         			if(fvo.getAttachOriginName() != null && !fvo.getAttachOriginName().equals("null")){
         	%>
+           	<h3>첨부파일</h3>
            	<div class="attachments">
 	           	<div class="attachment-item">
 					<a download="<%= fvo.getAttachOriginName() %>" href="<%= path %>/upload/<%= fvo.getAttachUploadName() %>" class="attachment-name"><%= fvo.getAttachOriginName() %></a>

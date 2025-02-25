@@ -44,9 +44,9 @@
 	    		<h3>제목</h3>
 	    		<input type="text" id="title" name="title" placeholder="제목을 입력하세요" value="<%= title %>">
 	    	</div>
-	    	<div>
+	    	<div class="content">
 	    		<h3>내용</h3>
-	    		<textarea id="content" name="content" placeholder="내용을 입력하세요"><%= content %></textarea>
+	    		<textarea wrap="hard" id="content" name="content" placeholder="내용을 입력하세요"><%= content %></textarea>
 	    	</div>
 	    	<div>
 	    		<h3>첨부파일</h3>

@@ -86,7 +86,7 @@
 		        }%></div>
             </div>
             <hr>
-            <p><%= content %></p>
+            <p class="contents"><%= content %></p>
             <br>
             <% if(boardType.equals("1")) { %>
               	<h3>첨부파일</h3>

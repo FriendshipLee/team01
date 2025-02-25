@@ -64,7 +64,7 @@
 			        <span>학력 : <%= education.equals("0") ? "무관" : education.equals("1") ? "초대졸" : "대졸" %></span>    
 			        <span>근무위치 :  <%=location %></span>
 	            </div>
-	            <p><%=content %></p>
+	            <p class="contents"><%=content %></p>
 	            <br>
 				<a href="<%=link %>">접수하러 가기</a>
 				<%if(user != null && user.getCompanyNumber() != null && user.getCompanyNumber().equals(author)){ %>

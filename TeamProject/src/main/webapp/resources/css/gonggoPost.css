@@ -58,6 +58,9 @@ hr {
 .info span{
 	padding-right: 10px;
 }
+.contents {
+	white-space:pre-wrap;
+}
 .modify{
 	display: flex;
 	align-items: center;

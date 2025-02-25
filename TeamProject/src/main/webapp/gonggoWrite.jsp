@@ -77,7 +77,7 @@
 				</div>
 				<div>
 		            <label for="content">내용</label><br>
-		            <textarea id="content" name="content" placeholder="내용을 입력하세요"></textarea><br>
+		            <textarea wrap="hard" id="content" name="content" placeholder="내용을 입력하세요"></textarea><br>
 				</div>
 	       	  	<div class="location">
 	       	  		<label for="location">근무위치</label>

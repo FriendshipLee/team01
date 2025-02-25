@@ -147,20 +147,19 @@
 								    </div>
 								    <button onclick="deleteBtn(<%= cvo.getCno() %>, this)" id="caDelBtn">삭제</button>
 					        	</div>
-					        	<hr class="hr">
 				        	</div>
 							    <% } %>
 						    <% } %>
 		       		</div>
-		        <div>
-		        <div class="selfinfo">
-		        	<h3>자기소개서</h3>
-					<!-- <button id="selfinfo-add">추가</button> -->
-					<form id="uploadForm">
-						<label for="file">추가</label>
-	           			<input type="file" multiple="multiple" id="file" name="file">
-					</form>
-				</div>
+		        <div class="selfinfo-box">
+			        <div class="selfinfo">
+			        	<h3>자기소개서</h3>
+						<!-- <button id="selfinfo-add">추가</button> -->
+						<form id="uploadForm">
+							<label for="file">추가</label>
+		           			<input type="file" multiple="multiple" id="file" name="file">
+						</form>
+					</div>
 		        <hr id=hr>
 		        <%-- <% if(originName != null && !uploadName.equals("null")) { %> --%>
 		        	<% 
@@ -407,7 +406,6 @@
 						html +=			"</div>";
 						html +=			"<button onclick='deleteBtn("+result.trim()+", this)' id='caDelBtn'>삭제</button>";
 						html +=		"</div>";
-						html +=		"<hr class='hr'>";
 						html += "</div>";
 						$(".mycareer-container").prepend(html);
 						caokBtn.hide();

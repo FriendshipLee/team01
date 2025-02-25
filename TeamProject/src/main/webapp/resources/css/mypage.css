@@ -56,12 +56,13 @@ a {
     margin: 0;
 }
 button {
-    background: #666;
-    color: white;
+    color: #373f73;
     border: none;
     padding: 5px 10px;
-    border-radius: 5px;
+    background-color: transparent;
+    font-size: 1rem;
     cursor: pointer;
+    font-weight: 600;
 }
 .profile-details {
 	display: grid;
@@ -100,12 +101,13 @@ input[type="password"] {
 	display: flex;
 }
 input[type="button"] {
-    background: #666;
+    background: #355beb;
     color: #fff;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 18px 53px;
+    border-radius: 30px;
     cursor: pointer;
+    font-size: 17px;
 }
 .lschool {
 	display: none;
@@ -114,7 +116,11 @@ label {
 	font-size: 12px;
 }
 .lschool-post {
-	display: inline;
+	display: block;
+	background-color: #e9eef6;
+	border-radius: 10px;
+	padding: 20px;
+	color: #373f73;
 }
 .career-post {
 	display: none;
@@ -124,33 +130,36 @@ label {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-}
-.hr {
-	border: 1px dashed #000;
-}
-.hr:last-child() {
-	border: none;
+    background-color: #e9eef6;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10px;
+    color: #373f73;
 }
 .selfinfo {
 	display: flex;
     justify-content: space-between;
     align-items: center;
 }
+.selfinfo-box {
+	margin-top: 30px;
+}
 #uploadForm input[type="file"]{
 	display: none;
 }
 #uploadForm label {
-	background: #666;
-    color: white;
+    color: #373f73;
     border: none;
     padding: 5px 10px;
-    border-radius: 5px;
+    background-color: transparent;
+    font-size: 1rem;
     cursor: pointer;
+    font-weight: 600;
 }
 .attachment-item {
-    background: #aaa;
+    background: #e9eef6;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-top: 10px;
     display: flex;
     justify-content: space-between;

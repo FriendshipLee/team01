@@ -56,7 +56,7 @@
 		<form action="companySignupok.jsp" method="post" onsubmit="return companyFormCheck()">
 	        <div id="businessForm" style="display: none;">
 	            <div class="input-group">
-	                <input type="text" id="companyNumber" name="companyNumber" placeholder="사업자등록번호">
+	                <input type="text" id="companyNumber" name="companyNumber" placeholder="사업자등록번호" maxlength="12">
 	                <div id="companyNumber-feedback" class="feedback">사업자등록번호 입력은 필수입니다.</div>
 	                <input type="password" id="pw" name="pw" placeholder="비밀번호">
 	                <div id="pw-feedback" class="feedback">비밀번호 입력은 필수입니다.</div>

@@ -160,7 +160,7 @@
 			});
        	});
        	
-       	let numRegex = /^\d{3}-\d{3,4}-\d{4}$/;
+       	let numRegex = /^\d{3}-\d{4}-\d{4}$/;
        	let numCheckFlag = false;
        	$("#userNumber").keyup(function(e){
 			let num = e.target.value;

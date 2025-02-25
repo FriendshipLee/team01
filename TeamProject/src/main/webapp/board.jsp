@@ -86,7 +86,13 @@
 		        	<select name="searchType">
 		        		<option value="title" <%= searchType.equals("title")? "selected" : "" %>>제목</option>
 		        		<option value="content" <%= searchType.equals("content")? "selected" : "" %>>내용</option>
-		        		<option value="author" <%= searchType.equals("author")? "selected" : "" %>>작성자</option>
+		        		<%
+		        			if(!boardType.equals("2")){
+		        				%>
+		        				<option value="author" <%= searchType.equals("author")? "selected" : "" %>>작성자</option>
+		        				<%
+		        			}
+		        		%>
 		        	</select>
 		        	<div class="search-box">
 			            <input type="text" name="searchKeyword" value="<%= keyword %>" placeholder="검색어를 입력하세요.">

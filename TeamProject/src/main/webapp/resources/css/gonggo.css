@@ -177,5 +177,8 @@ input[id="cb4"]:checked + label::after{
 	line-height: 25px;
 	color: white;
 	text-decoration: none;
-	background-color: #e9eef6;
+	background-color: #abbffa;
+}
+a.active {
+	background-color: #355beb;
 }

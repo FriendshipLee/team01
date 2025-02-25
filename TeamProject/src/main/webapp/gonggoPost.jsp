@@ -10,10 +10,6 @@
 		return;
 	}
 	
-	if(user.getCompanyNumber()==null){
-		user.setCompanyNumber("1");
-	}
-		
 	
 	gonggoDAO dao = new gonggoDAO();
 	gonggoVO vo = dao.view(no);
@@ -67,7 +63,7 @@
 	            <p><%=content %></p>
 	            <br>
 				<a href="<%=link %>">접수하러 가기</a>
-				<%if(user != null && user.getCompanyNumber().equals(author)){ %>
+				<%if(user != null && user.getCompanyNumber() != null && user.getCompanyNumber().equals(author)){ %>
 					<div class="modify">
 						<input type="button" onclick="location.href='gonggoModify.jsp?no=<%=no %>'" value="수정">
 						<input type="button" onclick="history.back();" value="삭제">

@@ -51,3 +51,7 @@ a:hover {
 	cursor: default;
 	color: #373f73;
 }
+.logout {
+	display: block;
+	text-align: right;
+}

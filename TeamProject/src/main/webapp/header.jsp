@@ -69,7 +69,7 @@
 				}else{
 					%>
 						<a <%=user.getCompanyNumber() != null ? "class='none'" : "href='mypage.jsp'" %>><span><%=user.getName() != null ? user.getName() : user.getCompanyName() %></span>님</a>
-						<a href="logout.jsp">로그아웃</a>
+						<a href="logout.jsp" class="logout">로그아웃</a>
 					<%
 				}
 			%>

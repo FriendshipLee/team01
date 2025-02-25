@@ -26,7 +26,7 @@
 	String companyName = vo.getCompayName();
 	
 	String searchType = request.getParameter("searchType");
-	String keyword = request.getParameter("searchkeyword");
+	String keyword = request.getParameter("searchKeyword");
 %>
 <!DOCTYPE html>
 <html>
@@ -50,7 +50,7 @@
 	<body>
 		<div class="container">
 	     	<div class="post-box">
-				<div class="back" onclick="location.href='gonggo.jsp?no=<%=no %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchkeyword=" + keyword : ""%>'">&larr;</div>
+				<div class="back" onclick="location.href='gonggo.jsp?no=<%=no %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchKeyword=" + keyword : ""%>'">&larr;</div>
 	            <div class="post-top">
             		<h2><%=title %></h2>
             		<div>

@@ -111,7 +111,7 @@
 				<%
 					if(due.equals("채용중")){
 						%>
-							<div class="content" onclick="location.href='gonggoPost.jsp?no=<%=no%>'">
+							<div class="content" onclick="location.href='gonggoPost.jsp?no=<%=no%><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchKeyword=" + keyword : ""%>'">
 						<%
 					}else{
 						%>

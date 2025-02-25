@@ -5,12 +5,12 @@
 <%
 	String no = request.getParameter("no");
 	if(no == null){
-		response.sendRedirect("gonggoPost.jsp");
+		response.sendRedirect("gonggo.jsp");
 		return;
 	}
 	
 	gonggoDAO dao = new gonggoDAO();
 	dao.delete(no);
 	
-	response.sendRedirect("gonggoPost.jsp");
+	response.sendRedirect("gonggo.jsp");
 %>

@@ -19,7 +19,7 @@
 	String keyword = request.getParameter("searchKeyword");
 	String listArray = request.getParameter("listArray");
 	String boardType = request.getParameter("boardType");
-	String id = user.getCompanyNumber() != null ? user.getCompanyNumber() : user.getId();
+	String id = user == null ? null : user.getCompanyNumber() != null ? user.getCompanyNumber() : user.getId();
 	
 	
 	

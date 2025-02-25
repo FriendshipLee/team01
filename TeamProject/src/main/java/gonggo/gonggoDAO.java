@@ -122,7 +122,7 @@ public class gonggoDAO extends DBManager{
 		driverLoad();
 		DBConnect();
 		
-		String sql = "select * from gonggo where no = " + no;
+		String sql = "select * from gonggo left join company on gonggo.author = company.company_number where no = " + no;
 		executeQuery(sql);
 		
 		gonggoVO vo = new gonggoVO();
@@ -131,6 +131,7 @@ public class gonggoDAO extends DBManager{
 			vo.setTitle(getString("title"));
 			vo.setContent(getString("content"));
 			vo.setAuthor(getString("author"));
+			vo.setCompayName(getString("company_name"));
 			vo.setCareer(getString("career"));
 			vo.setEducation(getString("education"));
 			vo.setLocation(getString("location"));

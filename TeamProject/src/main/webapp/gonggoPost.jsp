@@ -23,6 +23,7 @@
 	String deadline = vo.getDeadline();
 	String link = vo.getLink();
 	String createDate = vo.getCreateDate();
+	String companyName = vo.getCompayName();
 	
 	String searchType = request.getParameter("searchType");
 	String keyword = request.getParameter("searchkeyword");
@@ -52,12 +53,15 @@
 				<div class="back" onclick="location.href='gonggo.jsp?no=<%=no %><%= searchType != ""? "&searchType="+searchType : "" %><%= keyword != "" ? "&searchkeyword=" + keyword : ""%>'">&larr;</div>
 	            <div class="post-top">
             		<h2><%=title %></h2>
-	           		<p>기업명 :<%=author %>  | 작성일 : <%=createDate %> | 마감일: <%=deadline %></p>
+            		<div>
+	            		<p>작성일 : <%=createDate %></p>
+		           		<p>기업명 :<%=companyName %>  |  마감일: <%=deadline %></p>
+	           		</div>
 				</div>
 	            <hr>
 	            <div class="info">
-			        <span>경력 : <%=career %></span>    
-			        <span>학력 : <%=education %></span>    
+			        <span>경력 : <%= career.equals("0") ? "무관" : career.equals("1") ? "신입" : "경력" %></span>    
+			        <span>학력 : <%= education.equals("0") ? "무관" : education.equals("1") ? "초대졸" : "대졸" %></span>    
 			        <span>근무위치 :  <%=location %></span>
 	            </div>
 	            <p><%=content %></p>

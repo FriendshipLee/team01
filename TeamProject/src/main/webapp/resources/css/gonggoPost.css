@@ -44,12 +44,13 @@ a {
 .post-top {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
 }
 .post-top p{
 	font-size: 15px;
 	color: #969696;
 	margin-top: 5px;
+	text-align: right;
 }
 hr {
     margin: 10px 0;

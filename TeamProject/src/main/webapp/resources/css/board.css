@@ -116,6 +116,9 @@ input {
     align-items: center;
     height: 90px;
 }
+.content-box:hover {
+	background-color: #dde4ef;
+}
 .b-type {
 	color: #777c80;
 }

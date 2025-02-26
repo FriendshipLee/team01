@@ -55,9 +55,14 @@ label {
 	appearance: none;
   	display: none;
 }
+.radio span {
+	display: inline-block;
+	padding: 0 5px;
+}
 input[type="radio"]:checked + span {
-	background-color: #355beb;
-	border: 1px solid #355beb;
+	background-color: #5550d0;
+	border: 1px solid #5550d0;
+	border-radius: 30px;
 	color: #fff;
 }
 .flex span {
@@ -96,7 +101,7 @@ textarea{
 	height: 55px;
 	cursor: pointer;
 	text-align: center;
-	background-color: #355beb;
+	background-color: #5550d0;
     font-size: 16px;
     margin-top: 30px;
 }

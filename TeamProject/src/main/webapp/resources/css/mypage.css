@@ -101,7 +101,7 @@ input[type="password"] {
 	display: flex;
 }
 input[type="button"] {
-    background: #355beb;
+    background: #5550d0;
     color: #fff;
     border: none;
     padding: 18px 53px;
@@ -117,7 +117,7 @@ label {
 }
 .lschool-post {
 	display: block;
-	background-color: #e9eef6;
+	background-color: #f3f6ff;
 	border-radius: 10px;
 	padding: 20px;
 	color: #373f73;
@@ -130,7 +130,7 @@ label {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: #e9eef6;
+    background-color: #f3f6ff;
     border-radius: 10px;
     padding: 20px;
     margin-top: 10px;
@@ -157,7 +157,7 @@ label {
     font-weight: 600;
 }
 .attachment-item {
-    background: #e9eef6;
+    background: #f3f6ff;
     padding: 20px;
     border-radius: 10px;
     margin-top: 10px;

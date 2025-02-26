@@ -77,8 +77,9 @@
 		<div class="slider__wrap">
 	        <div class="slider__img">
 	            <div class="slider__inner">
-	                <div class="slider s1"><img alt="" src="./resources/img/content_img.png"></div>
-	                <div class="slider s2"><img alt="" src="./resources/img/content_img2.png"></div>
+	                <div class="slider s1"><img alt="" src="./resources/img/content_img2.png"></div>
+	                <div class="slider s2"><img alt="" src="./resources/img/content_img.png"></div>
+	                <div class="slider s3"><img alt="" src="./resources/img/content_img3.png"></div>
 	            </div>
 	        </div>
 	        <div class="slider__btn">

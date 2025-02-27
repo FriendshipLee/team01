@@ -99,7 +99,7 @@
 					        <input id="school" type="text" placeholder="최종 졸업학교">
 					        <span>
 					        	<!-- <input id="graduationDate" type="text" placeholder="입학 및 졸업 일자"> -->
-					        	<label>입학 일자 : <input id="enterDate" type="month" max="2040-12" min="1920-12" value="2025-03"></label>
+					        	<label>입학 일자 : <input id="enterDate" type="month" max="2040-12" min="1920-12" value="2023-03"></label>
 					        	<label>졸업 일자 : <input id="graduationDate" type="month" max="2040-12" min="1920-12" value="2025-02"></label>
 					        </span>
 				        </h3>
@@ -129,7 +129,7 @@
 				        	<input id="company-name" type="text" placeholder="기업명">
 				        	<span>
 				        		<!-- <input id="workDate" type="text" placeholder="근무 기간"> -->
-				        		<label>입사년월 : <input id="workStartDate" type="month" max="2040-12" min="1920-12" value="2025-03"></label>
+				        		<label>입사년월 : <input id="workStartDate" type="month" max="2040-12" min="1920-12" value="2024-03"></label>
 				        		<label>퇴사년월 : <input id="workEndDate" type="month" max="2040-12" min="1920-12" value="2025-03"></label>
 				        	</span>
 				        </h3>
@@ -498,7 +498,7 @@
 					major : major.val(),
 					id : userId
 				},
-				success : function(result){ //?
+				success : function(result){
 					console.log(result);
 					if(result.trim() != "0"){
 						$(".lschool").css("display", "none");
@@ -507,7 +507,7 @@
 						ecBtn.hide();
 						eBtn.show();
 						
-						$(".lschool-post").re ;
+						$(".lschool-post").remove();
 						
 						let html = "";
 						html += "<div class='lschool-post'><h3>"+school.val()+" <span> "+eDate.val()+" ~ "+gDate.val()+" </span></h3>";

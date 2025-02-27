@@ -169,7 +169,7 @@
 			numCheckFlag = false;
 			
 			if(!numRegex.test(num)) {
-				return;
+				return false;
 			}
 			
 			$.ajax({
@@ -202,7 +202,7 @@
 			emailCheckFlag = false;
 			
 			if(!emailRegex.test(email)) {
-				return;
+				return false;
 			}
 			
 			$.ajax({
@@ -312,8 +312,8 @@
 			}else {
 				birthFeedback.css("display", "none");
 			}
-			if(!birthRegex.test(birth)) {
-				return;
+			if(!birthRegex.test(birth.val())) {
+				return false;
 			}
 			if(!birthRegex.test(birth.val())){
 				birth.focus();

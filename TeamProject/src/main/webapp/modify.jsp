@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="./resources/css/modify.css"></link>
 </head>
 <body>
-    	<h2>게시글 수정</h2>
+    <h2>게시글 수정</h2>
     <div class="container">
     <form id="modify-form" action="modifyOk.jsp" method="post" enctype="multipart/form-data">
 	    <input type="hidden" name="no" value="<%= no %>">
@@ -48,6 +48,8 @@
 	    		<h3>내용</h3>
 	    		<textarea wrap="hard" id="content" name="content" placeholder="내용을 입력하세요"><%= content %></textarea>
 	    	</div>
+	    	
+	    	<%if(boardType.equals("1")){ %>
 	    	<div>
 	    		<h3>첨부파일</h3>
 	    		<input type="file" id="file" name="file">
@@ -83,6 +85,8 @@
 					</div>
 				<% } %>
 	    	<% } %>
+	    	<%} %>
+	    	
 			<div class="modify">
 				<input type="submit" value="수정">
 				<input type="button" onclick="history.back()" value="취소">

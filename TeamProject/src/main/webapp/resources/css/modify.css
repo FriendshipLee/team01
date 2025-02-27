@@ -7,20 +7,18 @@ body {
     font-family: "pretendard", sans-serif;
 	font-style: normal;
 	margin: 0;
-    padding: 20px;
 }
-h1, h2, h3, h4, h5, h6, p{
+h1, h3, h4, h5, h6, p{
 	margin: 0;
 }
 h2{
 	text-align: center;
 	font-size: 35px;
 	margin-bottom: 30px;
-	margin-top: 20px;
 }
 .container {
-    max-width: 1000px;
-    margin: auto;
+    max-width: 850px;
+    margin: 20px auto;
     background-color: white;
     border-radius: 10px;
     padding: 20px;
@@ -45,7 +43,7 @@ textarea {
 }
 .modify input[type="button"]{
 	border-radius: 50px;
-	background-color: #355beb;
+	background-color: #5550d0;
 	color: #fff;
 	border: none;
 	width: 120px;
@@ -56,7 +54,7 @@ textarea {
 
 .modify input[type="submit"]{
 	border-radius: 50px;
-	background-color: #355beb;
+	background-color: #5550d0;
 	color: #fff;
 	border: none;
 	width: 120px;

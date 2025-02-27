@@ -1,3 +1,4 @@
+<%@page import="info_file.infoFileDAO"%>
 <%@page import="users.usersVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -71,23 +72,34 @@
 	
 	List<infoFileVO> fileList = new ArrayList<>();
 	while(files.hasMoreElements()){
-		infoFileVO fileVO = new infoFileVO();
 		String name = (String)files.nextElement();
 		//write.jsp의 input file태그의 name 속성의 값들
 		
 		String fileName = multi.getFilesystemName(name);
 		//업로드된 파일 이름
 		
+		if(fileName == null){
+			continue;
+		}
+		
 		String originFileName = multi.getOriginalFileName(name);
 		//원본파일 이름
 		
+		File uploadFile = new File(savePath + "/"+ fileName);
+		long fileSize = uploadFile.length();
+
+		infoFileVO fileVO = new infoFileVO();
 		fileVO.setAttachLocation(savePath);
+		fileVO.setFileSize((int)fileSize);
 		fileVO.setAttachOriginName(originFileName);
 		fileVO.setAttachUploadName(fileName);
 		fileVO.setFno(wno+"");
-		
 		fileList.add(fileVO);
 	}
+	infoFileDAO fdao = new infoFileDAO();
+	
+	fdao.upload(fileList);
+	
 	
 	
 	

@@ -160,7 +160,7 @@
 	       %>
            	<div class="comments">
             	<div class="comments-top">
-	            	<p>작성자: <%= !boardType.equals("2") ? rauthor : author.equals(rauthor) ? "작성자" : user.getId().equals(rauthor) ? user.getId() : "익명" %> | <%= rcreateDate %></p>
+	            	<p>작성자: <%= !boardType.equals("2") ? rauthor : author.equals(rauthor) ? rauthor : user.getId().equals(rauthor) ? user.getId() : "익명" %> | <%= rcreateDate %></p>
 	         <%
                	//댓글 목록을 반복하며 댓글의 작성자가 로그인한 사용자의 아이디와
                	//동일하면 수정 삭제 버튼을 보여준다.
@@ -305,7 +305,7 @@
 			success : function(result){
 				console.log(result);
 				let time = getTime();
-				let anonyAuthor = "<%= !user.getId().equals(author) ? user.getId() : "작성자" %>"
+				let anonyAuthor = "<%= user.getId() %>"
 				if(result != "0"){
 					let html = "";
 					html += "<div class='comments'>";

@@ -29,9 +29,9 @@ public class DBManager {
 	
 	//2. 데이터베이스 연결
 	public void DBConnect() {
-		String url = "jdbc:mysql://192.168.0.222:3306/team01";
-		String user = "kjs";
-		String pw = "ezen";
+		String url = "jdbc:mysql://158.247.211.92:3306/team01";
+		String user = "friendship";
+		String pw = "45623";
 		try {
 			conn = DriverManager.getConnection(url, user, pw);
 		} catch (SQLException e) {
